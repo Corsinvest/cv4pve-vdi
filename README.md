@@ -18,11 +18,11 @@ VDI client for Proxmox VE (Made in Italy)
 
 ## Overview
 
-**cv4pve-vdi** is a desktop VDI client for [Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment). It provides a graphical interface to browse, filter and connect to virtual machines and containers via **SPICE**, **VNC** and **RDP** — without opening the Proxmox web UI.
+**cv4pve-vdi** is a desktop VDI client for [Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment). It provides a graphical interface to browse, filter and connect to virtual machines and containers via **SPICE** and **RDP** — without opening the Proxmox web UI.
 
 ![Theme light and dark](docs/images/main-theme.png)
 
-| Card view | Card view | List view |
+| Login | Card view | List view |
 |-----------|-----------|-----------|
 | ![Login](docs/images/login.png) | ![Card view](docs/images/main-card.png) | ![List view](docs/images/main-list.png) |
 
@@ -76,7 +76,7 @@ Only VMs and containers with actionable VDI capabilities are shown:
 
 | Permission | Purpose |
 |------------|---------|
-| `VM.Console` | Launch SPICE/VNC console |
+| `VM.Console` | Launch SPICE console |
 | `VM.PowerMgmt` | Start / Shutdown VMs |
 | `VM.Audit` | Read VM information |
 | `Sys.Console` | Launch node shell (SPICE) |

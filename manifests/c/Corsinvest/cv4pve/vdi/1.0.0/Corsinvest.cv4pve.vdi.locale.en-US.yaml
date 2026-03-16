@@ -19,7 +19,7 @@ ShortDescription: VDI client for Proxmox VE
 Description: |-
   cv4pve-vdi is a desktop VDI client for Proxmox VE that provides a graphical
   interface to browse, filter and connect to virtual machines and containers
-  via SPICE, VNC and RDP — without opening the Proxmox web UI.
+  via SPICE and RDP — without opening the Proxmox web UI.
 
   Features:
   - Card and list view for VM/CT browsing

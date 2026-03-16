@@ -2,8 +2,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UseAppHost>true</UseAppHost>
     <AssemblyName>cv4pve-vdi</AssemblyName>
     <RootNamespace>Corsinvest.ProxmoxVE.Vdi</RootNamespace>
@@ -14,15 +12,6 @@
     <SelfContained>true</SelfContained>
 
     <RuntimeIdentifiers>win-x64;linux-x64;linux-arm64;osx-x64;osx-arm64</RuntimeIdentifiers>
-
-    <Version>1.0.0</Version>
-    <Authors>Corsinvest Srl</Authors>
-    <Company>Corsinvest Srl</Company>
-    <Product>cv4pve-vdi</Product>
-    <Description>VDI client for Proxmox VE - SPICE/VNC remote console launcher</Description>
-    <Copyright>Copyright Corsinvest Srl</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/Corsinvest/cv4pve-vdi</RepositoryUrl>
     <ApplicationIcon>Corsinvest.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -31,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NXUI" Version="11.3.0.1" />
-    <PackageReference Include="NXUI.Desktop" Version="11.3.0.1" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
-    <PackageReference Include="YamlDotNet" Version="16.3.0" />
-    <PackageReference Include="Corsinvest.ProxmoxVE.Api.Extension" Version="9.1.7" />
+    <PackageReference Include="NXUI" />
+    <PackageReference Include="NXUI.Desktop" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="YamlDotNet" />
+    <PackageReference Include="Corsinvest.ProxmoxVE.Api.Extension" />
   </ItemGroup>
 </Project>

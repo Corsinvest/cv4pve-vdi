@@ -63,7 +63,7 @@ internal partial class MainWindowContext
                 // ── Description ─────────────────────────────────────────
                 new TextBlock
                 {
-                    Text = "VDI client for Proxmox VE.\nLaunches remote consoles via SPICE, VNC and RDP.",
+                    Text = "VDI client for Proxmox VE.\nLaunches remote consoles via SPICE and RDP.",
                     TextWrapping = TextWrapping.Wrap,
                     Opacity = 0.7,
                     FontSize = 12,
