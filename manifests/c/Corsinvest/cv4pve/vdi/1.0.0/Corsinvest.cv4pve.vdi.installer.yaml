@@ -6,11 +6,11 @@ PackageVersion: 1.0.0
 InstallerType: portable
 Commands:
 - cv4pve-vdi
-ReleaseDate: 2025-03-16
+ReleaseDate: 2026-03-16
 Installers:
 - Architecture: x64
-  InstallerUrl: https://github.com/Corsinvest/cv4pve-vdi/releases/download/v1.0.0/cv4pve-vdi-win-x64.zip
-  InstallerSha256: TO_BE_FILLED
+  InstallerUrl: https://github.com/Corsinvest/cv4pve-vdi/releases/download/v1.0.0/cv4pve-vdi.exe-win-x64.zip
+  InstallerSha256: 448e7a999c4d22685e6cdd1e48da0c8af5552e22e06ca3e6ac08febd83561f00
   NestedInstallerType: portable
   NestedInstallerFiles:
   - RelativeFilePath: cv4pve-vdi.exe

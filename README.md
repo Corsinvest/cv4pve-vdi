@@ -1,8 +1,8 @@
 # cv4pve-vdi
 
 ```
-   ______                _                      __
-  / ____/___  __________(_)_   _____  _____/ /_
+   ______                _                 __
+  / ____/___  __________(_)_   _____ _____/ /_
  / /   / __ \/ ___/ ___/ / | / / _ \/ ___/ __/
 / /___/ /_/ / /  (__  ) /| |/ /  __(__  ) /_
 \____/\____/_/  /____/_/ |___/\___/____/\__/
@@ -197,6 +197,7 @@ Download from [SPICE Space macOS Client](https://www.spice-space.org/osx-client.
 | **Ask confirmation** | Confirm before Start / Shutdown |
 | **SPICE viewer path** | Path to `remote-viewer` executable |
 | **RDP client path** | Path to RDP client (`mstsc`, `xfreerdp`) — leave empty for system default |
+| **Host** | Proxmox VE API endpoint(s). Accepts a comma-separated list of addresses for failover: `host:port`, `host:port`, `host` — the first reachable host is used |
 
 ---
 
@@ -253,6 +254,8 @@ AVALONIA_SCREEN_SCALE_FACTORS="0=2" ./cv4pve-vdi
 Professional support and consulting available through [Corsinvest](https://www.corsinvest.it/cv4pve).
 
 ---
+
+If you prefer working from the terminal, check out [**cv4pve-pepper**](https://github.com/Corsinvest/cv4pve-pepper) — the command-line companion for launching SPICE consoles on Proxmox VE.
 
 Part of [cv4pve](https://www.corsinvest.it/cv4pve) suite | Made with ❤️ in Italy by [Corsinvest](https://www.corsinvest.it)
 
