@@ -28,7 +28,8 @@ internal static class LoginWindow
             InnerLeftContent = new PathIcon
             {
                 Data = Geometry.Parse(Icons.Account),
-                Width = 14, Height = 14,
+                Width = 14,
+                Height = 14,
                 Margin = new Thickness(6, 0, 0, 0),
                 Opacity = 0.5
             }
@@ -42,7 +43,8 @@ internal static class LoginWindow
             InnerLeftContent = new PathIcon
             {
                 Data = Geometry.Parse(Icons.Lock),
-                Width = 14, Height = 14,
+                Width = 14,
+                Height = 14,
                 Margin = new Thickness(6, 0, 0, 0),
                 Opacity = 0.5
             }
@@ -55,7 +57,8 @@ internal static class LoginWindow
             InnerLeftContent = new PathIcon
             {
                 Data = Geometry.Parse(Icons.Key),
-                Width = 14, Height = 14,
+                Width = 14,
+                Height = 14,
                 Margin = new Thickness(6, 0, 0, 0),
                 Opacity = 0.5
             }

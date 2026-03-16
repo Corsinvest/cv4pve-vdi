@@ -141,7 +141,7 @@ internal partial class MainWindowContext
                 var privs = EffectivePrivs($"/vms/{item.VmId}").ToHashSet();
                 var canPower = privs.Contains("VM.PowerMgmt");
                 var canConsole = privs.Contains("VM.Console");
-                
+
                 var hasSpice = item.VmType == VmType.Lxc
                                 ? (item.IsRunning && canConsole)
                                 : spiceMap.GetValueOrDefault(item.VmId);

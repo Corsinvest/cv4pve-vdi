@@ -200,7 +200,7 @@ internal partial class MainWindowContext
 
             var dotColor = nodeRow?.IsActive == true ? AppColors.Running : AppColors.Stopped;
             var header = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Margin = new Thickness(0, 0, 0, 4) };
-            
+
             header.Children.Add(new Ellipse
             {
                 Width = 8,
@@ -216,7 +216,7 @@ internal partial class MainWindowContext
                 FontSize = 13,
                 Opacity = 0.7
             });
-            
+
             if (nodeRow != null)
             {
                 header.Children.Add(new TextBlock { Text = $"— {nodeRow.CpuDisplay}  {nodeRow.MemoryDisplay}", FontSize = 11, Opacity = 0.45, VerticalAlignment = VerticalAlignment.Center });

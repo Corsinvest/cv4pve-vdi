@@ -120,7 +120,7 @@ internal partial class MainWindowContext
             Child = rowGrid
         };
         row.PointerEntered += (_, _) => row.Background = hoverBrush;
-        row.PointerExited  += (_, _) => row.Background = null;
+        row.PointerExited += (_, _) => row.Background = null;
         return row;
     }
 

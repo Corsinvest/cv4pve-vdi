@@ -22,13 +22,13 @@ internal static class SettingsWindow
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
 
-        var chkShowBars        = new CheckBox { Content = L("ShowBars"),           IsChecked = config.ShowBars };
-        var chkShowStart       = new CheckBox { Content = L("ShowStartButton"),     IsChecked = config.ShowStartButton };
-        var chkConfirmStart    = new CheckBox { Content = L("AskConfirmation"),     IsChecked = config.ConfirmStart,    IsEnabled = config.ShowStartButton,    Margin = new Thickness(24, 0, 0, 0) };
-        var chkShowShutdown    = new CheckBox { Content = L("ShowShutdownButton"),  IsChecked = config.ShowShutdownButton };
-        var chkConfirmShutdown = new CheckBox { Content = L("AskConfirmation"),     IsChecked = config.ConfirmShutdown, IsEnabled = config.ShowShutdownButton, Margin = new Thickness(24, 0, 0, 0) };
+        var chkShowBars = new CheckBox { Content = L("ShowBars"), IsChecked = config.ShowBars };
+        var chkShowStart = new CheckBox { Content = L("ShowStartButton"), IsChecked = config.ShowStartButton };
+        var chkConfirmStart = new CheckBox { Content = L("AskConfirmation"), IsChecked = config.ConfirmStart, IsEnabled = config.ShowStartButton, Margin = new Thickness(24, 0, 0, 0) };
+        var chkShowShutdown = new CheckBox { Content = L("ShowShutdownButton"), IsChecked = config.ShowShutdownButton };
+        var chkConfirmShutdown = new CheckBox { Content = L("AskConfirmation"), IsChecked = config.ConfirmShutdown, IsEnabled = config.ShowShutdownButton, Margin = new Thickness(24, 0, 0, 0) };
 
-        chkShowStart.IsCheckedChanged    += (_, _) => chkConfirmStart.IsEnabled    = chkShowStart.IsChecked    == true;
+        chkShowStart.IsCheckedChanged += (_, _) => chkConfirmStart.IsEnabled = chkShowStart.IsChecked == true;
         chkShowShutdown.IsCheckedChanged += (_, _) => chkConfirmShutdown.IsEnabled = chkShowShutdown.IsChecked == true;
 
         var tabAppearance = new TabItem
@@ -115,14 +115,14 @@ internal static class SettingsWindow
                 new TextBlock { Text = h == null ? "" : $"{h.Name}  ({h.Hosts})" })
         };
 
-        var btnAddHost  = new Button { Content = Icons.WithText(Icons.Add,    L("Add")),    Margin = new Thickness(0, 0, 4, 0) };
-        var btnEditHost = new Button { Content = Icons.WithText(Icons.Edit,   L("Edit")),   Margin = new Thickness(0, 0, 4, 0), IsEnabled = false };
-        var btnDelHost  = new Button { Content = Icons.WithText(Icons.Delete, L("Delete")), IsEnabled = false };
+        var btnAddHost = new Button { Content = Icons.WithText(Icons.Add, L("Add")), Margin = new Thickness(0, 0, 4, 0) };
+        var btnEditHost = new Button { Content = Icons.WithText(Icons.Edit, L("Edit")), Margin = new Thickness(0, 0, 4, 0), IsEnabled = false };
+        var btnDelHost = new Button { Content = Icons.WithText(Icons.Delete, L("Delete")), IsEnabled = false };
 
         lstHosts.SelectionChanged += (_, _) =>
         {
             btnEditHost.IsEnabled = lstHosts.SelectedIndex >= 0;
-            btnDelHost.IsEnabled  = lstHosts.SelectedIndex >= 0;
+            btnDelHost.IsEnabled = lstHosts.SelectedIndex >= 0;
         };
 
         var tabClusters = new TabItem
@@ -145,7 +145,7 @@ internal static class SettingsWindow
         };
 
         // ── Buttons ───────────────────────────────────────────────────────
-        var btnSave   = new Button { Content = Icons.WithText(Icons.Save,  L("Save")) };
+        var btnSave = new Button { Content = Icons.WithText(Icons.Save, L("Save")) };
         var btnCancel = new Button { Content = Icons.WithText(Icons.Close, L("Cancel")) };
 
         var btnRow = new StackPanel
@@ -249,21 +249,21 @@ internal static class SettingsWindow
         // ── Save ──────────────────────────────────────────────────────────
         btnSave.Click += (_, _) =>
         {
-            config.ViewerPath         = txtViewerPath.Text ?? string.Empty;
-            config.RdpPath            = txtRdpPath.Text    ?? string.Empty;
-            config.Theme              = cmbTheme.SelectedItem as string ?? "System";
-            config.ShowBars           = chkShowBars.IsChecked        == true;
-            config.ShowStartButton    = chkShowStart.IsChecked       == true;
-            config.ShowShutdownButton = chkShowShutdown.IsChecked    == true;
-            config.ConfirmStart       = chkConfirmStart.IsChecked    == true;
-            config.ConfirmShutdown    = chkConfirmShutdown.IsChecked == true;
+            config.ViewerPath = txtViewerPath.Text ?? string.Empty;
+            config.RdpPath = txtRdpPath.Text ?? string.Empty;
+            config.Theme = cmbTheme.SelectedItem as string ?? "System";
+            config.ShowBars = chkShowBars.IsChecked == true;
+            config.ShowStartButton = chkShowStart.IsChecked == true;
+            config.ShowShutdownButton = chkShowShutdown.IsChecked == true;
+            config.ConfirmStart = chkConfirmStart.IsChecked == true;
+            config.ConfirmShutdown = chkConfirmShutdown.IsChecked == true;
             VdiConfigManager.Save(config);
 
             var variant = config.Theme switch
             {
                 "Light" => ThemeVariant.Light,
-                "Dark"  => ThemeVariant.Dark,
-                _       => ThemeVariant.Default
+                "Dark" => ThemeVariant.Dark,
+                _ => ThemeVariant.Default
             };
             Avalonia.Application.Current?.RequestedThemeVariant = variant;
             window.Close();

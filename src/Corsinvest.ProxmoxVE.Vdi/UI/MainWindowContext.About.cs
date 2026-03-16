@@ -21,7 +21,7 @@ internal partial class MainWindowContext
     private async Task ShowAboutAsync()
     {
         const string website = "https://corsinvest.it/cv4pve";
-        const string repo    = "https://github.com/Corsinvest/cv4pve-vdi";
+        const string repo = "https://github.com/Corsinvest/cv4pve-vdi";
 
         var dlg = new Window
         {
@@ -34,7 +34,7 @@ internal partial class MainWindowContext
 
         dlg.Content = new StackPanel
         {
-            Margin  = new Thickness(28, 24),
+            Margin = new Thickness(28, 24),
             Spacing = 16,
             Children =
             {
