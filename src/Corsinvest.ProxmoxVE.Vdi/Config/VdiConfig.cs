@@ -33,7 +33,7 @@ internal class VdiConfig
     /// </summary>
     public List<VdiHost> Hosts { get; set; } = [];
 
-    // ── Appearance ───────────────────────────────────────────────────────
+    // Appearance
 
     /// <summary>Show Start button in the Actions column (default false)</summary>
     public bool ShowStartButton { get; set; } = false;

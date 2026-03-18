@@ -4,6 +4,7 @@
  */
 
 using Corsinvest.ProxmoxVE.Vdi.Config;
+using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -21,19 +22,21 @@ internal static class HostEditWindow
         {
             Text = existing?.Name ?? string.Empty,
             Watermark = "e.g. prod",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Server)
         };
 
         var txtUrl = new TextBox
         {
             Text = existing?.Hosts ?? string.Empty,
             Watermark = "pve1.example.com:8006",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Network)
         };
 
         var chkSkipSsl = new CheckBox
         {
-            Content = "Skip TLS certificate validation",
+            Content = L("HostSkipSsl"),
             IsChecked = existing?.SkipSslValidation ?? false
         };
 
@@ -44,21 +47,27 @@ internal static class HostEditWindow
             Maximum = 120,
             Increment = 5,
             FormatString = "0",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Padding = new Thickness(24, 4, 0, 4)
         };
+        var numTimeoutWithIcon = new Grid();
+        numTimeoutWithIcon.Children.Add(numTimeout);
+        numTimeoutWithIcon.Children.Add(AppIcons.InnerOverlay(AppIcons.Clock));
 
         var txtProxy = new TextBox
         {
             Text = existing?.Spice.Proxy ?? string.Empty,
             Watermark = "host:port or https://host:port (empty = use PVE host)",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Globe)
         };
 
         var txtViewerOptions = new TextBox
         {
             Text = existing?.Spice.ViewerOptions ?? string.Empty,
-            Watermark = "extra args for remote-viewer...",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            Watermark = L("HostViewerOptionsWatermark"),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Console)
         };
 
         var lblError = new TextBlock
@@ -67,12 +76,23 @@ internal static class HostEditWindow
             IsVisible = false
         };
 
-        var btnSave = new Button { Content = isEdit ? Icons.WithText(Icons.Save, "Save") : Icons.WithText(Icons.Add, "Add") };
-        var btnCancel = new Button { Content = Icons.WithText(Icons.Close, "Cancel") };
+        var btnSave = new Button
+        {
+            Content = isEdit
+                ? AppIcons.WithText(AppIcons.Save, L("Save"))
+                : AppIcons.WithText(AppIcons.Add, L("Add"))
+        };
+        var btnCancel = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Close, L("Cancel"))
+        };
 
         var window = new Window
         {
-            Title = isEdit ? "Edit Host" : "Add Host",
+            Title = isEdit
+                    ? L("EditHost")
+                    : L("AddHost"),
+
             Width = 420,
             CanResize = false,
             SizeToContent = SizeToContent.Height,
@@ -83,16 +103,36 @@ internal static class HostEditWindow
                 Spacing = 10,
                 Children =
                 {
-                    new TextBlock { Text = "Name", FontWeight = FontWeight.Bold },
+                    new TextBlock
+                    {
+                        Text = L("HostName"),
+                        FontWeight = FontWeight.Bold
+                    },
                     txtName,
-                    new TextBlock { Text = "Hosts (host:port,host:port for HA)", FontWeight = FontWeight.Bold },
+                    new TextBlock
+                    {
+                        Text = L("HostHosts"),
+                        FontWeight = FontWeight.Bold
+                    },
                     txtUrl,
                     chkSkipSsl,
-                    new TextBlock { Text = "Timeout (seconds)", FontWeight = FontWeight.Bold },
-                    numTimeout,
-                    new TextBlock { Text = "SPICE proxy (optional)", FontWeight = FontWeight.Bold },
+                    new TextBlock
+                    {
+                        Text = L("HostTimeout"),
+                        FontWeight = FontWeight.Bold
+                    },
+                    numTimeoutWithIcon,
+                    new TextBlock
+                    {
+                        Text = L("HostSpiceProxy"),
+                        FontWeight = FontWeight.Bold
+                    },
                     txtProxy,
-                    new TextBlock { Text = "Viewer extra options (optional)", FontWeight = FontWeight.Bold },
+                    new TextBlock
+                    {
+                        Text = L("HostViewerOptions"),
+                        FontWeight = FontWeight.Bold
+                    },
                     txtViewerOptions,
                     lblError,
                     new StackPanel
@@ -113,7 +153,7 @@ internal static class HostEditWindow
 
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(url))
             {
-                lblError.Text = "Name and URL are required.";
+                lblError.Text = L("HostNameRequired");
                 lblError.IsVisible = true;
                 return;
             }

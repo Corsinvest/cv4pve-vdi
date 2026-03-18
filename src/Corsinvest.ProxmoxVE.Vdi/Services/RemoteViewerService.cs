@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Corsinvest.ProxmoxVE.Api;
 using Corsinvest.ProxmoxVE.Api.Extension;
-using Corsinvest.ProxmoxVE.Api.Extension.Utils;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config;
 
@@ -18,40 +17,28 @@ internal static partial class RemoteViewerService
     [GeneratedRegex("^(http|https|)://.*$")]
     private static partial Regex ProxyUrlRegex();
 
-    public static async Task<(PveClient? Client, string Error)> ConnectAsync(VdiHost host, string username, string password, string otp = "")
-    {
-        try
-        {
-            var (client, _) = await ClientHelper.GetClientFromHAAsync(host.Hosts, 10_000);
-            if (client == null) { return (null, "No reachable hosts found"); }
-
-            client.ValidateCertificate = !host.SkipSslValidation;
-            var otpValue = string.IsNullOrWhiteSpace(otp) ? null : otp;
-            if (!await client.LoginAsync(username, password, otpValue))
-            {
-                return (null, client.LastResult?.ReasonPhrase ?? "Authentication failed");
-            }
-
-            return (client, string.Empty);
-        }
-        catch (Exception ex) { return (null, ex.Message); }
-    }
-
     public static async Task<string> LaunchSpiceAsync(PveClient client, string node, long vmId, VmType vmType, VdiConfig config, VdiHost host)
     {
-        var proxy = string.IsNullOrEmpty(host.Spice.Proxy) ? client.Host : host.Spice.Proxy;
+        var proxy = string.IsNullOrEmpty(host.Spice.Proxy)
+            ? client.Host
+            : host.Spice.Proxy;
 
         var (success, reasonPhrase, content) = vmType == VmType.Lxc
-            ? await client.Nodes[node].Lxc[vmId].Spiceproxy.GetSpiceFileVVAsync(proxy)
-            : await client.Nodes[node].Qemu[vmId].Spiceproxy.GetSpiceFileVVAsync(proxy);
-        if (!success) { return reasonPhrase ?? "SPICE proxy request failed"; }
+                                                ? await client.Nodes[node].Lxc[vmId].Spiceproxy.GetSpiceFileVVAsync(proxy)
+                                                : await client.Nodes[node].Qemu[vmId].Spiceproxy.GetSpiceFileVVAsync(proxy);
+        if (!success)
+        {
+            return reasonPhrase ?? "SPICE proxy request failed";
+        }
 
         return LaunchViewer(OverrideProxy(content, proxy), config, host);
     }
 
     public static async Task<string> LaunchNodeSpiceAsync(PveClient client, string node, VdiConfig config, VdiHost host)
     {
-        var proxy = string.IsNullOrEmpty(host.Spice.Proxy) ? client.Host : host.Spice.Proxy;
+        var proxy = string.IsNullOrEmpty(host.Spice.Proxy)
+            ? client.Host
+            : host.Spice.Proxy;
 
         var (success, reasonPhrase, content) = await client.Nodes[node].Spiceshell.GetSpiceFileVVAsync(proxy);
         if (!success)
@@ -64,12 +51,19 @@ internal static partial class RemoteViewerService
 
     private static string OverrideProxy(string content, string proxy)
     {
-        if (!ProxyUrlRegex().IsMatch(proxy)) { return content; }
+        if (!ProxyUrlRegex().IsMatch(proxy))
+        {
+            return content;
+        }
 
         var lines = content.Split('\n');
         for (var i = 0; i < lines.Length; i++)
         {
-            if (lines[i].StartsWith("proxy=")) { lines[i] = $"proxy={proxy}"; break; }
+            if (lines[i].StartsWith("proxy="))
+            {
+                lines[i] = $"proxy={proxy}";
+                break;
+            }
         }
 
 
@@ -82,8 +76,17 @@ internal static partial class RemoteViewerService
         File.WriteAllText(vvFile, content);
 
         var viewerPath = config.ViewerPath;
+        if (string.IsNullOrWhiteSpace(viewerPath))
+        {
+            return "SPICE viewer path is not configured. Please set it in Settings → Viewer.";
+        }
+
         var viewerOptions = host.Spice.ViewerOptions.Replace(Environment.NewLine, " ");
-        var startInfo = new ProcessStartInfo { UseShellExecute = false, CreateNoWindow = true };
+        var startInfo = new ProcessStartInfo
+        {
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {

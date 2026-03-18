@@ -50,7 +50,7 @@ chmod +x cv4pve-vdi
 - **RDP** launch via `mstsc` (Windows) or `xfreerdp` (Linux/macOS)
 - **VM/CT power control** — Start and Shutdown buttons (with optional confirmation)
 - **Real-time stats** — CPU and RAM usage bars per VM
-- **Auto-refresh** every 10 seconds
+- **Auto-refresh** every 30 seconds (automatically enabled when starting a VM)
 - **Filter sidebar** — filter by node, status (running/stopped), type (VM/CT) and tags
 - **Tag support** — color-coded badges with Proxmox VE tag colors
 - **Multi-host** — manage multiple Proxmox VE clusters from a single client

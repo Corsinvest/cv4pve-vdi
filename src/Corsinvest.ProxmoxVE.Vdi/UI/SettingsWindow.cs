@@ -3,107 +3,167 @@
  * SPDX-License-Identifier: MIT
  */
 
-using Avalonia.Platform.Storage;
 using Corsinvest.ProxmoxVE.Vdi.Config;
-using static Corsinvest.ProxmoxVE.Vdi.UI.AppL;
+using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
 internal static class SettingsWindow
 {
-    public static Window Create(VdiConfig config, Action? onHostsChanged = null, int initialTab = 0)
+    public static Window Create(VdiConfig config, Action? onHostsChanged = null, int initialTab = 0, bool clustersOnly = false)
     {
-        // ── Tab 1: Appearance ─────────────────────────────────────────────
+        // Tab 1: Appearance
         var themes = new[] { "System", "Light", "Dark" };
         var cmbTheme = new ComboBox
         {
             ItemsSource = themes,
-            SelectedItem = themes.Contains(config.Theme) ? config.Theme : "System",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            SelectedItem = themes.Contains(config.Theme)
+                ? config.Theme
+                : "System",
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Padding = new Thickness(26, 0, 0, 0)
+        };
+        var cmbThemeWithIcon = new Grid();
+        cmbThemeWithIcon.Children.Add(cmbTheme);
+        cmbThemeWithIcon.Children.Add(AppIcons.InnerOverlay(AppIcons.Palette));
+
+        var chkShowBars = new CheckBox
+        {
+            Content = AppIcons.WithText(AppIcons.ChartBar, L("ShowBars")),
+            IsChecked = config.ShowBars
+        };
+        var chkShowStart = new CheckBox
+        {
+            Content = AppIcons.WithText(AppIcons.Play, L("ShowStartButton"), new SolidColorBrush(AppColors.Running)),
+            IsChecked = config.ShowStartButton
+        };
+        var chkConfirmStart = new CheckBox
+        {
+            Content = L("AskConfirmation"),
+            IsChecked = config.ConfirmStart,
+            IsEnabled = config.ShowStartButton,
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        var chkShowShutdown = new CheckBox
+        {
+            Content = AppIcons.WithText(AppIcons.Stop, L("ShowShutdownButton"), new SolidColorBrush(AppColors.Shutdown)),
+            IsChecked = config.ShowShutdownButton
+        };
+        var chkConfirmShutdown = new CheckBox
+        {
+            Content = L("AskConfirmation"),
+            IsChecked = config.ConfirmShutdown,
+            IsEnabled = config.ShowShutdownButton,
+            HorizontalAlignment = HorizontalAlignment.Right
         };
 
-        var chkShowBars = new CheckBox { Content = L("ShowBars"), IsChecked = config.ShowBars };
-        var chkShowStart = new CheckBox { Content = L("ShowStartButton"), IsChecked = config.ShowStartButton };
-        var chkConfirmStart = new CheckBox { Content = L("AskConfirmation"), IsChecked = config.ConfirmStart, IsEnabled = config.ShowStartButton, Margin = new Thickness(24, 0, 0, 0) };
-        var chkShowShutdown = new CheckBox { Content = L("ShowShutdownButton"), IsChecked = config.ShowShutdownButton };
-        var chkConfirmShutdown = new CheckBox { Content = L("AskConfirmation"), IsChecked = config.ConfirmShutdown, IsEnabled = config.ShowShutdownButton, Margin = new Thickness(24, 0, 0, 0) };
+        Avalonia.Controls.Grid.SetColumn(chkConfirmStart, 1);
+        Avalonia.Controls.Grid.SetColumn(chkConfirmShutdown, 1);
 
         chkShowStart.IsCheckedChanged += (_, _) => chkConfirmStart.IsEnabled = chkShowStart.IsChecked == true;
         chkShowShutdown.IsCheckedChanged += (_, _) => chkConfirmShutdown.IsEnabled = chkShowShutdown.IsChecked == true;
 
         var tabAppearance = new TabItem
         {
-            Header = L("TabAppearance"),
+            Header = AppIcons.WithText(AppIcons.Monitor, L("TabAppearance")),
             Content = new StackPanel
             {
                 Margin = new Thickness(0, 12, 0, 0),
                 Spacing = 8,
                 Children =
                 {
-                    new TextBlock { Text = L("Theme"), FontWeight = FontWeight.Bold },
-                    cmbTheme,
+                    new TextBlock
+                    {
+                        Text = L("Theme"),
+                        FontWeight = FontWeight.Bold
+                    },
+                    cmbThemeWithIcon,
                     chkShowBars,
-                    new TextBlock { Text = L("PowerButtons"), FontWeight = FontWeight.Bold, Margin = new Thickness(0, 6, 0, 0) },
-                    chkShowStart,
-                    chkConfirmStart,
-                    chkShowShutdown,
-                    chkConfirmShutdown,
+                    AppIcons.WithText(AppIcons.Play, L("PowerButtons")),
+                    new Grid
+                    {
+                        ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+                        Children = { chkShowStart, chkConfirmStart }
+                    },
+                    new Grid
+                    {
+                        ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+                        Children = { chkShowShutdown, chkConfirmShutdown }
+                    },
                 }
             }
         };
 
-        // ── Tab 2: Viewer ─────────────────────────────────────────────────
+        // Tab 2: Viewer ─
         var txtViewerPath = new TextBox
         {
             Text = config.ViewerPath,
             Watermark = L("SpiceViewerWatermark"),
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Spice)
         };
 
-        var btnBrowseViewer = new Button { Content = L("Browse") };
-        var viewerRow = new Grid();
-        viewerRow.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
-        viewerRow.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        Avalonia.Controls.Grid.SetColumn(txtViewerPath, 0);
-        Avalonia.Controls.Grid.SetColumn(btnBrowseViewer, 1);
-        btnBrowseViewer.Margin = new Thickness(4, 0, 0, 0);
-        viewerRow.Children.Add(txtViewerPath);
-        viewerRow.Children.Add(btnBrowseViewer);
+        var btnBrowseViewer = new Button
+        {
+            Content = AppIcons.Toolbar(AppIcons.Folder),
+            Padding = new Thickness(6, 4),
+            Margin = new Thickness(4, 0, 0, 0)
+        };
+        var viewerRow = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto")
+        };
+        viewerRow.Add(txtViewerPath, 0);
+        viewerRow.Add(btnBrowseViewer, 1);
 
         var txtRdpPath = new TextBox
         {
             Text = config.RdpPath,
             Watermark = L("RdpClientWatermark"),
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = AppIcons.Inner(AppIcons.Rdp)
         };
-        var btnBrowseRdp = new Button { Content = L("Browse") };
-        var rdpRow = new Grid();
-        rdpRow.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
-        rdpRow.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        Avalonia.Controls.Grid.SetColumn(txtRdpPath, 0);
-        Avalonia.Controls.Grid.SetColumn(btnBrowseRdp, 1);
-        btnBrowseRdp.Margin = new Thickness(4, 0, 0, 0);
-        rdpRow.Children.Add(txtRdpPath);
-        rdpRow.Children.Add(btnBrowseRdp);
+
+        var btnBrowseRdp = new Button
+        {
+            Content = AppIcons.Toolbar(AppIcons.Folder),
+            Padding = new Thickness(6, 4),
+            Margin = new Thickness(4, 0, 0, 0)
+        };
+        var rdpRow = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto")
+        };
+        rdpRow.Add(txtRdpPath, 0);
+        rdpRow.Add(btnBrowseRdp, 1);
 
         var tabConnectivity = new TabItem
         {
-            Header = L("TabViewer"),
+            Header = AppIcons.WithText(AppIcons.Spice, L("TabViewer")),
             Content = new StackPanel
             {
                 Margin = new Thickness(0, 12, 0, 0),
                 Spacing = 8,
                 Children =
                 {
-                    new TextBlock { Text = L("SpiceViewerPath"), FontWeight = FontWeight.Bold },
+                    new TextBlock
+                    {
+                        Text = L("SpiceViewerPath"),
+                        FontWeight = FontWeight.Bold
+                    },
                     viewerRow,
-                    new TextBlock { Text = L("RdpClientPath"), FontWeight = FontWeight.Bold, Margin = new Thickness(0, 8, 0, 0) },
+                    new TextBlock
+                    {
+                        Text = L("RdpClientPath"),
+                        FontWeight = FontWeight.Bold,
+                        Margin = new Thickness(0, 8, 0, 0)
+                    },
                     rdpRow,
                 }
             }
         };
 
-        // ── Tab 3: Clusters ───────────────────────────────────────────────
+        // Tab 3: Clusters
         var hostItems = new ObservableCollection<VdiHost>(config.Hosts);
 
         var lstHosts = new ListBox
@@ -112,12 +172,30 @@ internal static class SettingsWindow
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Height = 160,
             ItemTemplate = new FuncDataTemplate<VdiHost>((h, _) =>
-                new TextBlock { Text = h == null ? "" : $"{h.Name}  ({h.Hosts})" })
+                new TextBlock
+                {
+                    Text = h == null
+                            ? ""
+                            : $"{h.Name}  ({h.Hosts})"
+                })
         };
 
-        var btnAddHost = new Button { Content = Icons.WithText(Icons.Add, L("Add")), Margin = new Thickness(0, 0, 4, 0) };
-        var btnEditHost = new Button { Content = Icons.WithText(Icons.Edit, L("Edit")), Margin = new Thickness(0, 0, 4, 0), IsEnabled = false };
-        var btnDelHost = new Button { Content = Icons.WithText(Icons.Delete, L("Delete")), IsEnabled = false };
+        var btnAddHost = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Add, L("Add")),
+            Margin = new Thickness(0, 0, 4, 0)
+        };
+        var btnEditHost = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Edit, L("Edit")),
+            Margin = new Thickness(0, 0, 4, 0),
+            IsEnabled = false
+        };
+        var btnDelHost = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Delete, L("Delete")),
+            IsEnabled = false
+        };
 
         lstHosts.SelectionChanged += (_, _) =>
         {
@@ -127,7 +205,7 @@ internal static class SettingsWindow
 
         var tabClusters = new TabItem
         {
-            Header = L("TabClusters"),
+            Header = AppIcons.WithText(AppIcons.Server, L("TabClusters")),
             Content = new StackPanel
             {
                 Margin = new Thickness(0, 12, 0, 0),
@@ -144,9 +222,14 @@ internal static class SettingsWindow
             }
         };
 
-        // ── Buttons ───────────────────────────────────────────────────────
-        var btnSave = new Button { Content = Icons.WithText(Icons.Save, L("Save")) };
-        var btnCancel = new Button { Content = Icons.WithText(Icons.Close, L("Cancel")) };
+        var btnSave = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Save, L("Save"))
+        };
+        var btnCancel = new Button
+        {
+            Content = AppIcons.WithText(AppIcons.Close, L("Cancel"))
+        };
 
         var btnRow = new StackPanel
         {
@@ -164,11 +247,19 @@ internal static class SettingsWindow
         var tabControl = new TabControl
         {
             Margin = new Thickness(12, 12, 12, 0),
-            Items = { tabAppearance, tabConnectivity, tabClusters }
         };
+        if (clustersOnly)
+        {
+            tabControl.Items.Add(tabClusters);
+        }
+        else
+        {
+            tabControl.Items.Add(tabAppearance);
+            tabControl.Items.Add(tabConnectivity);
+            tabControl.Items.Add(tabClusters);
+            tabControl.SelectedIndex = initialTab;
+        }
         dock.Children.Add(tabControl);
-
-        tabControl.SelectedIndex = initialTab;
 
         Window? window = null;
         window = new Window
@@ -182,30 +273,55 @@ internal static class SettingsWindow
             Content = dock
         };
 
-        // ── Browse viewer ─────────────────────────────────────────────────
-        btnBrowseViewer.Click += async (_, _) =>
+        async Task BrowseFile(TextBox target, string titleKey)
         {
             var topLevel = TopLevel.GetTopLevel(window);
-            if (topLevel == null) return;
-            var files = await topLevel.StorageProvider.OpenFilePickerAsync(
-                new FilePickerOpenOptions { Title = L("SelectSpiceViewer"), AllowMultiple = false });
-            if (files.Count > 0) txtViewerPath.Text = files[0].Path.LocalPath;
-        };
+            if (topLevel == null)
+            {
+                return;
+            }
 
-        btnBrowseRdp.Click += async (_, _) =>
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new()
+            {
+                Title = L(titleKey),
+                AllowMultiple = false
+            });
+            if (files.Count > 0)
+            {
+                target.Text = files[0].Path.LocalPath;
+            }
+        }
+
+        btnBrowseViewer.Click += async (_, _) => await BrowseFile(txtViewerPath, "SelectSpiceViewer");
+        btnBrowseRdp.Click += async (_, _) => await BrowseFile(txtRdpPath, "SelectRdpClient");
+
+        async Task EditHostAt(int idx)
         {
-            var topLevel = TopLevel.GetTopLevel(window);
-            if (topLevel == null) return;
-            var files = await topLevel.StorageProvider.OpenFilePickerAsync(
-                new FilePickerOpenOptions { Title = L("SelectRdpClient"), AllowMultiple = false });
-            if (files.Count > 0) txtRdpPath.Text = files[0].Path.LocalPath;
-        };
+            if (idx < 0 || idx >= config.Hosts.Count)
+            {
+                return;
+            }
 
-        // ── Add host ──────────────────────────────────────────────────────
+            var dlg = HostEditWindow.Create(config.Hosts[idx]);
+            dlg.Icon = MainWindow.AppIcon();
+            var result = await dlg.ShowDialog<VdiHost?>(window);
+            if (result != null)
+            {
+                config.Hosts[idx] = result;
+                hostItems[idx] = result;
+                VdiConfigManager.Save(config);
+                onHostsChanged?.Invoke();
+                lstHosts.SelectedIndex = idx;
+            }
+        }
+
+        lstHosts.DoubleTapped += async (_, _) => await EditHostAt(lstHosts.SelectedIndex);
+        btnEditHost.Click += async (_, _) => await EditHostAt(lstHosts.SelectedIndex);
+
         btnAddHost.Click += async (_, _) =>
         {
             var dlg = HostEditWindow.Create(null);
-            dlg.Icon = MainWindowContext.AppIcon();
+            dlg.Icon = MainWindow.AppIcon();
             var result = await dlg.ShowDialog<VdiHost?>(window);
             if (result != null)
             {
@@ -217,36 +333,20 @@ internal static class SettingsWindow
             }
         };
 
-        // ── Edit host ─────────────────────────────────────────────────────
-        btnEditHost.Click += async (_, _) =>
-        {
-            var idx = lstHosts.SelectedIndex;
-            if (idx < 0 || idx >= config.Hosts.Count) return;
-            var dlg = HostEditWindow.Create(config.Hosts[idx]);
-            dlg.Icon = MainWindowContext.AppIcon();
-            var result = await dlg.ShowDialog<VdiHost?>(window);
-            if (result != null)
-            {
-                config.Hosts[idx] = result;
-                hostItems[idx] = result;
-                VdiConfigManager.Save(config);
-                onHostsChanged?.Invoke();
-                lstHosts.SelectedIndex = idx;
-            }
-        };
-
-        // ── Delete host ───────────────────────────────────────────────────
         btnDelHost.Click += (_, _) =>
         {
             var idx = lstHosts.SelectedIndex;
-            if (idx < 0 || idx >= config.Hosts.Count) return;
+            if (idx < 0 || idx >= config.Hosts.Count)
+            {
+                return;
+            }
+
             config.Hosts.RemoveAt(idx);
             hostItems.RemoveAt(idx);
             VdiConfigManager.Save(config);
             onHostsChanged?.Invoke();
         };
 
-        // ── Save ──────────────────────────────────────────────────────────
         btnSave.Click += (_, _) =>
         {
             config.ViewerPath = txtViewerPath.Text ?? string.Empty;

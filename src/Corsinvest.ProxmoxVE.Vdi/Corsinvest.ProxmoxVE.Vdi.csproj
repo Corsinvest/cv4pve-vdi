@@ -23,6 +23,7 @@
     <PackageReference Include="NXUI" />
     <PackageReference Include="NXUI.Desktop" />
     <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Semver" />
     <PackageReference Include="YamlDotNet" />
     <PackageReference Include="Corsinvest.ProxmoxVE.Api.Extension" />
   </ItemGroup>

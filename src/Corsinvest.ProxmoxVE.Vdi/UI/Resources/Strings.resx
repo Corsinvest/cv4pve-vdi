@@ -22,7 +22,7 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
-  <!-- ── Login ──────────────────────────────────────────────────── -->
+  <!-- Login -->
   <data name="AppTitle" id="d5aaae8d-27b5-4f9d-8523-1516cbd633b1"><value>Proxmox VE VDI Client</value></data>
   <data name="LoginWindowTitle" id="b1163456-cc15-452e-bc36-18af31272e4d"><value>cv4pve-vdi — Login</value></data>
   <data name="Host" id="5547a904-bb66-49ed-b64d-6b20e1643c45"><value>Host</value></data>
@@ -35,32 +35,33 @@
   <data name="Connecting" id="a07572c5-2f29-4970-8eb3-ea9b9ff49b59"><value>Connecting...</value></data>
   <data name="PleaseSelectHost" id="81366897-ecfe-4ab4-aa0f-cdb061fcc45e"><value>Please add and select a host.</value></data>
 
-  <!-- ── Main window ────────────────────────────────────────────── -->
+  <!-- Main window -->
   <data name="CardView" id="36d94c6e-89e0-4cd8-8c82-2192b0c80beb"><value>Card view</value></data>
   <data name="DetailView" id="e52ecbe7-2560-4a47-858a-68c3455d0bc5"><value>Detail view</value></data>
   <data name="Refresh" id="55489734-aa48-490b-9532-fbf297f8bc63"><value>Refresh</value></data>
-  <data name="AutoRefresh" id="c852c4ae-d0dc-4415-9cfe-7b06fca1acde"><value>Auto-refresh every 10s</value></data>
+  <data name="AutoRefresh" id="c852c4ae-d0dc-4415-9cfe-7b06fca1acde"><value>Auto-refresh every 30s</value></data>
   <data name="Settings" id="5c56adb5-790b-46e7-9507-f273ed00dafa"><value>Settings</value></data>
   <data name="Loading" id="00cda3f2-d658-416a-8201-c6578a3f14e0"><value>Loading...</value></data>
   <data name="Refreshing" id="5a0839ae-a01f-49b3-999e-3e1103c0c233"><value>Refreshing...</value></data>
 
-  <!-- ── Filter sidebar ─────────────────────────────────────────── -->
+  <!-- Filter sidebar -->
   <data name="SearchWatermark" id="3bfd59df-4525-4ccf-92a8-90cc459c013c"><value>Name, ID, description, tag...</value></data>
   <data name="ResetFilters" id="eff62a67-9156-403b-89b9-bae712d2bec6"><value>Reset filters</value></data>
   <data name="SectionSearch" id="84546fe6-3341-4367-b7ab-f0d9abed1f1b"><value>SEARCH</value></data>
   <data name="SectionNodes" id="9c32b9d8-35d3-48e9-ad35-64fd98277b04"><value>NODE</value></data>
+  <data name="SectionPools"><value>POOL</value></data>
   <data name="SectionStatus" id="7c831f87-3cea-46a9-8939-2966fb372ea8"><value>STATUS</value></data>
   <data name="SectionType" id="bc27c633-6c1b-4499-8b4c-0d4248c1a896"><value>TYPE</value></data>
   <data name="SectionTags" id="4cc3d9f1-f95f-4f55-ab02-dd128a245992"><value>TAGS</value></data>
 
-  <!-- ── Status / type labels ───────────────────────────────────── -->
+  <!-- Status / type labels -->
   <data name="StatusRunning" id="d98ac5f1-b153-4152-a0ec-bb052cab227a"><value>Running</value></data>
   <data name="StatusStopped" id="c72e2d75-5d53-4743-a71a-0484759789c0"><value>Stopped</value></data>
   <data name="TypeVm" id="ec99e72d-d48c-463c-912d-5f3a765fcf22"><value>VM</value></data>
   <data name="TypeCt" id="975491c1-ad08-4787-9b13-99f4b676c0b8"><value>CT</value></data>
   <data name="TypeNode" id="3c4e2b01-f774-491c-8299-62a2e281bd71"><value>Node</value></data>
 
-  <!-- ── VM action buttons ──────────────────────────────────────── -->
+  <!-- VM action buttons -->
   <data name="Start" id="3cedeae5-ce0f-4270-8e7e-e8a03b6437b6"><value>Start</value></data>
   <data name="Shutdown" id="5406c684-e115-4bc2-966d-bba25e8a90dd"><value>Shutdown</value></data>
   <data name="Spice" id="e275fe8d-9000-4d56-966c-bbde026d8c5b"><value>SPICE</value></data>
@@ -69,15 +70,15 @@
   <data name="SpiceLaunched" id="71f9cd6d-0f5f-4e8f-a6e0-caecc235cdd6"><value>SPICE launched.</value></data>
   <data name="RdpPrefix" id="347f20d4-3e94-4dd5-a40c-1841c35b7cdd"><value>RDP → </value></data>
 
-  <!-- ── Confirm dialog ─────────────────────────────────────────── -->
+  <!-- Confirm dialog -->
   <data name="Confirm" id="a418da60-aecf-494d-b077-267f6e470a43"><value>Confirm</value></data>
   <data name="Yes" id="98b961e5-f3ae-400c-a780-df51ebbe94c0"><value>Yes</value></data>
   <data name="No" id="ac27003e-edc0-496b-b9da-dc112cb34196"><value>No</value></data>
 
-  <!-- ── Errors ─────────────────────────────────────────────────── -->
+  <!-- Errors ─-->
   <data name="ErrorPrefix" id="c0a3b043-67c6-4fcf-9232-7b3515c1ab05"><value>Error: </value></data>
 
-  <!-- ── Settings window ────────────────────────────────────────── -->
+  <!-- Settings window ─-->
   <data name="SettingsWindowTitle" id="ca82cb71-1b12-4aae-bef3-d8a4a092dadf"><value>Settings</value></data>
   <data name="TabAppearance" id="22c6b118-6d08-438d-95c6-be2dc5ddb1e5"><value>Appearance</value></data>
   <data name="TabViewer" id="2eeedf32-21c7-47f4-8422-e3d3e8ba4062"><value>Viewer</value></data>
@@ -100,6 +101,18 @@
   <data name="Add" id="6f785671-ca6a-4354-8595-e4fd0a1f990e"><value>Add</value></data>
   <data name="Edit" id="4c857aec-b3de-4e77-80a6-bb851a00748e"><value>Edit</value></data>
   <data name="Delete" id="5ade2999-871d-4dbd-807d-479074139e15"><value>Delete</value></data>
-  <data name="About"><value>About</value></data>
+  <data name="About" id="be584e5d-79b2-47d1-9dc6-5a427edf9241"><value>About</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>Edit Host</value></data>
+  <data name="AddHost"><value>Add Host</value></data>
+  <data name="HostName"><value>Name</value></data>
+  <data name="HostHosts"><value>Hosts (host:port,host:port for HA)</value></data>
+  <data name="HostSkipSsl"><value>Skip TLS certificate validation</value></data>
+  <data name="HostTimeout"><value>Timeout (seconds)</value></data>
+  <data name="HostSpiceProxy"><value>SPICE proxy (optional)</value></data>
+  <data name="HostViewerOptions"><value>Viewer extra options (optional)</value></data>
+  <data name="HostNameRequired"><value>Name and URL are required.</value></data>
+  <data name="HostViewerOptionsWatermark"><value>extra args for remote-viewer...</value></data>
 
 </root>
