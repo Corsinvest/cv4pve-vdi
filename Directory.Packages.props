@@ -3,10 +3,10 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Avalonia.Desktop" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.0.0" />
+    <PackageVersion Include="Avalonia.Desktop" Version="12.0.1" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.0.1" />
     <PackageVersion Include="Semver" Version="3.0.0" />
     <PackageVersion Include="YamlDotNet" Version="17.0.1" />
-    <PackageVersion Include="Corsinvest.ProxmoxVE.Api.Extension" Version="9.1.13" />
+    <PackageVersion Include="Corsinvest.ProxmoxVE.Api.Extension" Version="9.1.14" />
   </ItemGroup>
 </Project>

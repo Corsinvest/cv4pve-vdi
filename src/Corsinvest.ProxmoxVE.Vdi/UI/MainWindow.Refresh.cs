@@ -272,8 +272,7 @@ internal partial class MainWindow
                                                            row.Resource.Node,
                                                            row.Resource.VmId,
                                                            row.VmType,
-                                                           _config,
-                                                           _client.PVEAuthCookie);
+                                                           _config);
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);
@@ -282,21 +281,12 @@ internal partial class MainWindow
 
     internal async Task LaunchSpiceAsync(ResourceRow row)
     {
-        string err;
-        if (row.ResourceType == ClusterResourceType.Node)
-        {
-            err = await RemoteViewerService.LaunchNodeSpiceAsync(_client, row.Resource.Node, _config, _host);
-        }
-        else
-        {
-            err = await RemoteViewerService.LaunchSpiceAsync(_client,
+        var err = await RemoteViewerService.LaunchSpiceAsync(_client,
                                                              row.Resource.Node,
                                                              row.Resource.VmId,
                                                              row.VmType,
                                                              _config,
                                                              _host);
-        }
-
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);

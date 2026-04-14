@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-04-14
+
+### Changed
+- Updated Avalonia to 12.0.1, which includes a security fix for a known vulnerability in the Linux networking dependency (Tmds.DBus.Protocol)
+- Internal code cleanup: removed duplicated remote viewer logic now provided by the shared library
+
 ## [1.4.0] - 2026-04-10
 
 ### Changed
