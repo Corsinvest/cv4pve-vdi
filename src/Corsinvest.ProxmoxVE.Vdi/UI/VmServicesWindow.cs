@@ -32,6 +32,14 @@ internal static class VmServicesWindow
 
         Action refresh = null!;
 
+        var progressBar = new ProgressBar
+        {
+            IsIndeterminate = true,
+            IsVisible = false,
+            Height = 4,
+            Margin = new Thickness(0, 0, 0, 4)
+        };
+
         var toolbarButtons = new List<ToolbarButton>
         {
             new()
@@ -54,26 +62,34 @@ internal static class VmServicesWindow
                 {
                     if (client is null || node is null) { return; }
 
-                    var ip = await VmService.GetVmIpAsync(client, node, vmConfig.VmId);
-                    if (string.IsNullOrEmpty(ip))
+                    progressBar.IsVisible = true;
+                    try
                     {
-                        await DialogHelper.ConfirmAsync(owner, L("NoIpAvailable"));
-                        return;
-                    }
+                        var ip = await VmService.GetVmIpAsync(client, node, vmConfig.VmId);
+                        if (string.IsNullOrEmpty(ip))
+                        {
+                            await DialogHelper.MessageAsync(owner, L("NoIpAvailable"), NotificationSeverity.Error);
+                            return;
+                        }
 
-                    var found = await VmService.DiscoverServicesAsync(ip, launchers, services);
-                    if (found.Count == 0)
-                    {
-                        await DialogHelper.ConfirmAsync(owner, L("DiscoverNoneFound"));
-                        return;
-                    }
+                        var found = await VmService.DiscoverServicesAsync(ip, launchers, services);
+                        if (found.Count == 0)
+                        {
+                            await DialogHelper.MessageAsync(owner, L("DiscoverNoneFound"));
+                            return;
+                        }
 
-                    var selected = await ShowDiscoverDialogAsync(owner, found);
-                    foreach (var l in selected)
-                    {
-                        services.Add(new VmServiceConfig { ServiceId = l.ServiceId, Port = l.DefaultPort });
+                        var selected = await ShowDiscoverDialogAsync(owner, found);
+                        foreach (var l in selected)
+                        {
+                            services.Add(new VmServiceConfig { ServiceId = l.ServiceId, Port = l.DefaultPort });
+                        }
+                        if (selected.Count > 0) { refresh(); }
                     }
-                    if (selected.Count > 0) { refresh(); }
+                    finally
+                    {
+                        progressBar.IsVisible = false;
+                    }
                 }
             }
         };
@@ -133,6 +149,7 @@ internal static class VmServicesWindow
                 Spacing = 12,
                 Children =
                 {
+                    progressBar,
                     listPanel,
                     new StackPanel
                     {

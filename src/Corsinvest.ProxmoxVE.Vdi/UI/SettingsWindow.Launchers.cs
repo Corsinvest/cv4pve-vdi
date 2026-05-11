@@ -192,7 +192,9 @@ internal static partial class SettingsWindow
                     || def.DisplayName != builtin.DisplayName
                     || def.DefaultPort != builtin.DefaultPort
                     || def.SupportsCredentials != builtin.SupportsCredentials
-                    || def.UseWindowsCredential != builtin.UseWindowsCredential
+                    || def.WindowsCredential.Enable != builtin.WindowsCredential.Enable
+                    || def.WindowsCredential.Type != builtin.WindowsCredential.Type
+                    || def.WindowsCredential.Target != builtin.WindowsCredential.Target
                     || def.Executable != builtin.Executable
                     || def.Platform != builtin.Platform
                     || def.DocumentationUrl != builtin.DocumentationUrl;

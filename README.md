@@ -187,8 +187,8 @@ Once services are configured, they appear as items in the **Connect** dropdown b
 | Source | Description |
 |--------|-------------|
 | **None** | No credentials passed to the launcher |
+| **Vdi** | Reuse the username and password used to log into Proxmox VE (no need to type them again) |
 | **Manual** | Username/password stored in the configuration file |
-| **Windows Credential Manager** | (Windows only) Credentials read from the Windows Credential Manager |
 
 > [!WARNING]
 > Manual credentials (username and password) are stored **in plaintext** in the configuration file:
@@ -199,6 +199,26 @@ Once services are configured, they appear as items in the **Connect** dropdown b
 > ```bash
 > chmod 600 ~/.config/cv4pve-vdi/config.yaml
 > ```
+
+> [!NOTE]
+> On Windows, launchers can be configured to push the credentials into the **Windows Credential Manager** (Vault) just before launching the executable, and remove them shortly after. This is how the built-in **RDP (mstsc)** launcher achieves SSO — see the section below.
+
+#### Single Sign-On for RDP (Windows)
+
+To launch an RDP session **without re-entering credentials**, configure the **RDP (mstsc)** service for the VM (**Connect → Services... → Add**) and pick a **Credential Source** based on your scenario:
+
+| Credential Source | Behaviour | Best for |
+|-------------------|-----------|----------|
+| **None** | mstsc starts with no explicit credentials. Windows automatically forwards the credentials of the **currently logged-in OS user** to the RDP server (CredSSP). | The local Windows user and the target VM are joined to the **same Active Directory domain**. This is the classic Windows desktop SSO experience. |
+| **Vdi** | The username and password used to log into cv4pve-vdi (i.e. the Proxmox login) are injected into the Windows Credential Vault as `TERMSRV/<ip>`, then mstsc reads them automatically. | The Proxmox account matches a valid Windows account on the VM (e.g. shared LDAP/AD between Proxmox and the VMs, same username and password). |
+| **Manual** | Username and password stored per-service in the configuration are injected into the Vault the same way. | The VM uses different credentials than the Proxmox login (local accounts, workgroup, standalone VMs, or a different domain). |
+
+For the **Vdi** and **Manual** options, the Vault entry is temporary: it is created right before launching `mstsc` and removed automatically a few seconds later.
+
+> [!NOTE]
+> If you log into Proxmox as `root@pam` but want to RDP into VMs as a different user (e.g. your AD account or a local Windows account), choose **None** or **Manual** — **Vdi** would inject `root` as the RDP username, which is rarely useful.
+>
+> The **Manual** option works in all scenarios (domain, workgroup, standalone VMs). For local Windows accounts use the username as-is (e.g. `Administrator`), or prefix with `.\` (e.g. `.\Administrator`) to force a local-account lookup.
 
 ---
 

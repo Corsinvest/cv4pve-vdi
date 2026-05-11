@@ -102,14 +102,18 @@ internal static partial class LauncherEngine
             var effectivePort = port > 0 ? port : def.DefaultPort;
             var args = Interpolate(def.Arguments, ip, effectivePort, def.DefaultPort, credentials, extraArgs);
 
-            if (def.UseWindowsCredential && !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (def.WindowsCredential.Enable && !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 return $"Launcher '{def.ServiceId}' requires Windows Credential Manager, which is not supported on this platform.";
             }
 
-            if (def.UseWindowsCredential)
+            if (def.WindowsCredential.Enable)
             {
-                WindowsCredentialManager.WithTemporaryCredential(ip, credentials, () => Start(def.Executable, args));
+                var target = def.WindowsCredential.Target.Replace("{ip}", ip);
+                WindowsCredentialManager.WithTemporaryCredential(target,
+                                                                 def.WindowsCredential.Type,
+                                                                 credentials,
+                                                                 () => Start(def.Executable, args));
             }
             else
             {
@@ -161,7 +165,7 @@ internal static partial class LauncherEngine
                             : user.DefaultPort,
 
             SupportsCredentials = user.SupportsCredentials,
-            UseWindowsCredential = user.UseWindowsCredential,
+            WindowsCredential = user.WindowsCredential,
 
             DocumentationUrl = string.IsNullOrEmpty(user.DocumentationUrl)
                             ? builtin.DocumentationUrl

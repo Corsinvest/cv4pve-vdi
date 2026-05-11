@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-05-11
+
+### Added
+- **RDP single sign-on** — the **RDP (mstsc)** launcher now correctly passes credentials to Windows so you don't have to type them again. Works with domain, workgroup and local accounts
+- **Discover progress indicator** — when scanning a VM for services, a progress bar now shows the operation is in progress
+
+### Changed
+- Information and error dialogs now use a single OK button (instead of confusing Yes/No) and show a coloured icon based on severity
+- Launchers can declare advanced Windows Credential Manager options (credential type and target template) for custom RDP-like tools
+
+### Fixed
+- "Could not resolve IP address" is now correctly shown as an error rather than a confirmation dialog
+
 ## [1.4.1] - 2026-04-14
 
 ### Changed

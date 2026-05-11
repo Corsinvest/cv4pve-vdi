@@ -15,7 +15,7 @@ internal sealed class LauncherDefinition
     public string DisplayName { get; set; } = string.Empty;
     public int DefaultPort { get; set; }
     public bool SupportsCredentials { get; set; }
-    public bool UseWindowsCredential { get; set; }
+    public WindowsCredentialDefinition WindowsCredential { get; set; } = new();
     public string DocumentationUrl { get; set; } = string.Empty;
     public LauncherPlatform Platform { get; set; }
     public string Executable { get; set; } = string.Empty;

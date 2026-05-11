@@ -5,7 +5,10 @@ launchers:
     platform: Windows
     default-port: 3389
     supports-credentials: true
-    use-windows-credential: true
+    windows-credential:
+      enable: true
+      type: DomainPassword
+      target: "TERMSRV/{ip}"
     documentation-url: "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/mstsc"
     executable: "mstsc.exe"
     arguments: "/v:{ip}{?::{port}} {extraArgs}"
@@ -17,7 +20,6 @@ launchers:
     platform: Windows
     default-port: 3389
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface"
     executable: "xfreerdp.exe"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
@@ -28,7 +30,6 @@ launchers:
     platform: Linux
     default-port: 3389
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface"
     executable: "xfreerdp"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
@@ -39,7 +40,6 @@ launchers:
     platform: OSX
     default-port: 3389
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface"
     executable: "xfreerdp"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
@@ -51,7 +51,6 @@ launchers:
     platform: Windows
     default-port: 22
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ssh"
     executable: "cmd.exe"
     arguments: "/k ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
@@ -63,7 +62,6 @@ launchers:
     platform: Windows
     default-port: 22
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://documentation.help/PuTTY/using-cmdline.html"
     executable: "putty.exe"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"
@@ -75,7 +73,6 @@ launchers:
     platform: Linux
     default-port: 22
     supports-credentials: false
-    use-windows-credential: false
     documentation-url: "https://man.openbsd.org/ssh"
     executable: "gnome-terminal"
     arguments: "-- ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
@@ -87,7 +84,6 @@ launchers:
     platform: Linux
     default-port: 22
     supports-credentials: false
-    use-windows-credential: false
     documentation-url: "https://man.openbsd.org/ssh"
     executable: "xterm"
     arguments: "-e ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
@@ -99,7 +95,6 @@ launchers:
     platform: Linux
     default-port: 22
     supports-credentials: false
-    use-windows-credential: false
     documentation-url: "https://man.openbsd.org/ssh"
     executable: "konsole"
     arguments: "--hold -e ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
@@ -111,7 +106,6 @@ launchers:
     platform: Linux
     default-port: 22
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://documentation.help/PuTTY/using-cmdline.html"
     executable: "putty"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"
@@ -123,7 +117,6 @@ launchers:
     platform: OSX
     default-port: 22
     supports-credentials: false
-    use-windows-credential: false
     documentation-url: "https://man.openbsd.org/ssh"
     executable: "osascript"
     arguments: "-e 'tell app \"Terminal\" to do script \"ssh {?-p {port}} {?{username}@}{ip} {extraArgs}\"'"
@@ -135,7 +128,6 @@ launchers:
     platform: OSX
     default-port: 22
     supports-credentials: true
-    use-windows-credential: false
     documentation-url: "https://documentation.help/PuTTY/using-cmdline.html"
     executable: "putty"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"

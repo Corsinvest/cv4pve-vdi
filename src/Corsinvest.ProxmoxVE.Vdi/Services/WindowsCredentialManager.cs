@@ -4,17 +4,16 @@
  */
 
 using System.Text;
+using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 
 namespace Corsinvest.ProxmoxVE.Vdi.Services;
 
 internal static class WindowsCredentialManager
 {
-    // Credential Types
-    private const uint CRED_TYPE_GENERIC = 1;
-
-    // Persistence Types
-    // 2 = Session (until logoff), 3 = Local Machine (survives reboot)
-    private const uint CRED_PERSIST_LOCAL_MACHINE = 2;
+    // CRED_PERSIST_SESSION — credential is removed at logoff.
+    // We always use Session: the entry is also deleted manually a few seconds after the launch,
+    // so wider persistence scopes (LocalMachine, Enterprise) bring no benefit and a larger blast radius.
+    private const uint CRED_PERSIST_SESSION = 1;
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     private struct CREDENTIAL
@@ -45,12 +44,9 @@ internal static class WindowsCredentialManager
     [DllImport("advapi32.dll", EntryPoint = "CredFree", SetLastError = true)]
     private static extern void CredFree(IntPtr credentialPtr);
 
-    /// <summary>
-    /// Checks if a credential exists for the given target.
-    /// </summary>
-    private static bool Exists(string target)
+    private static bool Exists(string target, WindowsCredentialType type)
     {
-        if (CredRead(target, CRED_TYPE_GENERIC, 0, out var credPtr) && credPtr != IntPtr.Zero)
+        if (CredRead(target, (uint)type, 0, out var credPtr) && credPtr != IntPtr.Zero)
         {
             CredFree(credPtr);
             return true;
@@ -58,17 +54,14 @@ internal static class WindowsCredentialManager
         return false;
     }
 
-    /// <summary>
-    /// Saves or updates a generic credential in the Windows Vault.
-    /// </summary>
-    private static bool Add(string target, string userName, string password)
+    private static bool Add(string target, WindowsCredentialType type, string userName, string password)
     {
         var cred = new CREDENTIAL
         {
-            Type = CRED_TYPE_GENERIC,
+            Type = (uint)type,
             TargetName = target,
             UserName = userName,
-            Persist = CRED_PERSIST_LOCAL_MACHINE
+            Persist = CRED_PERSIST_SESSION
         };
 
         byte[] passwordBytes = Encoding.Unicode.GetBytes(password);
@@ -82,22 +75,23 @@ internal static class WindowsCredentialManager
         }
         finally
         {
-            // Always free memory to prevent leaks on ARM64/x64 systems
             Marshal.FreeCoTaskMem(cred.CredentialBlob);
         }
     }
 
-    /// <summary>
-    /// Removes a credential from the Windows Vault.
-    /// </summary>
-    private static bool Delete(string target) => CredDelete(target, CRED_TYPE_GENERIC, 0);
+    private static bool Delete(string target, WindowsCredentialType type) => CredDelete(target, (uint)type, 0);
 
     /// <summary>
-    /// If credentials are provided, injects them temporarily before running the action and removes them after.
+    /// If credentials are provided, injects them temporarily into the Windows Vault using the
+    /// given <paramref name="target"/> and <paramref name="type"/>, runs the action, then removes
+    /// the entry after a short delay.
     /// If credentials are null or empty, just runs the action.
     /// If the credential already existed, it is not touched.
     /// </summary>
-    public static void WithTemporaryCredential(string target, Credentials? credentials, Action action)
+    public static void WithTemporaryCredential(string target,
+                                               WindowsCredentialType type,
+                                               Credentials? credentials,
+                                               Action action)
     {
         var hasCredentials = credentials is { Username.Length: > 0, Password.Length: > 0 };
         if (!hasCredentials)
@@ -106,8 +100,8 @@ internal static class WindowsCredentialManager
             return;
         }
 
-        var alreadyExisted = Exists(target);
-        if (!alreadyExisted) { Add(target, credentials!.Username, credentials.Password); }
+        var alreadyExisted = Exists(target, type);
+        if (!alreadyExisted) { Add(target, type, credentials!.Username, credentials.Password); }
 
         action();
 
@@ -116,7 +110,7 @@ internal static class WindowsCredentialManager
             Task.Run(async () =>
             {
                 await Task.Delay(3000);
-                Delete(target);
+                Delete(target, type);
             });
         }
     }

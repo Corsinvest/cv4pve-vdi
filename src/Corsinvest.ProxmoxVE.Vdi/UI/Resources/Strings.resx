@@ -69,6 +69,10 @@
   <data name="Confirm"><value>Confirm</value></data>
   <data name="Yes"><value>Yes</value></data>
   <data name="No"><value>No</value></data>
+  <data name="Information"><value>Information</value></data>
+  <data name="Warning"><value>Warning</value></data>
+  <data name="Error"><value>Error</value></data>
+  <data name="Ok"><value>OK</value></data>
   <data name="Cancel"><value>Cancel</value></data>
 
   <!-- Errors -->
@@ -128,6 +132,9 @@
   <data name="LauncherArguments"><value>Arguments template</value></data>
   <data name="SupportsCredentials"><value>Supports credentials</value></data>
   <data name="UseWindowsCredential"><value>Use Windows Credential Manager</value></data>
+  <data name="WinCredentialType"><value>Credential type</value></data>
+  <data name="WinCredentialPersist"><value>Persistence</value></data>
+  <data name="WinCredentialTarget"><value>Target template</value></data>
   <data name="LauncherIdAndNameRequired"><value>Service ID and display name are required.</value></data>
   <data name="LauncherExecutableRequired"><value>Executable path is required.</value></data>
   <data name="ExtraArgs"><value>Extra arguments</value></data>

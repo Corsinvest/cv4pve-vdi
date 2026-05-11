@@ -66,11 +66,38 @@ internal static class LauncherEditWindow
         var chkWinCredential = new CheckBox
         {
             Content = L("UseWindowsCredential"),
-            IsChecked = existing?.UseWindowsCredential ?? false,
+            IsChecked = existing?.WindowsCredential.Enable ?? false,
             IsVisible = (existing?.Platform ?? LauncherPlatform.Windows) == LauncherPlatform.Windows
         };
 
-        cmbPlatform.SelectionChanged += (_, _) => chkWinCredential.IsVisible = cmbPlatform.SelectedItem is LauncherPlatform.Windows;
+        // Windows Credential details (Type, Target)
+        var (cmbWinCredType, cmbWinCredTypeWithIcon) = UiHelper.ComboBoxWithIcon(Enum.GetValues<WindowsCredentialType>(),
+                                                                                  AppIcons.Key,
+                                                                                  existing?.WindowsCredential.Type ?? WindowsCredentialType.Generic);
+
+        var txtWinCredTarget = UiHelper.TextBox(existing?.WindowsCredential.Target ?? "{ip}", "{ip} or TERMSRV/{ip}", AppIcons.Network);
+
+        var winCredPanel = new StackPanel
+        {
+            Spacing = 8,
+            Margin = new Thickness(20, 0, 0, 0),
+            IsVisible = chkWinCredential.IsChecked is true && chkWinCredential.IsVisible,
+            Children =
+            {
+                UiHelper.Label("WinCredentialType"), cmbWinCredTypeWithIcon,
+                UiHelper.Label("WinCredentialTarget"), txtWinCredTarget,
+            }
+        };
+
+        void UpdateWinCredPanel()
+            => winCredPanel.IsVisible = chkWinCredential.IsVisible && chkWinCredential.IsChecked is true;
+
+        chkWinCredential.IsCheckedChanged += (_, _) => UpdateWinCredPanel();
+        cmbPlatform.SelectionChanged += (_, _) =>
+        {
+            chkWinCredential.IsVisible = cmbPlatform.SelectedItem is LauncherPlatform.Windows;
+            UpdateWinCredPanel();
+        };
 
         // Error / Save
         var lblError = new TextBlock { Foreground = Brushes.Red, IsVisible = false };
@@ -102,6 +129,7 @@ internal static class LauncherEditWindow
                     UiHelper.Label("ExtraArgs"), txtExtraArgs,
                     chkCredentials,
                     chkWinCredential,
+                    winCredPanel,
                     lblError,
                     new StackPanel
                     {
@@ -157,7 +185,12 @@ internal static class LauncherEditWindow
                 Arguments = txtArguments.Text?.Trim() ?? string.Empty,
                 ExtraArgs = txtExtraArgs.Text?.Trim() ?? string.Empty,
                 SupportsCredentials = chkCredentials.IsChecked is true,
-                UseWindowsCredential = chkWinCredential.IsChecked is true,
+                WindowsCredential = new WindowsCredentialDefinition
+                {
+                    Enable = chkWinCredential.IsChecked is true,
+                    Type = cmbWinCredType.SelectedItem is WindowsCredentialType t ? t : WindowsCredentialType.Generic,
+                    Target = string.IsNullOrWhiteSpace(txtWinCredTarget.Text) ? "{ip}" : txtWinCredTarget.Text!.Trim(),
+                },
                 DocumentationUrl = existing?.DocumentationUrl ?? string.Empty,
             });
         };
