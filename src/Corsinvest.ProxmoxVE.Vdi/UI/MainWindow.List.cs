@@ -63,7 +63,7 @@ internal partial class MainWindow
             TextTrimming = TextTrimming.CharacterEllipsis,
             Width = 200
         };
-        Avalonia.Controls.ToolTip.SetTip(nameLbl, r.Name);
+        ToolTip.SetTip(nameLbl, r.Name);
 
         var typeLbl = BuildTypeBadge(r);
         typeLbl.CornerRadius = new CornerRadius(3);

@@ -25,7 +25,7 @@ internal static partial class SettingsWindow
         btnRow.Children.Add(btnSave);
 
         var dock = new DockPanel();
-        Avalonia.Controls.DockPanel.SetDock(btnRow, Dock.Bottom);
+        DockPanel.SetDock(btnRow, Dock.Bottom);
         dock.Children.Add(btnRow);
 
         var tabControl = new TabControl { Margin = new Thickness(12, 12, 12, 0) };
@@ -44,6 +44,10 @@ internal static partial class SettingsWindow
         var (tabAppearance, saveAppearance) = BuildTabAppearance(config);
         var (tabLaunchers, saveLaunchers) = BuildTabLaunchers(config, window);
         var (tabClusters, _) = BuildTabClusters(config, window, onHostsChanged);
+        var (tabKiosk, saveKiosk) = BuildTabKiosk(config, window);
+
+        // In kiosk mode, only the admin-unlocked session sees Launchers/Clusters/advanced Appearance
+        var kioskLocked = config.Kiosk && !KioskGuard.IsAdminUnlocked;
 
         if (clustersOnly)
         {
@@ -52,19 +56,56 @@ internal static partial class SettingsWindow
         else
         {
             tabControl.Items.Add(tabAppearance);
-            tabControl.Items.Add(tabLaunchers);
-            tabControl.Items.Add(tabClusters);
-            tabControl.SelectedIndex = initialTab;
+            if (!kioskLocked) { tabControl.Items.Add(tabLaunchers); }
+            if (!kioskLocked) { tabControl.Items.Add(tabClusters); }
+            tabControl.Items.Add(tabKiosk);
+            tabControl.SelectedIndex = initialTab < tabControl.Items.Count ? initialTab : 0;
+        }
+
+        // When kiosk-locked, opening the Kiosk tab triggers the admin password prompt.
+        // On success, the session is unlocked but Settings has to be closed and reopened
+        // so the previously hidden tabs (Launchers, Clusters, advanced Appearance) become visible.
+        if (kioskLocked)
+        {
+            object? previousTab = tabControl.SelectedItem;
+
+            tabControl.SelectionChanged += async (_, _) =>
+            {
+                if (tabControl.SelectedItem != tabKiosk)
+                {
+                    previousTab = tabControl.SelectedItem;
+                    return;
+                }
+
+                if (await KioskGuard.CheckAsync(window, config))
+                {
+                    // Signal the caller that Settings should be reopened so the previously
+                    // hidden tabs (Launchers, Clusters, advanced Appearance) become visible.
+                    window.Tag = "reopen";
+                    window.Close();
+                }
+                else
+                {
+                    tabControl.SelectedItem = previousTab;
+                }
+            };
         }
 
         dock.Children.Add(tabControl);
 
-        btnSave.Click += (_, _) =>
+        btnSave.Click += async (_, _) =>
         {
+            var kioskError = saveKiosk();
+            if (kioskError != null)
+            {
+                await DialogHelper.MessageAsync(window, kioskError, NotificationSeverity.Error);
+                return;
+            }
+
             saveAppearance();
-            saveLaunchers();
+            if (!kioskLocked) { saveLaunchers(); }
             AppConfigManager.Save(config);
-            Avalonia.Application.Current?.RequestedThemeVariant = config.ThemeVariant;
+            Application.Current?.RequestedThemeVariant = config.ThemeVariant;
             window.Close();
         };
 

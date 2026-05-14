@@ -87,6 +87,16 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     // refresh state
     private bool _isRefreshing = false;
+    private bool _kioskUnlocked = false;
+
+    private void SwitchUser()
+    {
+        KioskGuard.ResetAdmin();
+        _kioskUnlocked = true;
+        var login = LoginWindow.Create(_config);
+        login.Show();
+        _window?.Close();
+    }
 
     private readonly StackPanel _cardContent = new() { Spacing = 24 };
     private readonly StackPanel _listContent = new() { Spacing = 16, IsVisible = false };
@@ -195,8 +205,8 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         var menuItemSettings = new MenuItem { Header = UiHelper.WithText(AppIcons.Settings, L("Settings")) };
         var btnMore = BuildHelpMenu(menuItemSettings);
 
-        Avalonia.Controls.ToolTip.SetTip(btnRefresh, L("Refresh"));
-        Avalonia.Controls.ToolTip.SetTip(btnAutoRef, L("AutoRefresh"));
+        ToolTip.SetTip(btnRefresh, L("Refresh"));
+        ToolTip.SetTip(btnAutoRef, L("AutoRefresh"));
 
         var statsPanel = new StackPanel
         {
@@ -329,6 +339,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             var w = SettingsWindow.Create(_config, initialTab: 1);
             w.Icon = AppIcon();
             await w.ShowDialog(_window!);
+
+            if (w.Tag as string == "reopen")
+            {
+                var w2 = SettingsWindow.Create(_config, initialTab: 1);
+                w2.Icon = AppIcon();
+                await w2.ShowDialog(_window!);
+            }
+
             UpdateViewerWarning();
         };
 
@@ -364,6 +382,21 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             Content = mainGrid
         };
+
+        if (_config.Kiosk)
+        {
+            if (_config.KioskForceFullScreen) { _window.WindowState = WindowState.FullScreen; }
+            _window.Closing += async (_, e) =>
+            {
+                if (_kioskUnlocked) { return; }
+                e.Cancel = true;
+                if (await KioskGuard.CheckAsync(_window!, _config))
+                {
+                    _kioskUnlocked = true;
+                    _window.Close();
+                }
+            };
+        }
 
         void ApplyDefaultView()
         {
@@ -422,6 +455,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             var w = SettingsWindow.Create(_config);
             w.Icon = AppIcon();
             await w.ShowDialog(_window!);
+
+            // Admin just unlocked — reopen Settings so the advanced tabs become visible
+            if (w.Tag as string == "reopen")
+            {
+                var w2 = SettingsWindow.Create(_config);
+                w2.Icon = AppIcon();
+                await w2.ShowDialog(_window!);
+            }
 
             ApplySidebarVisibility();
             ApplyDefaultView();
@@ -493,7 +534,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             await RefreshAsync();
         };
 
-        Avalonia.Application.Current?.ActualThemeVariantChanged += (_, _) =>
+        Application.Current?.ActualThemeVariantChanged += (_, _) =>
         {
             RefreshChipColors();
             UpdateViewerWarning();
@@ -600,7 +641,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         AGrid.SetColumn(_btnReset, 1);
         headerGrid.Children.Add(lbl);
         headerGrid.Children.Add(_btnReset);
-        Avalonia.Controls.ToolTip.SetTip(_btnReset, L("ResetFilters"));
+        ToolTip.SetTip(_btnReset, L("ResetFilters"));
         return new Border
         {
             Padding = new Thickness(0, 0, 0, 10),

@@ -74,11 +74,37 @@ internal static partial class SettingsWindow
         var chkShowShutdown = new CheckBox { Content = UiHelper.WithText(AppIcons.Stop, L("ShowShutdownButton"), new SolidColorBrush(AppColors.Shutdown)), IsChecked = config.ShowShutdownButton };
         var chkConfirmShutdown = new CheckBox { Content = L("AskConfirmation"), IsChecked = config.ConfirmShutdown, IsEnabled = config.ShowShutdownButton, HorizontalAlignment = HorizontalAlignment.Right };
 
-        Avalonia.Controls.Grid.SetColumn(chkConfirmStart, 1);
-        Avalonia.Controls.Grid.SetColumn(chkConfirmShutdown, 1);
+        Grid.SetColumn(chkConfirmStart, 1);
+        Grid.SetColumn(chkConfirmShutdown, 1);
 
         chkShowStart.IsCheckedChanged += (_, _) => chkConfirmStart.IsEnabled = chkShowStart.IsChecked is true;
         chkShowShutdown.IsCheckedChanged += (_, _) => chkConfirmShutdown.IsEnabled = chkShowShutdown.IsChecked is true;
+
+        var advancedSection = new StackPanel
+        {
+            Spacing = 8,
+            IsVisible = !config.Kiosk || KioskGuard.IsAdminUnlocked,
+            Children =
+            {
+                new Grid
+                {
+                    ColumnDefinitions = new ColumnDefinitions("*,*"),
+                    RowDefinitions    = new RowDefinitions("Auto,Auto"),
+                    Children =
+                    {
+                        chkShowBars,
+                        Placed(chkShowNodes, 1, 0),
+                        Placed(chkShowPools, 0, 1),
+                        Placed(chkShowTags,  1, 1),
+                    }
+                },
+                SectionHeader(L("SectionBehaviour")),
+                chkEnableAgentPing,
+                SectionHeader(L("PowerButtons")),
+                new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Children = { chkShowStart,    chkConfirmStart } },
+                new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Children = { chkShowShutdown, chkConfirmShutdown } },
+            }
+        };
 
         var tab = new TabItem
         {
@@ -91,23 +117,7 @@ internal static partial class SettingsWindow
                 {
                     SectionHeader(L("SectionDisplay")),
                     themeRow,
-                    new Grid
-                    {
-                        ColumnDefinitions = new ColumnDefinitions("*,*"),
-                        RowDefinitions    = new RowDefinitions("Auto,Auto"),
-                        Children =
-                        {
-                            chkShowBars,
-                            Placed(chkShowNodes, 1, 0),
-                            Placed(chkShowPools, 0, 1),
-                            Placed(chkShowTags,  1, 1),
-                        }
-                    },
-                    SectionHeader(L("SectionBehaviour")),
-                    chkEnableAgentPing,
-                    SectionHeader(L("PowerButtons")),
-                    new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Children = { chkShowStart,    chkConfirmStart } },
-                    new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Children = { chkShowShutdown, chkConfirmShutdown } },
+                    advancedSection,
                 }
             }
         };
@@ -132,8 +142,8 @@ internal static partial class SettingsWindow
 
     private static Control Placed(Control c, int col, int row)
     {
-        Avalonia.Controls.Grid.SetColumn(c, col);
-        Avalonia.Controls.Grid.SetRow(c, row);
+        Grid.SetColumn(c, col);
+        Grid.SetRow(c, row);
         return c;
     }
 }

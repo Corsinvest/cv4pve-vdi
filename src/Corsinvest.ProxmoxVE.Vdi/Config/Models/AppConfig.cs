@@ -81,4 +81,30 @@ internal class AppConfig
 
     /// <summary>Ping QEMU guest agent to detect if running (default false)</summary>
     public bool EnableAgentPing { get; set; } = false;
+
+    // Kiosk
+
+    /// <summary>
+    /// Enable kiosk mode: window forced full-screen; access to Settings and closing the window require the admin password.
+    /// </summary>
+    public bool Kiosk { get; set; } = false;
+
+    /// <summary>
+    /// PBKDF2 hash (with salt) of the kiosk admin password. Empty = no password set.
+    /// Format: <c>iterations.saltBase64.hashBase64</c>.
+    /// </summary>
+    public string KioskAdminPasswordHash { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Optional background image shown behind the login form when kiosk mode is enabled.
+    /// Empty = no background image.
+    /// </summary>
+    public string KioskLoginBackground { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Force the application windows (Login + Main) to open in full-screen when kiosk mode is enabled.
+    /// Set to <c>false</c> if shell-replacement / window manager already handles sizing externally.
+    /// Default: <c>true</c>.
+    /// </summary>
+    public bool KioskForceFullScreen { get; set; } = true;
 }

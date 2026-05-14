@@ -47,7 +47,7 @@ internal partial class MainWindow
             VerticalAlignment = VerticalAlignment.Top,
             Cursor = new Cursor(StandardCursorType.Hand)
         };
-        Avalonia.Controls.ToolTip.SetTip(copyBtn, L("Copy"));
+        ToolTip.SetTip(copyBtn, L("Copy"));
 
         var closeBtn = new Button
         {

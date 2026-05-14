@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-05-11
+
+### Added
+- **Kiosk mode** — lock down the application for thin-client and shared-workstation deployments. Full-screen login and main window, advanced settings (Launchers, Clusters, advanced Appearance) hidden behind an admin password, optional login background image for branding. See [docs/KIOSK.md](docs/KIOSK.md) for the full guide.
+- **Switch user** — sign out and return to the login screen without restarting the application. Found in the **More** menu. Especially useful in kiosk mode where multiple people share the same thin client.
+- **Admin unlock** — once the admin password is entered, the session stays unlocked until the application is closed or **Switch user** is clicked. No need to re-enter the password for each protected action.
+
 ## [1.4.2] - 2026-05-11
 
 ### Added

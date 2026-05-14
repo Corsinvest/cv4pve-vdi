@@ -77,7 +77,7 @@ internal static class ActionListBox
                 Padding = new Thickness(4),
                 Background = Brushes.Transparent
             };
-            Avalonia.Controls.ToolTip.SetTip(btn, tb.Tooltip);
+            ToolTip.SetTip(btn, tb.Tooltip);
             var tbCopy = tb;
             btn.Click += async (_, _) => await tbCopy.OnClick();
             toolbar.Children.Add(btn);
@@ -122,7 +122,7 @@ internal static class ActionListBox
                 Padding = new Thickness(4),
                 Background = Brushes.Transparent
             };
-            Avalonia.Controls.ToolTip.SetTip(btn, rb.Tooltip);
+            ToolTip.SetTip(btn, rb.Tooltip);
             var rbCopy = rb;
             var itemCopy = item;
             btn.Click += async (_, _) => await rbCopy.OnClick(itemCopy);
@@ -132,8 +132,8 @@ internal static class ActionListBox
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
         grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        Avalonia.Controls.Grid.SetColumn(txtLabel, 0);
-        Avalonia.Controls.Grid.SetColumn(btnPanel, 1);
+        Grid.SetColumn(txtLabel, 0);
+        Grid.SetColumn(btnPanel, 1);
         grid.Children.Add(txtLabel);
         grid.Children.Add(btnPanel);
 

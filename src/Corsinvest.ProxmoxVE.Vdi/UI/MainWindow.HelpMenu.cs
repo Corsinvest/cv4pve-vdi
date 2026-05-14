@@ -30,11 +30,12 @@ internal partial class MainWindow
             IsVisible = false
         };
 
-        var menuItemDocs = new MenuItem { Header = UiHelper.WithText(AppIcons.Book, L("Documentation")) };
-        var menuItemRelease = new MenuItem { Header = UiHelper.WithText(AppIcons.Star, L("ReleaseNotes")) };
-        var menuItemSupport = new MenuItem { Header = UiHelper.WithText(AppIcons.Globe, L("Support")) };
-        var menuItemBug = new MenuItem { Header = UiHelper.WithText(AppIcons.Bug, L("ReportBug")) };
-        var menuItemFeature = new MenuItem { Header = UiHelper.WithText(AppIcons.Info, L("RequestFeature")) };
+        var menuItemSwitchUser = new MenuItem { Header = UiHelper.WithText(AppIcons.Login, L("SwitchUser")) };
+        var menuItemDocs = new MenuItem { Header = UiHelper.WithText(AppIcons.Book, L("Documentation")), IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+        var menuItemRelease = new MenuItem { Header = UiHelper.WithText(AppIcons.Star, L("ReleaseNotes")), IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+        var menuItemSupport = new MenuItem { Header = UiHelper.WithText(AppIcons.Globe, L("Support")), IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+        var menuItemBug = new MenuItem { Header = UiHelper.WithText(AppIcons.Bug, L("ReportBug")), IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+        var menuItemFeature = new MenuItem { Header = UiHelper.WithText(AppIcons.Info, L("RequestFeature")), IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
 
         var versionHeader = new TextBlock
         {
@@ -45,6 +46,9 @@ internal partial class MainWindow
             FontSize = 12
         };
 
+        var sepDocs = new Separator { IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+        var sepBug = new Separator { IsVisible = !_config.Kiosk || KioskGuard.IsAdminUnlocked };
+
         var menu = new ContextMenu
         {
             Items =
@@ -53,16 +57,18 @@ internal partial class MainWindow
                 miUpdate,
                 new Separator(),
                 menuItemSettings,
-                new Separator(),
+                menuItemSwitchUser,
+                sepDocs,
                 menuItemDocs,
                 menuItemRelease,
                 menuItemSupport,
-                new Separator(),
+                sepBug,
                 menuItemBug,
                 menuItemFeature,
             }
         };
 
+        menuItemSwitchUser.Click += (_, _) => SwitchUser();
         menuItemDocs.Click += (_, _) => OpenUrl(ApplicationHelper.DocumentationUrl);
         menuItemRelease.Click += (_, _) => OpenUrl(ApplicationHelper.ReleaseNotesUrl);
         menuItemSupport.Click += (_, _) => OpenUrl(ApplicationHelper.SupportUrl);
@@ -82,7 +88,7 @@ internal partial class MainWindow
             if (e.Property.Name == "IsVisible") { updateBadge.IsVisible = miUpdate.IsVisible; }
         };
 
-        Avalonia.Controls.ToolTip.SetTip(btn, L("More"));
+        ToolTip.SetTip(btn, L("More"));
         btn.Click += (_, _) => menu.Open(btn);
 
         UpdateChecker.StartBackground((version, url) =>

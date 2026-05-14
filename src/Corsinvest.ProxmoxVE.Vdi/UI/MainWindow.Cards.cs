@@ -158,7 +158,7 @@ internal partial class MainWindow
             {
                 new TransformOperationsTransition
                 {
-                    Property = Avalonia.Visual.RenderTransformProperty,
+                    Property = Visual.RenderTransformProperty,
                     Duration = TimeSpan.FromMilliseconds(120)
                 }
             },

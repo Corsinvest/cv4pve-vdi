@@ -60,7 +60,7 @@ internal static class AppColors
     public static readonly Color ToastBgDark = Color.FromArgb(230, 30, 30, 35);
     public static readonly Color ToastBgLight = Color.FromArgb(240, 255, 255, 255);
 
-    public static bool IsDark => Avalonia.Application.Current?.ActualThemeVariant == ThemeVariant.Dark;
+    public static bool IsDark => Application.Current?.ActualThemeVariant == ThemeVariant.Dark;
 
     // Secondary text: gray that contrasts on both themes
     public static readonly Color SecondaryDark = Color.Parse("#BBBBBB");

@@ -63,7 +63,7 @@ internal partial class MainWindow
             Opacity = opacity,
             VerticalAlignment = VerticalAlignment.Center
         };
-        Avalonia.Controls.ToolTip.SetTip(icon, tooltip);
+        ToolTip.SetTip(icon, tooltip);
         parent.Children.Add(icon);
     }
 
@@ -86,7 +86,7 @@ internal partial class MainWindow
                 Foreground = new SolidColorBrush(color),
                 Opacity = opacity
             };
-            Avalonia.Controls.ToolTip.SetTip(pathIcon, tooltip);
+            ToolTip.SetTip(pathIcon, tooltip);
             panel.Children.Add(pathIcon);
         }
 
@@ -106,7 +106,7 @@ internal partial class MainWindow
         void AddLeft(Button btn)
         {
             btn.Margin = new Thickness(0, 0, spacing, 0);
-            Avalonia.Controls.DockPanel.SetDock(btn, Dock.Left);
+            DockPanel.SetDock(btn, Dock.Left);
             panel.Children.Add(btn);
         }
 
@@ -205,11 +205,14 @@ internal partial class MainWindow
             }
         }
 
-        // "Configure services..." — always last, always present
+        // "Configure services..." — always last, always present.
+        // In kiosk mode it requires the admin password (configuration is an admin task).
         if (menu.Items.Count > 0) { menu.Items.Add(new Separator()); }
         var itemConfigure = new MenuItem { Header = UiHelper.WithText(AppIcons.Settings, L("ConfigureServices")) };
         itemConfigure.Click += async (_, _) =>
         {
+            if (!await KioskGuard.CheckAsync(_window!, _config)) { return; }
+
             var vmId = (int)row.Resource.VmId;
             var vmConfig = _host.Vms.FirstOrDefault(v => v.VmId == vmId) ?? new Config.Models.VmConfig { VmId = vmId };
             var updated = await VmServicesWindow.ShowAsync(_window!, vmConfig, row.Name, AppConfigManager.LaunchersUserFile, _client, row.Resource.Node);

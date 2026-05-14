@@ -106,6 +106,21 @@
 
   <!-- Settings tabs -->
   <data name="TabLaunchers"><value>Launchers</value></data>
+  <data name="TabKiosk"><value>Kiosk</value></data>
+  <data name="KioskEnable"><value>Enable kiosk mode</value></data>
+  <data name="KioskAdminPassword"><value>Admin password</value></data>
+  <data name="KioskConfirmPassword"><value>Confirm admin password</value></data>
+  <data name="KioskDocumentationLink"><value>View documentation</value></data>
+  <data name="KioskPasswordRequired"><value>Admin password is required when kiosk mode is enabled.</value></data>
+  <data name="KioskPasswordMismatch"><value>Passwords do not match.</value></data>
+  <data name="KioskUnlockPrompt"><value>Enter admin password to continue.</value></data>
+  <data name="KioskUnlockWrong"><value>Wrong admin password.</value></data>
+  <data name="KioskPasswordSet"><value>(password set — leave empty to keep current)</value></data>
+  <data name="SwitchUser"><value>Switch user</value></data>
+  <data name="KioskLoginBackground"><value>Login background image (optional)</value></data>
+  <data name="KioskForceFullScreen"><value>Force full-screen (recommended)</value></data>
+  <data name="KioskBackgroundWatermark"><value>path to image (PNG, JPG, BMP, GIF)</value></data>
+  <data name="KioskBackgroundBrowse"><value>Browse for background image...</value></data>
   <data name="SectionViewer"><value>VIEWER</value></data>
   <data name="SectionProtocols"><value>PROTOCOLS</value></data>
   <data name="SectionClusters"><value>CLUSTERS</value></data>

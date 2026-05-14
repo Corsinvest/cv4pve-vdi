@@ -129,7 +129,7 @@ internal static class UiHelper
             BorderThickness = new Thickness(0)
         };
         if (margin.HasValue) { btn.Margin = margin.Value; }
-        if (tooltipKey != null) { Avalonia.Controls.ToolTip.SetTip(btn, L(tooltipKey)); }
+        if (tooltipKey != null) { ToolTip.SetTip(btn, L(tooltipKey)); }
         return btn;
     }
 }

@@ -111,6 +111,41 @@ internal static class LoginWindow
             }
         };
 
+        var kioskLoginUnlocked = false;
+        if (config.Kiosk)
+        {
+            if (config.KioskForceFullScreen)
+            {
+                form.Width = 480;
+                form.HorizontalAlignment = HorizontalAlignment.Center;
+                form.VerticalAlignment = VerticalAlignment.Center;
+
+                window.SizeToContent = SizeToContent.Manual;
+                window.WindowState = WindowState.FullScreen;
+            }
+
+            if (!string.IsNullOrEmpty(config.KioskLoginBackground) && File.Exists(config.KioskLoginBackground))
+            {
+                try
+                {
+                    var bg = new Avalonia.Media.Imaging.Bitmap(config.KioskLoginBackground);
+                    window.Background = new ImageBrush(bg) { Stretch = Stretch.UniformToFill };
+                }
+                catch { /* invalid image — fall back to default background */ }
+            }
+
+            window.Closing += async (_, e) =>
+            {
+                if (kioskLoginUnlocked) { return; }
+                e.Cancel = true;
+                if (await KioskGuard.CheckAsync(window, config))
+                {
+                    kioskLoginUnlocked = true;
+                    window.Close();
+                }
+            };
+        }
+
         void RefreshHostList()
         {
             cmbCluster.ItemsSource = config.Clusters.ConvertAll(h => h.Name);
@@ -123,9 +158,17 @@ internal static class LoginWindow
 
         btnSettings.Click += async (_, _) =>
         {
+            if (!await KioskGuard.CheckAsync(window!, config)) { return; }
             var dlg = SettingsWindow.Create(config, RefreshHostList, clustersOnly: true);
             dlg.Icon = MainWindow.AppIcon();
             await dlg.ShowDialog(window!);
+
+            if (dlg.Tag as string == "reopen")
+            {
+                var dlg2 = SettingsWindow.Create(config, RefreshHostList, clustersOnly: true);
+                dlg2.Icon = MainWindow.AppIcon();
+                await dlg2.ShowDialog(window!);
+            }
         };
 
         async Task DoLogin()
@@ -166,6 +209,7 @@ internal static class LoginWindow
 
             var mainWin = new MainWindow(client, host, config, user, pwd).Build();
             mainWin.Show();
+            kioskLoginUnlocked = true;
             window!.Close();
         }
 
