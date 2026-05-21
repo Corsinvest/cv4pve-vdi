@@ -112,7 +112,11 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     private ScrollViewer? _sidebar;
 
-    private readonly TextBox _txtSearch = new() { PlaceholderText = L("SearchWatermark") };
+    private readonly TextBox _txtSearch = new()
+    {
+        PlaceholderText = L("SearchWatermark"),
+        [ToolTip.TipProperty] = $"{L("SearchTooltip")} (Ctrl+F)"
+    };
     private readonly StackPanel _nodeFilters = new() { Spacing = 4 };
     private readonly StackPanel _poolFilters = new() { Spacing = 4 };
     private readonly StackPanel _tagFilters = new() { Spacing = 4 };
@@ -211,10 +215,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         var btnAutoRef = _btnAutoRef;
         btnAutoRef.IsCheckedChanged += (_, _) => autoRefLabel.IsVisible = btnAutoRef.IsChecked is true;
 
-        var menuItemSettings = new MenuItem { Header = UiHelper.WithText(AppIcons.Settings, L("Settings")) };
+        var menuItemSettings = new MenuItem
+        {
+            Header = UiHelper.WithText(AppIcons.Settings, L("Settings")),
+            InputGesture = new KeyGesture(Key.OemComma, KeyModifiers.Control)
+        };
         var btnMore = BuildHelpMenu(menuItemSettings);
 
-        ToolTip.SetTip(btnRefresh, L("Refresh"));
+        ToolTip.SetTip(btnRefresh, $"{L("Refresh")} (F5)");
         ToolTip.SetTip(btnAutoRef, L("AutoRefresh"));
 
         var statsPanel = new StackPanel
@@ -390,6 +398,27 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             MinHeight = 500,
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             Content = mainGrid
+        };
+
+        // Keyboard shortcuts. Avalonia maps KeyModifiers.Control to Cmd on macOS,
+        // so the same gesture works on Windows / Linux / macOS.
+        _window.KeyDown += async (_, e) =>
+        {
+            if (e.KeyModifiers == KeyModifiers.Control && e.Key == Key.F)
+            {
+                _txtSearch.Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F5)
+            {
+                await RefreshAsync();
+                e.Handled = true;
+            }
+            else if (e.KeyModifiers == KeyModifiers.Control && e.Key == Key.OemComma)
+            {
+                menuItemSettings.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(MenuItem.ClickEvent));
+                e.Handled = true;
+            }
         };
 
         if (_config.Kiosk)
