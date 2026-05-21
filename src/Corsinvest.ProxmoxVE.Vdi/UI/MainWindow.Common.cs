@@ -501,5 +501,7 @@ internal partial class MainWindow
                                        || (showStopped && a.CanPower && !a.IsActive)).ToList();
         RebuildCardView(list);
         RebuildListView(list);
+
+        _emptyState.IsVisible = list.Count == 0;
     }
 }

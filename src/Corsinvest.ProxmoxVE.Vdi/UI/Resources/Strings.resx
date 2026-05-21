@@ -41,6 +41,7 @@
 
   <!-- Filter sidebar -->
   <data name="SearchWatermark"><value>Name, ID, description, tag...</value></data>
+  <data name="NoResults"><value>No VMs or containers match the current filters.</value></data>
   <data name="ResetFilters"><value>Reset filters</value></data>
   <data name="SectionFilters"><value>FILTERS</value></data>
   <data name="SectionSearch"><value>SEARCH</value></data>
