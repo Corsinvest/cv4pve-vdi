@@ -100,6 +100,15 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     private readonly StackPanel _cardContent = new() { Spacing = 24 };
     private readonly StackPanel _listContent = new() { Spacing = 16, IsVisible = false };
+    private readonly TextBlock _emptyState = new()
+    {
+        Text = L("NoResults"),
+        FontSize = 14,
+        Opacity = 0.55,
+        HorizontalAlignment = HorizontalAlignment.Center,
+        Margin = new Thickness(0, 48, 0, 0),
+        IsVisible = false
+    };
 
     private ScrollViewer? _sidebar;
 
@@ -319,7 +328,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             {
                 Margin = new Thickness(18, 14),
                 Spacing = 0,
-                Children = { _cardContent, _listContent }
+                Children = { _cardContent, _listContent, _emptyState }
             },
             HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto
