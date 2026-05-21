@@ -454,7 +454,8 @@ internal partial class MainWindow
             var ft = _filterText.Trim().ToLowerInvariant();
             filtered = filtered.Where(a => a.Name.Contains(ft, StringComparison.OrdinalIgnoreCase)
                                             || a.IdDisplay.Contains(ft, StringComparison.OrdinalIgnoreCase)
-                                            || a.Description.Contains(ft, StringComparison.OrdinalIgnoreCase));
+                                            || a.Description.Contains(ft, StringComparison.OrdinalIgnoreCase)
+                                            || a.Tags.Any(t => t.Contains(ft, StringComparison.OrdinalIgnoreCase)));
         }
 
         var filterByStatus = _chkRunning.IsChecked is true || _chkStopped.IsChecked is true;

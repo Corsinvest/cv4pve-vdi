@@ -52,6 +52,7 @@ Download the latest release from the [releases page](https://github.com/Corsinve
 - **VM/CT power control** — Start and Shutdown buttons (with optional confirmation)
 - **Real-time stats** — CPU and RAM usage bars per VM
 - **Auto-refresh** every 30 seconds — toggle from the toolbar
+- **Search bar** — quick filter by name, ID, description or tag
 - **Filter sidebar** — filter by node, pool, status, type and tags
 - **Tag support** — color-coded badges with Proxmox VE tag colors
 - **Multi-host** — manage multiple Proxmox VE clusters from a single client
