@@ -492,7 +492,12 @@ internal partial class MainWindow
                                             || a.Tags.Any(t => _filterTags.Contains(t)));
         }
 
-        var list = filtered.Where(a => a.HasAnyVdiAction).ToList();
+        // When the user explicitly ticks the Stopped status filter, include powerable rows
+        // even if they have no live VDI action — otherwise the Start button can't be reached
+        // for stopped VMs/CTs.
+        var showStopped = _chkStopped.IsChecked is true;
+        var list = filtered.Where(a => a.HasAnyVdiAction
+                                       || (showStopped && a.CanPower && !a.IsActive)).ToList();
         RebuildCardView(list);
         RebuildListView(list);
     }
