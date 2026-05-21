@@ -7,6 +7,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Themes.Fluent;
 using Corsinvest.ProxmoxVE.Vdi.Config;
 using Corsinvest.ProxmoxVE.Vdi.UI;
+using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 
 namespace Corsinvest.ProxmoxVE.Vdi;
 
@@ -16,6 +17,7 @@ internal sealed class Program
     public static void Main(string[] args)
     {
         var config = AppConfigManager.Load();
+        AppLocalization.ApplyLanguage(config.Language);
 
         var lifetime = new ClassicDesktopStyleApplicationLifetime
         {

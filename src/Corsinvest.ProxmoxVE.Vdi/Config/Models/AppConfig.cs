@@ -107,4 +107,10 @@ internal class AppConfig
     /// Default: <c>true</c>.
     /// </summary>
     public bool KioskForceFullScreen { get; set; } = true;
+
+    /// <summary>
+    /// UI language. <c>"auto"</c> follows the OS culture; otherwise an ISO code like
+    /// <c>"en"</c>, <c>"it"</c>, <c>"de"</c>, <c>"fr"</c>, <c>"es"</c>.
+    /// </summary>
+    public string Language { get; set; } = "auto";
 }
