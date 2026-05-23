@@ -23,7 +23,6 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="AppTitle"><value>Proxmox VE VDI Client</value></data>
   <data name="LoginWindowTitle"><value>cv4pve-vdi — Login</value></data>
   <data name="Username"><value>Username</value></data>
   <data name="Password"><value>Password</value></data>
@@ -150,7 +149,6 @@
   <data name="SupportsCredentials"><value>Supports credentials</value></data>
   <data name="UseWindowsCredential"><value>Use Windows Credential Manager</value></data>
   <data name="WinCredentialType"><value>Credential type</value></data>
-  <data name="WinCredentialPersist"><value>Persistence</value></data>
   <data name="WinCredentialTarget"><value>Target template</value></data>
   <data name="LauncherIdAndNameRequired"><value>Service ID and display name are required.</value></data>
   <data name="LauncherExecutableRequired"><value>Executable path is required.</value></data>

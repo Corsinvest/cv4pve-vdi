@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root><accessability>internal</accessability>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="xml:space" default="preserve"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Login -->
+  <data name="LoginWindowTitle"><value>cv4pve-vdi — Inloggen</value></data>
+  <data name="Username"><value>Gebruikersnaam</value></data>
+  <data name="Password"><value>Wachtwoord</value></data>
+  <data name="OtpLabel"><value>OTP (optioneel)</value></data>
+  <data name="OtpWatermark"><value>OTP (laat leeg indien niet vereist)</value></data>
+  <data name="Login"><value>Inloggen</value></data>
+  <data name="ManageClusters"><value>Clusters beheren</value></data>
+  <data name="Connecting"><value>Verbinden...</value></data>
+  <data name="PleaseSelectHost"><value>Voeg een host toe en selecteer deze.</value></data>
+
+  <!-- Main window -->
+  <data name="Refresh"><value>Vernieuwen</value></data>
+  <data name="AutoRefresh"><value>Automatisch vernieuwen elke 30s</value></data>
+  <data name="Settings"><value>Instellingen</value></data>
+
+  <!-- Filter sidebar -->
+  <data name="SearchWatermark"><value>Naam, ID, beschrijving, tag...</value></data>
+  <data name="SearchTooltip"><value>VM's en containers filteren</value></data>
+  <data name="NoResults"><value>Geen VM's of containers voldoen aan de huidige filters.</value></data>
+  <data name="ResetFilters"><value>Filters herstellen</value></data>
+  <data name="SectionFilters"><value>FILTERS</value></data>
+  <data name="SectionSearch"><value>ZOEKEN</value></data>
+  <data name="SectionDisplay"><value>WEERGAVE</value></data>
+  <data name="SectionBehaviour"><value>GEDRAG</value></data>
+  <data name="SectionNodes"><value>NODES</value></data>
+  <data name="SectionPools"><value>POOL</value></data>
+  <data name="SectionStatus"><value>STATUS</value></data>
+  <data name="SectionType"><value>TYPE</value></data>
+  <data name="SectionTags"><value>TAGS</value></data>
+
+  <!-- Status / type labels -->
+  <data name="StatusRunning"><value>Actief</value></data>
+  <data name="StatusStopped"><value>Gestopt</value></data>
+  <data name="TypeVm"><value>VM</value></data>
+  <data name="TypeCt"><value>CT</value></data>
+  <data name="TypeNode"><value>Node</value></data>
+
+  <!-- VM action buttons -->
+  <data name="Start"><value>Starten</value></data>
+  <data name="Shutdown"><value>Afsluiten</value></data>
+  <data name="Spice"><value>SPICE</value></data>
+  <data name="Vnc"><value>VNC</value></data>
+
+  <!-- Confirm dialog -->
+  <data name="Confirm"><value>Bevestigen</value></data>
+  <data name="Yes"><value>Ja</value></data>
+  <data name="No"><value>Nee</value></data>
+  <data name="Information"><value>Informatie</value></data>
+  <data name="Warning"><value>Waarschuwing</value></data>
+  <data name="Error"><value>Fout</value></data>
+  <data name="Ok"><value>OK</value></data>
+  <data name="Cancel"><value>Annuleren</value></data>
+
+  <!-- Errors -->
+  <data name="ErrorPrefix"><value>Fout: </value></data>
+  <data name="Copy"><value>Kopiëren</value></data>
+
+  <!-- Settings window -->
+  <data name="SettingsWindowTitle"><value>Instellingen</value></data>
+  <data name="TabAppearance"><value>Weergave</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer is niet geconfigureerd — SPICE- en VNC-consoles werken niet.</value></data>
+  <data name="OpenSettings"><value>Instellingen openen</value></data>
+  <data name="More"><value>Meer</value></data>
+  <data name="DefaultView"><value>Weergave</value></data>
+  <data name="UpdateAvailable"><value>beschikbaar</value></data>
+  <data name="Documentation"><value>Documentatie</value></data>
+  <data name="ReleaseNotes"><value>Release notes</value></data>
+  <data name="Support"><value>Ondersteuning</value></data>
+  <data name="ReportBug"><value>Bug melden</value></data>
+  <data name="RequestFeature"><value>Functie aanvragen</value></data>
+  <data name="TabClusters"><value>Clusters</value></data>
+  <data name="Theme"><value>Thema</value></data>
+  <data name="ShowBars"><value>CPU/RAM-balken tonen</value></data>
+  <data name="ShowStartButton"><value>Start-knop tonen</value></data>
+  <data name="ShowShutdownButton"><value>Afsluit-knop tonen</value></data>
+  <data name="AskConfirmation"><value>Bevestiging vragen</value></data>
+  <data name="PowerButtons"><value>Power-knoppen</value></data>
+  <data name="Save"><value>Opslaan</value></data>
+  <data name="Add"><value>Toevoegen</value></data>
+  <data name="Edit"><value>Bewerken</value></data>
+  <data name="Delete"><value>Verwijderen</value></data>
+
+  <!-- Settings tabs -->
+  <data name="TabLaunchers"><value>Launchers</value></data>
+  <data name="TabKiosk"><value>Kiosk</value></data>
+  <data name="KioskEnable"><value>Kiosk-modus inschakelen</value></data>
+  <data name="KioskAdminPassword"><value>Adminwachtwoord</value></data>
+  <data name="KioskConfirmPassword"><value>Bevestig adminwachtwoord</value></data>
+  <data name="KioskDocumentationLink"><value>Documentatie bekijken</value></data>
+  <data name="KioskPasswordRequired"><value>Adminwachtwoord is vereist in kiosk-modus.</value></data>
+  <data name="KioskPasswordMismatch"><value>Wachtwoorden komen niet overeen.</value></data>
+  <data name="KioskUnlockPrompt"><value>Voer het adminwachtwoord in om door te gaan.</value></data>
+  <data name="KioskUnlockWrong"><value>Onjuist adminwachtwoord.</value></data>
+  <data name="KioskPasswordSet"><value>(wachtwoord ingesteld — laat leeg om dit te behouden)</value></data>
+  <data name="SwitchUser"><value>Gebruiker wisselen</value></data>
+  <data name="KioskLoginBackground"><value>Achtergrondafbeelding van het login (optioneel)</value></data>
+  <data name="KioskForceFullScreen"><value>Volledig scherm afdwingen (aanbevolen)</value></data>
+  <data name="KioskBackgroundWatermark"><value>pad naar afbeelding (PNG, JPG, BMP, GIF)</value></data>
+  <data name="KioskBackgroundBrowse"><value>Achtergrondafbeelding kiezen...</value></data>
+  <data name="SectionViewer"><value>VIEWER</value></data>
+  <data name="SectionProtocols"><value>PROTOCOLLEN</value></data>
+  <data name="SectionClusters"><value>CLUSTERS</value></data>
+  <data name="SectionLaunchers"><value>LAUNCHERS</value></data>
+  <data name="ViewerPath"><value>Viewer-pad (remote-viewer, voor SPICE en VNC)</value></data>
+  <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="EnableSpice"><value>SPICE</value></data>
+  <data name="EnableVnc"><value>VNC</value></data>
+  <data name="EnableAgentPing"><value>Guest agent pingen (alleen QEMU)</value></data>
+  <data name="ResetAllToDefault"><value>Alle ingebouwde herstellen naar standaard</value></data>
+  <data name="ConfirmResetAllLaunchers"><value>Alle ingebouwde launchers herstellen naar standaardinstellingen? Aangepaste launchers blijven behouden.</value></data>
+
+  <!-- Launcher edit window -->
+  <data name="SelectLauncher"><value>Selecteer een launcher.</value></data>
+  <data name="NewLauncher"><value>Nieuwe launcher</value></data>
+  <data name="EditLauncher"><value>Launcher bewerken</value></data>
+  <data name="LauncherServiceId"><value>Service-ID (unieke sleutel)</value></data>
+  <data name="LauncherDisplayName"><value>Weergavenaam</value></data>
+  <data name="LauncherDefaultPort"><value>Standaardpoort</value></data>
+  <data name="LauncherPlatform"><value>Platform</value></data>
+  <data name="LauncherExecutable"><value>Uitvoerbaar bestand</value></data>
+  <data name="BrowseExecutable"><value>Uitvoerbaar bestand zoeken...</value></data>
+  <data name="ExeWatermark"><value>pad naar uitvoerbaar bestand (bijv. mstsc.exe)</value></data>
+  <data name="LauncherArguments"><value>Argumenten-template</value></data>
+  <data name="SupportsCredentials"><value>Ondersteunt referenties</value></data>
+  <data name="UseWindowsCredential"><value>Windows Credential Manager gebruiken</value></data>
+  <data name="WinCredentialType"><value>Type referentie</value></data>
+  <data name="WinCredentialTarget"><value>Doel-template</value></data>
+  <data name="LauncherIdAndNameRequired"><value>Service-ID en weergavenaam zijn verplicht.</value></data>
+  <data name="LauncherExecutableRequired"><value>Pad naar uitvoerbaar bestand is verplicht.</value></data>
+  <data name="ExtraArgs"><value>Extra argumenten</value></data>
+  <data name="IpOverride"><value>IP / hostnaam (leeg = automatisch detecteren)</value></data>
+  <data name="IpOverrideWatermark"><value>192.168.1.10  of  myvm.local  (leeg voor automatisch)</value></data>
+  <data name="ExtraArgsWatermark"><value>optionele extra argumenten...</value></data>
+
+  <!-- VM services window -->
+  <data name="Services"><value>Services</value></data>
+  <data name="ConfigureServices"><value>Services...</value></data>
+  <data name="Connect"><value>Verbinden</value></data>
+  <data name="NoIpAvailable"><value>Kan het IP-adres van deze VM niet bepalen.</value></data>
+  <data name="Discover"><value>Detecteren</value></data>
+  <data name="DiscoverNoneFound"><value>Geen bereikbare services gevonden op deze VM.</value></data>
+  <data name="DiscoverFound"><value>Selecteer de services om toe te voegen:</value></data>
+  <data name="AddSelected"><value>Selectie toevoegen</value></data>
+  <data name="EditService"><value>Service bewerken</value></data>
+  <data name="AddService"><value>Service toevoegen</value></data>
+  <data name="Launcher"><value>Launcher</value></data>
+  <data name="Port"><value>Poort</value></data>
+  <data name="CredentialSource"><value>Referenties</value></data>
+
+  <!-- ClusterConfig label in login -->
+  <data name="ClusterConfig"><value>Cluster</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>Cluster bewerken</value></data>
+  <data name="AddHost"><value>Cluster toevoegen</value></data>
+  <data name="HostName"><value>Naam</value></data>
+  <data name="HostHosts"><value>Hosts (host:port,host:port voor HA)</value></data>
+  <data name="HostSkipSsl"><value>TLS-certificaatvalidatie overslaan</value></data>
+  <data name="HostTimeout"><value>Timeout (seconden)</value></data>
+  <data name="HostSpiceProxy"><value>SPICE-proxy (optioneel)</value></data>
+  <data name="HostViewerOptions"><value>Extra viewer-opties (optioneel)</value></data>
+  <data name="HostNameRequired"><value>Naam en URL zijn verplicht.</value></data>
+  <data name="HostViewerOptionsWatermark"><value>extra argumenten voor remote-viewer...</value></data>
+  <data name="ShowNodes"><value>Nodefilter tonen</value></data>
+  <data name="ShowPools"><value>Pools tonen</value></data>
+  <data name="ShowTags"><value>Tags tonen</value></data>
+  <data name="BadgeAudioSpice"><value>SPICE-audio</value></data>
+  <data name="BadgeUsbRedirect"><value>USB-omleiding</value></data>
+  <data name="BadgeAgentRunning"><value>Guest agent: actief</value></data>
+  <data name="BadgeAgentStopped"><value>Guest agent: reageert niet</value></data>
+  <data name="BadgeAgentUnknown"><value>Guest agent: geconfigureerd (ping uitgeschakeld)</value></data>
+  <data name="BadgeClipboard"><value>Klembord delen</value></data>
+  <data name="ConfirmStart"><value>{0} starten?</value></data>
+  <data name="ConfirmShutdown"><value>{0} afsluiten?</value></data>
+
+</root>

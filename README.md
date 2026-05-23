@@ -57,6 +57,7 @@ Download the latest release from the [releases page](https://github.com/Corsinve
 - **Tag support** — color-coded badges with Proxmox VE tag colors
 - **Multi-host** — manage multiple Proxmox VE clusters from a single client
 - **Theme support** — Light and Dark themes
+- **Multi-language** — UI available in several languages, picked from the login window; contributions welcome (see [docs/I18N.md](docs/I18N.md))
 - **Configurable** — full settings UI for appearance, launchers, clusters and kiosk (see [docs/SETTINGS.md](docs/SETTINGS.md))
 
 ### VM Badges and Indicators

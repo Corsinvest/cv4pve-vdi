@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root><accessability>internal</accessability>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="xml:space" default="preserve"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Login -->
+  <data name="LoginWindowTitle"><value>cv4pve-vdi — Вход</value></data>
+  <data name="Username"><value>Имя пользователя</value></data>
+  <data name="Password"><value>Пароль</value></data>
+  <data name="OtpLabel"><value>OTP (необязательно)</value></data>
+  <data name="OtpWatermark"><value>OTP (оставьте пустым, если не требуется)</value></data>
+  <data name="Login"><value>Войти</value></data>
+  <data name="ManageClusters"><value>Управление кластерами</value></data>
+  <data name="Connecting"><value>Подключение...</value></data>
+  <data name="PleaseSelectHost"><value>Добавьте и выберите хост.</value></data>
+
+  <!-- Main window -->
+  <data name="Refresh"><value>Обновить</value></data>
+  <data name="AutoRefresh"><value>Автообновление каждые 30 с</value></data>
+  <data name="Settings"><value>Настройки</value></data>
+
+  <!-- Filter sidebar -->
+  <data name="SearchWatermark"><value>Имя, ID, описание, тег...</value></data>
+  <data name="SearchTooltip"><value>Фильтр ВМ и контейнеров</value></data>
+  <data name="NoResults"><value>Ни одна ВМ или контейнер не соответствует текущим фильтрам.</value></data>
+  <data name="ResetFilters"><value>Сбросить фильтры</value></data>
+  <data name="SectionFilters"><value>ФИЛЬТРЫ</value></data>
+  <data name="SectionSearch"><value>ПОИСК</value></data>
+  <data name="SectionDisplay"><value>ОТОБРАЖЕНИЕ</value></data>
+  <data name="SectionBehaviour"><value>ПОВЕДЕНИЕ</value></data>
+  <data name="SectionNodes"><value>УЗЛЫ</value></data>
+  <data name="SectionPools"><value>ПУЛ</value></data>
+  <data name="SectionStatus"><value>СТАТУС</value></data>
+  <data name="SectionType"><value>ТИП</value></data>
+  <data name="SectionTags"><value>ТЕГИ</value></data>
+
+  <!-- Status / type labels -->
+  <data name="StatusRunning"><value>Запущена</value></data>
+  <data name="StatusStopped"><value>Остановлена</value></data>
+  <data name="TypeVm"><value>ВМ</value></data>
+  <data name="TypeCt"><value>CT</value></data>
+  <data name="TypeNode"><value>Узел</value></data>
+
+  <!-- VM action buttons -->
+  <data name="Start"><value>Запустить</value></data>
+  <data name="Shutdown"><value>Выключить</value></data>
+  <data name="Spice"><value>SPICE</value></data>
+  <data name="Vnc"><value>VNC</value></data>
+
+  <!-- Confirm dialog -->
+  <data name="Confirm"><value>Подтвердить</value></data>
+  <data name="Yes"><value>Да</value></data>
+  <data name="No"><value>Нет</value></data>
+  <data name="Information"><value>Информация</value></data>
+  <data name="Warning"><value>Предупреждение</value></data>
+  <data name="Error"><value>Ошибка</value></data>
+  <data name="Ok"><value>OK</value></data>
+  <data name="Cancel"><value>Отмена</value></data>
+
+  <!-- Errors -->
+  <data name="ErrorPrefix"><value>Ошибка: </value></data>
+  <data name="Copy"><value>Копировать</value></data>
+
+  <!-- Settings window -->
+  <data name="SettingsWindowTitle"><value>Настройки</value></data>
+  <data name="TabAppearance"><value>Внешний вид</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer не настроен — консоли SPICE и VNC не будут работать.</value></data>
+  <data name="OpenSettings"><value>Открыть настройки</value></data>
+  <data name="More"><value>Ещё</value></data>
+  <data name="DefaultView"><value>Вид</value></data>
+  <data name="UpdateAvailable"><value>доступно</value></data>
+  <data name="Documentation"><value>Документация</value></data>
+  <data name="ReleaseNotes"><value>Заметки о выпуске</value></data>
+  <data name="Support"><value>Поддержка</value></data>
+  <data name="ReportBug"><value>Сообщить об ошибке</value></data>
+  <data name="RequestFeature"><value>Предложить функцию</value></data>
+  <data name="TabClusters"><value>Кластеры</value></data>
+  <data name="Theme"><value>Тема</value></data>
+  <data name="ShowBars"><value>Показывать полосы CPU/RAM</value></data>
+  <data name="ShowStartButton"><value>Показывать кнопку «Запустить»</value></data>
+  <data name="ShowShutdownButton"><value>Показывать кнопку «Выключить»</value></data>
+  <data name="AskConfirmation"><value>Запрашивать подтверждение</value></data>
+  <data name="PowerButtons"><value>Кнопки питания</value></data>
+  <data name="Save"><value>Сохранить</value></data>
+  <data name="Add"><value>Добавить</value></data>
+  <data name="Edit"><value>Изменить</value></data>
+  <data name="Delete"><value>Удалить</value></data>
+
+  <!-- Settings tabs -->
+  <data name="TabLaunchers"><value>Запускалки</value></data>
+  <data name="TabKiosk"><value>Киоск</value></data>
+  <data name="KioskEnable"><value>Включить режим киоска</value></data>
+  <data name="KioskAdminPassword"><value>Пароль администратора</value></data>
+  <data name="KioskConfirmPassword"><value>Подтвердите пароль администратора</value></data>
+  <data name="KioskDocumentationLink"><value>Открыть документацию</value></data>
+  <data name="KioskPasswordRequired"><value>В режиме киоска требуется пароль администратора.</value></data>
+  <data name="KioskPasswordMismatch"><value>Пароли не совпадают.</value></data>
+  <data name="KioskUnlockPrompt"><value>Введите пароль администратора, чтобы продолжить.</value></data>
+  <data name="KioskUnlockWrong"><value>Неверный пароль администратора.</value></data>
+  <data name="KioskPasswordSet"><value>(пароль установлен — оставьте пустым, чтобы сохранить текущий)</value></data>
+  <data name="SwitchUser"><value>Сменить пользователя</value></data>
+  <data name="KioskLoginBackground"><value>Фоновое изображение входа (необязательно)</value></data>
+  <data name="KioskForceFullScreen"><value>Принудительный полноэкранный режим (рекомендуется)</value></data>
+  <data name="KioskBackgroundWatermark"><value>путь к изображению (PNG, JPG, BMP, GIF)</value></data>
+  <data name="KioskBackgroundBrowse"><value>Выбрать фоновое изображение...</value></data>
+  <data name="SectionViewer"><value>VIEWER</value></data>
+  <data name="SectionProtocols"><value>ПРОТОКОЛЫ</value></data>
+  <data name="SectionClusters"><value>КЛАСТЕРЫ</value></data>
+  <data name="SectionLaunchers"><value>ЗАПУСКАЛКИ</value></data>
+  <data name="ViewerPath"><value>Путь к viewer (remote-viewer, для SPICE и VNC)</value></data>
+  <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="EnableSpice"><value>SPICE</value></data>
+  <data name="EnableVnc"><value>VNC</value></data>
+  <data name="EnableAgentPing"><value>Опрос guest agent (только QEMU)</value></data>
+  <data name="ResetAllToDefault"><value>Сбросить все встроенные к значениям по умолчанию</value></data>
+  <data name="ConfirmResetAllLaunchers"><value>Сбросить все встроенные запускалки к значениям по умолчанию? Пользовательские запускалки будут сохранены.</value></data>
+
+  <!-- Launcher edit window -->
+  <data name="SelectLauncher"><value>Выберите запускалку.</value></data>
+  <data name="NewLauncher"><value>Новая запускалка</value></data>
+  <data name="EditLauncher"><value>Изменить запускалку</value></data>
+  <data name="LauncherServiceId"><value>ID сервиса (уникальный ключ)</value></data>
+  <data name="LauncherDisplayName"><value>Отображаемое имя</value></data>
+  <data name="LauncherDefaultPort"><value>Порт по умолчанию</value></data>
+  <data name="LauncherPlatform"><value>Платформа</value></data>
+  <data name="LauncherExecutable"><value>Исполняемый файл</value></data>
+  <data name="BrowseExecutable"><value>Выбрать исполняемый файл...</value></data>
+  <data name="ExeWatermark"><value>путь к исполняемому файлу (например, mstsc.exe)</value></data>
+  <data name="LauncherArguments"><value>Шаблон аргументов</value></data>
+  <data name="SupportsCredentials"><value>Поддерживает учётные данные</value></data>
+  <data name="UseWindowsCredential"><value>Использовать «Диспетчер учётных данных Windows»</value></data>
+  <data name="WinCredentialType"><value>Тип учётных данных</value></data>
+  <data name="WinCredentialTarget"><value>Шаблон цели</value></data>
+  <data name="LauncherIdAndNameRequired"><value>ID сервиса и отображаемое имя обязательны.</value></data>
+  <data name="LauncherExecutableRequired"><value>Путь к исполняемому файлу обязателен.</value></data>
+  <data name="ExtraArgs"><value>Дополнительные аргументы</value></data>
+  <data name="IpOverride"><value>IP / имя хоста (пусто = автоопределение)</value></data>
+  <data name="IpOverrideWatermark"><value>192.168.1.10  или  myvm.local  (пусто для авто)</value></data>
+  <data name="ExtraArgsWatermark"><value>необязательные дополнительные аргументы...</value></data>
+
+  <!-- VM services window -->
+  <data name="Services"><value>Сервисы</value></data>
+  <data name="ConfigureServices"><value>Сервисы...</value></data>
+  <data name="Connect"><value>Подключиться</value></data>
+  <data name="NoIpAvailable"><value>Не удалось определить IP-адрес этой ВМ.</value></data>
+  <data name="Discover"><value>Обнаружить</value></data>
+  <data name="DiscoverNoneFound"><value>Доступные сервисы на этой ВМ не найдены.</value></data>
+  <data name="DiscoverFound"><value>Выберите сервисы для добавления:</value></data>
+  <data name="AddSelected"><value>Добавить выбранные</value></data>
+  <data name="EditService"><value>Изменить сервис</value></data>
+  <data name="AddService"><value>Добавить сервис</value></data>
+  <data name="Launcher"><value>Запускалка</value></data>
+  <data name="Port"><value>Порт</value></data>
+  <data name="CredentialSource"><value>Учётные данные</value></data>
+
+  <!-- ClusterConfig label in login -->
+  <data name="ClusterConfig"><value>Кластер</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>Изменить кластер</value></data>
+  <data name="AddHost"><value>Добавить кластер</value></data>
+  <data name="HostName"><value>Имя</value></data>
+  <data name="HostHosts"><value>Хосты (host:port,host:port для HA)</value></data>
+  <data name="HostSkipSsl"><value>Пропускать проверку TLS-сертификата</value></data>
+  <data name="HostTimeout"><value>Тайм-аут (секунды)</value></data>
+  <data name="HostSpiceProxy"><value>SPICE-прокси (необязательно)</value></data>
+  <data name="HostViewerOptions"><value>Доп. параметры viewer (необязательно)</value></data>
+  <data name="HostNameRequired"><value>Имя и URL обязательны.</value></data>
+  <data name="HostViewerOptionsWatermark"><value>дополнительные аргументы для remote-viewer...</value></data>
+  <data name="ShowNodes"><value>Показывать фильтр узлов</value></data>
+  <data name="ShowPools"><value>Показывать пулы</value></data>
+  <data name="ShowTags"><value>Показывать теги</value></data>
+  <data name="BadgeAudioSpice"><value>SPICE-аудио</value></data>
+  <data name="BadgeUsbRedirect"><value>Перенаправление USB</value></data>
+  <data name="BadgeAgentRunning"><value>Guest agent: активен</value></data>
+  <data name="BadgeAgentStopped"><value>Guest agent: не отвечает</value></data>
+  <data name="BadgeAgentUnknown"><value>Guest agent: настроен (опрос отключён)</value></data>
+  <data name="BadgeClipboard"><value>Общий буфер обмена</value></data>
+  <data name="ConfirmStart"><value>Запустить {0}?</value></data>
+  <data name="ConfirmShutdown"><value>Выключить {0}?</value></data>
+
+</root>

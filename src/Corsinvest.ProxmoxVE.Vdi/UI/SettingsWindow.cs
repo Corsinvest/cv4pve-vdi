@@ -13,6 +13,7 @@ internal static partial class SettingsWindow
 {
     public static Window Create(AppConfig config, Action? onHostsChanged = null, int initialTab = 0, bool clustersOnly = false)
     {
+        ReapplyLanguage();
         var btnSave = UiHelper.IconButton(AppIcons.Save, "Save");
 
         var btnRow = new StackPanel

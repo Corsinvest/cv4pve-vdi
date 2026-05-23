@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root><accessability>internal</accessability>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="xml:space" default="preserve"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Login -->
+  <data name="LoginWindowTitle"><value>cv4pve-vdi — Přihlášení</value></data>
+  <data name="Username"><value>Uživatelské jméno</value></data>
+  <data name="Password"><value>Heslo</value></data>
+  <data name="OtpLabel"><value>OTP (volitelné)</value></data>
+  <data name="OtpWatermark"><value>OTP (ponechte prázdné, pokud není vyžadováno)</value></data>
+  <data name="Login"><value>Přihlásit</value></data>
+  <data name="ManageClusters"><value>Spravovat clustery</value></data>
+  <data name="Connecting"><value>Připojování...</value></data>
+  <data name="PleaseSelectHost"><value>Přidejte a vyberte hostitele.</value></data>
+
+  <!-- Main window -->
+  <data name="Refresh"><value>Obnovit</value></data>
+  <data name="AutoRefresh"><value>Automatické obnovení každých 30 s</value></data>
+  <data name="Settings"><value>Nastavení</value></data>
+
+  <!-- Filter sidebar -->
+  <data name="SearchWatermark"><value>Název, ID, popis, tag...</value></data>
+  <data name="SearchTooltip"><value>Filtrovat VM a kontejnery</value></data>
+  <data name="NoResults"><value>Žádné VM ani kontejnery neodpovídají aktuálním filtrům.</value></data>
+  <data name="ResetFilters"><value>Resetovat filtry</value></data>
+  <data name="SectionFilters"><value>FILTRY</value></data>
+  <data name="SectionSearch"><value>HLEDAT</value></data>
+  <data name="SectionDisplay"><value>ZOBRAZENÍ</value></data>
+  <data name="SectionBehaviour"><value>CHOVÁNÍ</value></data>
+  <data name="SectionNodes"><value>UZLY</value></data>
+  <data name="SectionPools"><value>POOL</value></data>
+  <data name="SectionStatus"><value>STAV</value></data>
+  <data name="SectionType"><value>TYP</value></data>
+  <data name="SectionTags"><value>TAGY</value></data>
+
+  <!-- Status / type labels -->
+  <data name="StatusRunning"><value>Spuštěné</value></data>
+  <data name="StatusStopped"><value>Zastavené</value></data>
+  <data name="TypeVm"><value>VM</value></data>
+  <data name="TypeCt"><value>CT</value></data>
+  <data name="TypeNode"><value>Uzel</value></data>
+
+  <!-- VM action buttons -->
+  <data name="Start"><value>Spustit</value></data>
+  <data name="Shutdown"><value>Vypnout</value></data>
+  <data name="Spice"><value>SPICE</value></data>
+  <data name="Vnc"><value>VNC</value></data>
+
+  <!-- Confirm dialog -->
+  <data name="Confirm"><value>Potvrdit</value></data>
+  <data name="Yes"><value>Ano</value></data>
+  <data name="No"><value>Ne</value></data>
+  <data name="Information"><value>Informace</value></data>
+  <data name="Warning"><value>Upozornění</value></data>
+  <data name="Error"><value>Chyba</value></data>
+  <data name="Ok"><value>OK</value></data>
+  <data name="Cancel"><value>Zrušit</value></data>
+
+  <!-- Errors -->
+  <data name="ErrorPrefix"><value>Chyba: </value></data>
+  <data name="Copy"><value>Kopírovat</value></data>
+
+  <!-- Settings window -->
+  <data name="SettingsWindowTitle"><value>Nastavení</value></data>
+  <data name="TabAppearance"><value>Vzhled</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer není nakonfigurován — konzole SPICE a VNC nebudou fungovat.</value></data>
+  <data name="OpenSettings"><value>Otevřít nastavení</value></data>
+  <data name="More"><value>Více</value></data>
+  <data name="DefaultView"><value>Zobrazení</value></data>
+  <data name="UpdateAvailable"><value>dostupné</value></data>
+  <data name="Documentation"><value>Dokumentace</value></data>
+  <data name="ReleaseNotes"><value>Poznámky k vydání</value></data>
+  <data name="Support"><value>Podpora</value></data>
+  <data name="ReportBug"><value>Nahlásit chybu</value></data>
+  <data name="RequestFeature"><value>Požádat o funkci</value></data>
+  <data name="TabClusters"><value>Clustery</value></data>
+  <data name="Theme"><value>Motiv</value></data>
+  <data name="ShowBars"><value>Zobrazovat ukazatele CPU/RAM</value></data>
+  <data name="ShowStartButton"><value>Zobrazit tlačítko Spustit</value></data>
+  <data name="ShowShutdownButton"><value>Zobrazit tlačítko Vypnout</value></data>
+  <data name="AskConfirmation"><value>Vyžadovat potvrzení</value></data>
+  <data name="PowerButtons"><value>Tlačítka napájení</value></data>
+  <data name="Save"><value>Uložit</value></data>
+  <data name="Add"><value>Přidat</value></data>
+  <data name="Edit"><value>Upravit</value></data>
+  <data name="Delete"><value>Smazat</value></data>
+
+  <!-- Settings tabs -->
+  <data name="TabLaunchers"><value>Spouštěče</value></data>
+  <data name="TabKiosk"><value>Kiosek</value></data>
+  <data name="KioskEnable"><value>Povolit režim kiosku</value></data>
+  <data name="KioskAdminPassword"><value>Heslo správce</value></data>
+  <data name="KioskConfirmPassword"><value>Potvrdit heslo správce</value></data>
+  <data name="KioskDocumentationLink"><value>Zobrazit dokumentaci</value></data>
+  <data name="KioskPasswordRequired"><value>V režimu kiosku je vyžadováno heslo správce.</value></data>
+  <data name="KioskPasswordMismatch"><value>Hesla se neshodují.</value></data>
+  <data name="KioskUnlockPrompt"><value>Pro pokračování zadejte heslo správce.</value></data>
+  <data name="KioskUnlockWrong"><value>Nesprávné heslo správce.</value></data>
+  <data name="KioskPasswordSet"><value>(heslo nastaveno — ponechte prázdné pro zachování)</value></data>
+  <data name="SwitchUser"><value>Změnit uživatele</value></data>
+  <data name="KioskLoginBackground"><value>Obrázek pozadí přihlášení (volitelné)</value></data>
+  <data name="KioskForceFullScreen"><value>Vynutit celou obrazovku (doporučeno)</value></data>
+  <data name="KioskBackgroundWatermark"><value>cesta k obrázku (PNG, JPG, BMP, GIF)</value></data>
+  <data name="KioskBackgroundBrowse"><value>Vybrat obrázek pozadí...</value></data>
+  <data name="SectionViewer"><value>VIEWER</value></data>
+  <data name="SectionProtocols"><value>PROTOKOLY</value></data>
+  <data name="SectionClusters"><value>CLUSTERY</value></data>
+  <data name="SectionLaunchers"><value>SPOUŠTĚČE</value></data>
+  <data name="ViewerPath"><value>Cesta k viewer (remote-viewer, pro SPICE a VNC)</value></data>
+  <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="EnableSpice"><value>SPICE</value></data>
+  <data name="EnableVnc"><value>VNC</value></data>
+  <data name="EnableAgentPing"><value>Ping guest agenta (pouze QEMU)</value></data>
+  <data name="ResetAllToDefault"><value>Obnovit všechny vestavěné na výchozí</value></data>
+  <data name="ConfirmResetAllLaunchers"><value>Obnovit všechny vestavěné spouštěče na výchozí nastavení? Vlastní spouštěče budou zachovány.</value></data>
+
+  <!-- Launcher edit window -->
+  <data name="SelectLauncher"><value>Vyberte spouštěč.</value></data>
+  <data name="NewLauncher"><value>Nový spouštěč</value></data>
+  <data name="EditLauncher"><value>Upravit spouštěč</value></data>
+  <data name="LauncherServiceId"><value>ID služby (unikátní klíč)</value></data>
+  <data name="LauncherDisplayName"><value>Zobrazované jméno</value></data>
+  <data name="LauncherDefaultPort"><value>Výchozí port</value></data>
+  <data name="LauncherPlatform"><value>Platforma</value></data>
+  <data name="LauncherExecutable"><value>Spustitelný soubor</value></data>
+  <data name="BrowseExecutable"><value>Vyhledat spustitelný soubor...</value></data>
+  <data name="ExeWatermark"><value>cesta ke spustitelnému souboru (např. mstsc.exe)</value></data>
+  <data name="LauncherArguments"><value>Šablona argumentů</value></data>
+  <data name="SupportsCredentials"><value>Podporuje přihlašovací údaje</value></data>
+  <data name="UseWindowsCredential"><value>Použít Správce přihlašovacích údajů Windows</value></data>
+  <data name="WinCredentialType"><value>Typ přihlašovacího údaje</value></data>
+  <data name="WinCredentialTarget"><value>Šablona cíle</value></data>
+  <data name="LauncherIdAndNameRequired"><value>ID služby a zobrazované jméno jsou povinné.</value></data>
+  <data name="LauncherExecutableRequired"><value>Cesta ke spustitelnému souboru je povinná.</value></data>
+  <data name="ExtraArgs"><value>Další argumenty</value></data>
+  <data name="IpOverride"><value>IP / název hostitele (prázdné = automatická detekce)</value></data>
+  <data name="IpOverrideWatermark"><value>192.168.1.10  nebo  myvm.local  (prázdné pro automatické)</value></data>
+  <data name="ExtraArgsWatermark"><value>volitelné další argumenty...</value></data>
+
+  <!-- VM services window -->
+  <data name="Services"><value>Služby</value></data>
+  <data name="ConfigureServices"><value>Služby...</value></data>
+  <data name="Connect"><value>Připojit</value></data>
+  <data name="NoIpAvailable"><value>Nelze určit IP adresu této VM.</value></data>
+  <data name="Discover"><value>Objevit</value></data>
+  <data name="DiscoverNoneFound"><value>Na této VM nebyly nalezeny žádné dostupné služby.</value></data>
+  <data name="DiscoverFound"><value>Vyberte služby k přidání:</value></data>
+  <data name="AddSelected"><value>Přidat vybrané</value></data>
+  <data name="EditService"><value>Upravit službu</value></data>
+  <data name="AddService"><value>Přidat službu</value></data>
+  <data name="Launcher"><value>Spouštěč</value></data>
+  <data name="Port"><value>Port</value></data>
+  <data name="CredentialSource"><value>Přihlašovací údaje</value></data>
+
+  <!-- ClusterConfig label in login -->
+  <data name="ClusterConfig"><value>Cluster</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>Upravit cluster</value></data>
+  <data name="AddHost"><value>Přidat cluster</value></data>
+  <data name="HostName"><value>Název</value></data>
+  <data name="HostHosts"><value>Hostitelé (host:port,host:port pro HA)</value></data>
+  <data name="HostSkipSsl"><value>Přeskočit ověření certifikátu TLS</value></data>
+  <data name="HostTimeout"><value>Timeout (sekundy)</value></data>
+  <data name="HostSpiceProxy"><value>SPICE proxy (volitelné)</value></data>
+  <data name="HostViewerOptions"><value>Další možnosti viewer (volitelné)</value></data>
+  <data name="HostNameRequired"><value>Název a URL jsou povinné.</value></data>
+  <data name="HostViewerOptionsWatermark"><value>další argumenty pro remote-viewer...</value></data>
+  <data name="ShowNodes"><value>Zobrazit filtr uzlů</value></data>
+  <data name="ShowPools"><value>Zobrazit pooly</value></data>
+  <data name="ShowTags"><value>Zobrazit tagy</value></data>
+  <data name="BadgeAudioSpice"><value>SPICE audio</value></data>
+  <data name="BadgeUsbRedirect"><value>Přesměrování USB</value></data>
+  <data name="BadgeAgentRunning"><value>Guest agent: aktivní</value></data>
+  <data name="BadgeAgentStopped"><value>Guest agent: neodpovídá</value></data>
+  <data name="BadgeAgentUnknown"><value>Guest agent: nakonfigurován (ping vypnutý)</value></data>
+  <data name="BadgeClipboard"><value>Sdílení schránky</value></data>
+  <data name="ConfirmStart"><value>Spustit {0}?</value></data>
+  <data name="ConfirmShutdown"><value>Vypnout {0}?</value></data>
+
+</root>

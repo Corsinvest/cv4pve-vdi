@@ -13,6 +13,27 @@ namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
 internal static class LoginWindow
 {
+    /// <summary>
+    /// Available UI languages shown in the login combo box. Each entry is its own endonym
+    /// (the language name written in that language), so users always recognise their language
+    /// regardless of the current UI culture.
+    /// </summary>
+    private static readonly (string Code, string Label)[] Languages =
+    [
+        ("auto",  "Auto"),
+        ("en",    "English"),       // base / fallback
+        // Other languages — alphabetical by endonym.
+        ("cs",    "Čeština"),
+        ("de",    "Deutsch"),
+        ("es",    "Español"),
+        ("fr",    "Français"),
+        ("it",    "Italiano"),
+        ("nl",    "Nederlands"),
+        ("pl",    "Polski"),
+        ("pt-BR", "Português (Brasil)"),
+        ("ru",    "Русский"),
+    ];
+
     public static Window Create(AppConfig config)
     {
         var (cmbCluster, cmbClusterWithIcon) = UiHelper.ComboBoxWithIcon(config.Clusters.ConvertAll(h => h.Name), AppIcons.Server);
@@ -46,6 +67,16 @@ internal static class LoginWindow
         var btnSettings = UiHelper.IconButton(AppIcons.Settings, "ManageClusters", margin: new Thickness(2, 0, 0, 0));
         var hostRow = UiHelper.RowWithButton(cmbClusterWithIcon, btnSettings);
 
+        // Language selector — sits in the top-right of the form.
+        var (cmbLanguage, cmbLanguageWithIcon) = UiHelper.ComboBoxWithIcon(
+            Languages.Select(l => l.Label).ToList(),
+            AppIcons.Globe,
+            Languages[Math.Max(0, Array.FindIndex(Languages, l => l.Code == (config.Language ?? "auto")))].Label);
+        cmbLanguageWithIcon.HorizontalAlignment = HorizontalAlignment.Right;
+        cmbLanguage.MinWidth = 130;
+        cmbLanguage.Background = Brushes.Transparent;
+        cmbLanguage.BorderBrush = Brushes.Transparent;
+
         var busyOverlay = new Border
         {
             IsVisible = false,
@@ -73,18 +104,30 @@ internal static class LoginWindow
             }
         };
 
+        var titleRow = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "Proxmox VE VDI Client",
+                    FontSize = 18,
+                    FontWeight = FontWeight.Bold,
+                    VerticalAlignment = VerticalAlignment.Center
+                },
+                cmbLanguageWithIcon
+            }
+        };
+        Grid.SetColumn(cmbLanguageWithIcon, 1);
+
         var form = new StackPanel
         {
             Margin = new Thickness(24),
             Spacing = 12,
             Children =
             {
-                new TextBlock
-                {
-                    Text = L("AppTitle"),
-                    FontSize = 18,
-                    FontWeight = FontWeight.Bold
-                },
+                titleRow,
                 UiHelper.Label("ClusterConfig"), hostRow,
                 UiHelper.Label("Username"), txtUser,
                 UiHelper.Label("Password"), txtPassword,
@@ -145,6 +188,23 @@ internal static class LoginWindow
                 }
             };
         }
+
+        cmbLanguage.SelectionChanged += (_, _) =>
+        {
+            var newLang = Languages[cmbLanguage.SelectedIndex].Code;
+            if (newLang == config.Language) { return; }
+
+            config.Language = newLang;
+            AppConfigManager.Save(config);
+
+            // Apply the new culture and rebuild the LoginWindow so all strings
+            // are re-evaluated in the chosen language.
+            ApplyLanguage(newLang);
+
+            var newWindow = Create(config);
+            newWindow.Show();
+            window.Close();
+        };
 
         void RefreshHostList()
         {
@@ -207,6 +267,7 @@ internal static class LoginWindow
             config.LastUser = user;
             AppConfigManager.Save(config);
 
+            ReapplyLanguage();
             var mainWin = new MainWindow(client, host, config, user, pwd).Build();
             mainWin.Show();
             kioskLoginUnlocked = true;

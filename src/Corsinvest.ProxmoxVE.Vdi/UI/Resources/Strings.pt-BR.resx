@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root><accessability>internal</accessability>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="xml:space" default="preserve"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Login -->
+  <data name="LoginWindowTitle"><value>cv4pve-vdi — Entrar</value></data>
+  <data name="Username"><value>Nome de usuário</value></data>
+  <data name="Password"><value>Senha</value></data>
+  <data name="OtpLabel"><value>OTP (opcional)</value></data>
+  <data name="OtpWatermark"><value>OTP (deixe em branco se não for necessário)</value></data>
+  <data name="Login"><value>Entrar</value></data>
+  <data name="ManageClusters"><value>Gerenciar clusters</value></data>
+  <data name="Connecting"><value>Conectando...</value></data>
+  <data name="PleaseSelectHost"><value>Adicione e selecione um host.</value></data>
+
+  <!-- Main window -->
+  <data name="Refresh"><value>Atualizar</value></data>
+  <data name="AutoRefresh"><value>Atualização automática a cada 30s</value></data>
+  <data name="Settings"><value>Configurações</value></data>
+
+  <!-- Filter sidebar -->
+  <data name="SearchWatermark"><value>Nome, ID, descrição, tag...</value></data>
+  <data name="SearchTooltip"><value>Filtrar VMs e contêineres</value></data>
+  <data name="NoResults"><value>Nenhuma VM ou contêiner corresponde aos filtros atuais.</value></data>
+  <data name="ResetFilters"><value>Limpar filtros</value></data>
+  <data name="SectionFilters"><value>FILTROS</value></data>
+  <data name="SectionSearch"><value>BUSCAR</value></data>
+  <data name="SectionDisplay"><value>EXIBIÇÃO</value></data>
+  <data name="SectionBehaviour"><value>COMPORTAMENTO</value></data>
+  <data name="SectionNodes"><value>NÓS</value></data>
+  <data name="SectionPools"><value>POOL</value></data>
+  <data name="SectionStatus"><value>STATUS</value></data>
+  <data name="SectionType"><value>TIPO</value></data>
+  <data name="SectionTags"><value>TAGS</value></data>
+
+  <!-- Status / type labels -->
+  <data name="StatusRunning"><value>Em execução</value></data>
+  <data name="StatusStopped"><value>Parada</value></data>
+  <data name="TypeVm"><value>VM</value></data>
+  <data name="TypeCt"><value>CT</value></data>
+  <data name="TypeNode"><value>Nó</value></data>
+
+  <!-- VM action buttons -->
+  <data name="Start"><value>Iniciar</value></data>
+  <data name="Shutdown"><value>Desligar</value></data>
+  <data name="Spice"><value>SPICE</value></data>
+  <data name="Vnc"><value>VNC</value></data>
+
+  <!-- Confirm dialog -->
+  <data name="Confirm"><value>Confirmar</value></data>
+  <data name="Yes"><value>Sim</value></data>
+  <data name="No"><value>Não</value></data>
+  <data name="Information"><value>Informação</value></data>
+  <data name="Warning"><value>Aviso</value></data>
+  <data name="Error"><value>Erro</value></data>
+  <data name="Ok"><value>OK</value></data>
+  <data name="Cancel"><value>Cancelar</value></data>
+
+  <!-- Errors -->
+  <data name="ErrorPrefix"><value>Erro: </value></data>
+  <data name="Copy"><value>Copiar</value></data>
+
+  <!-- Settings window -->
+  <data name="SettingsWindowTitle"><value>Configurações</value></data>
+  <data name="TabAppearance"><value>Aparência</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer não está configurado — os consoles SPICE e VNC não funcionarão.</value></data>
+  <data name="OpenSettings"><value>Abrir configurações</value></data>
+  <data name="More"><value>Mais</value></data>
+  <data name="DefaultView"><value>Visualização</value></data>
+  <data name="UpdateAvailable"><value>disponível</value></data>
+  <data name="Documentation"><value>Documentação</value></data>
+  <data name="ReleaseNotes"><value>Notas de versão</value></data>
+  <data name="Support"><value>Suporte</value></data>
+  <data name="ReportBug"><value>Relatar um bug</value></data>
+  <data name="RequestFeature"><value>Solicitar funcionalidade</value></data>
+  <data name="TabClusters"><value>Clusters</value></data>
+  <data name="Theme"><value>Tema</value></data>
+  <data name="ShowBars"><value>Mostrar barras de CPU/RAM</value></data>
+  <data name="ShowStartButton"><value>Mostrar botão Iniciar</value></data>
+  <data name="ShowShutdownButton"><value>Mostrar botão Desligar</value></data>
+  <data name="AskConfirmation"><value>Pedir confirmação</value></data>
+  <data name="PowerButtons"><value>Botões de energia</value></data>
+  <data name="Save"><value>Salvar</value></data>
+  <data name="Add"><value>Adicionar</value></data>
+  <data name="Edit"><value>Editar</value></data>
+  <data name="Delete"><value>Excluir</value></data>
+
+  <!-- Settings tabs -->
+  <data name="TabLaunchers"><value>Iniciadores</value></data>
+  <data name="TabKiosk"><value>Quiosque</value></data>
+  <data name="KioskEnable"><value>Ativar modo quiosque</value></data>
+  <data name="KioskAdminPassword"><value>Senha do administrador</value></data>
+  <data name="KioskConfirmPassword"><value>Confirmar senha do administrador</value></data>
+  <data name="KioskDocumentationLink"><value>Ver documentação</value></data>
+  <data name="KioskPasswordRequired"><value>A senha do administrador é obrigatória quando o modo quiosque está ativo.</value></data>
+  <data name="KioskPasswordMismatch"><value>As senhas não coincidem.</value></data>
+  <data name="KioskUnlockPrompt"><value>Digite a senha do administrador para continuar.</value></data>
+  <data name="KioskUnlockWrong"><value>Senha do administrador incorreta.</value></data>
+  <data name="KioskPasswordSet"><value>(senha definida — deixe em branco para mantê-la)</value></data>
+  <data name="SwitchUser"><value>Trocar de usuário</value></data>
+  <data name="KioskLoginBackground"><value>Imagem de fundo do login (opcional)</value></data>
+  <data name="KioskForceFullScreen"><value>Forçar tela cheia (recomendado)</value></data>
+  <data name="KioskBackgroundWatermark"><value>caminho da imagem (PNG, JPG, BMP, GIF)</value></data>
+  <data name="KioskBackgroundBrowse"><value>Escolher imagem de fundo...</value></data>
+  <data name="SectionViewer"><value>VIEWER</value></data>
+  <data name="SectionProtocols"><value>PROTOCOLOS</value></data>
+  <data name="SectionClusters"><value>CLUSTERS</value></data>
+  <data name="SectionLaunchers"><value>INICIADORES</value></data>
+  <data name="ViewerPath"><value>Caminho do viewer (remote-viewer, usado para SPICE e VNC)</value></data>
+  <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="EnableSpice"><value>SPICE</value></data>
+  <data name="EnableVnc"><value>VNC</value></data>
+  <data name="EnableAgentPing"><value>Pingar guest agent (somente QEMU)</value></data>
+  <data name="ResetAllToDefault"><value>Restaurar todos os padrões</value></data>
+  <data name="ConfirmResetAllLaunchers"><value>Restaurar todos os iniciadores integrados aos padrões? Os iniciadores personalizados serão mantidos.</value></data>
+
+  <!-- Launcher edit window -->
+  <data name="SelectLauncher"><value>Selecione um iniciador.</value></data>
+  <data name="NewLauncher"><value>Novo iniciador</value></data>
+  <data name="EditLauncher"><value>Editar iniciador</value></data>
+  <data name="LauncherServiceId"><value>ID de serviço (chave única)</value></data>
+  <data name="LauncherDisplayName"><value>Nome exibido</value></data>
+  <data name="LauncherDefaultPort"><value>Porta padrão</value></data>
+  <data name="LauncherPlatform"><value>Plataforma</value></data>
+  <data name="LauncherExecutable"><value>Executável</value></data>
+  <data name="BrowseExecutable"><value>Procurar executável...</value></data>
+  <data name="ExeWatermark"><value>caminho do executável (ex.: mstsc.exe)</value></data>
+  <data name="LauncherArguments"><value>Modelo de argumentos</value></data>
+  <data name="SupportsCredentials"><value>Suporta credenciais</value></data>
+  <data name="UseWindowsCredential"><value>Usar Gerenciador de Credenciais do Windows</value></data>
+  <data name="WinCredentialType"><value>Tipo de credencial</value></data>
+  <data name="WinCredentialTarget"><value>Modelo de destino</value></data>
+  <data name="LauncherIdAndNameRequired"><value>ID de serviço e nome exibido são obrigatórios.</value></data>
+  <data name="LauncherExecutableRequired"><value>O caminho do executável é obrigatório.</value></data>
+  <data name="ExtraArgs"><value>Argumentos adicionais</value></data>
+  <data name="IpOverride"><value>IP / hostname (vazio = detecção automática)</value></data>
+  <data name="IpOverrideWatermark"><value>192.168.1.10  ou  myvm.local  (vazio para automático)</value></data>
+  <data name="ExtraArgsWatermark"><value>argumentos adicionais opcionais...</value></data>
+
+  <!-- VM services window -->
+  <data name="Services"><value>Serviços</value></data>
+  <data name="ConfigureServices"><value>Serviços...</value></data>
+  <data name="Connect"><value>Conectar</value></data>
+  <data name="NoIpAvailable"><value>Não foi possível resolver o endereço IP desta VM.</value></data>
+  <data name="Discover"><value>Descobrir</value></data>
+  <data name="DiscoverNoneFound"><value>Nenhum serviço acessível encontrado nesta VM.</value></data>
+  <data name="DiscoverFound"><value>Selecione os serviços para adicionar:</value></data>
+  <data name="AddSelected"><value>Adicionar selecionados</value></data>
+  <data name="EditService"><value>Editar serviço</value></data>
+  <data name="AddService"><value>Adicionar serviço</value></data>
+  <data name="Launcher"><value>Iniciador</value></data>
+  <data name="Port"><value>Porta</value></data>
+  <data name="CredentialSource"><value>Credenciais</value></data>
+
+  <!-- ClusterConfig label in login -->
+  <data name="ClusterConfig"><value>Cluster</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>Editar cluster</value></data>
+  <data name="AddHost"><value>Adicionar cluster</value></data>
+  <data name="HostName"><value>Nome</value></data>
+  <data name="HostHosts"><value>Hosts (host:porta,host:porta para HA)</value></data>
+  <data name="HostSkipSsl"><value>Ignorar a validação do certificado TLS</value></data>
+  <data name="HostTimeout"><value>Tempo limite (segundos)</value></data>
+  <data name="HostSpiceProxy"><value>Proxy SPICE (opcional)</value></data>
+  <data name="HostViewerOptions"><value>Opções adicionais do viewer (opcional)</value></data>
+  <data name="HostNameRequired"><value>Nome e URL são obrigatórios.</value></data>
+  <data name="HostViewerOptionsWatermark"><value>argumentos adicionais para remote-viewer...</value></data>
+  <data name="ShowNodes"><value>Mostrar filtro de nós</value></data>
+  <data name="ShowPools"><value>Mostrar pools</value></data>
+  <data name="ShowTags"><value>Mostrar tags</value></data>
+  <data name="BadgeAudioSpice"><value>Áudio SPICE</value></data>
+  <data name="BadgeUsbRedirect"><value>Redirecionamento USB</value></data>
+  <data name="BadgeAgentRunning"><value>Guest agent: ativo</value></data>
+  <data name="BadgeAgentStopped"><value>Guest agent: não responde</value></data>
+  <data name="BadgeAgentUnknown"><value>Guest agent: configurado (ping desativado)</value></data>
+  <data name="BadgeClipboard"><value>Compartilhamento da área de transferência</value></data>
+  <data name="ConfirmStart"><value>Iniciar {0}?</value></data>
+  <data name="ConfirmShutdown"><value>Desligar {0}?</value></data>
+
+</root>
