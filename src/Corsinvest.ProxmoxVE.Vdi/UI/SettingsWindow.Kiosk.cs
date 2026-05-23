@@ -41,6 +41,7 @@ internal static partial class SettingsWindow
 
         // Login background image picker
         var txtBackground = UiHelper.TextBox(config.KioskLoginBackground, L("KioskBackgroundWatermark"), AppIcons.Monitor);
+        txtBackground.Classes.Add("clearButton");
         var btnBrowseBackground = UiHelper.IconButton(AppIcons.Folder, "KioskBackgroundBrowse", margin: new Thickness(4, 0, 0, 0));
         var backgroundRow = UiHelper.RowWithButton(txtBackground, btnBrowseBackground);
 
