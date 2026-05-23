@@ -20,6 +20,7 @@ internal static class VmServicesWindow
     public static async Task<VmConfig> ShowAsync(Window owner, VmConfig vmConfig, string vmName, string? userLaunchersPath,
                                                   PveClient? client = null, string? node = null)
     {
+        ReapplyLanguage();
         var launchers = LauncherEngine.LoadForCurrentPlatform(userLaunchersPath);
         var services = new ObservableCollection<VmServiceConfig>(vmConfig.Services.Select(s => Clone(s)));
 

@@ -15,6 +15,7 @@ internal static class VmServiceEditWindow
         VmServiceConfig? existing,
         IReadOnlyList<LauncherDefinition> launchers)
     {
+        ReapplyLanguage();
         var isEdit = existing is not null;
 
         // Launcher combo

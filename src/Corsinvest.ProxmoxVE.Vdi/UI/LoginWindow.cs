@@ -199,9 +199,9 @@ internal static class LoginWindow
 
             // Apply the new culture and rebuild the LoginWindow so all strings
             // are re-evaluated in the chosen language.
-            AppLocalization.ApplyLanguage(newLang);
+            ApplyLanguage(newLang);
 
-            var newWindow = LoginWindow.Create(config);
+            var newWindow = Create(config);
             newWindow.Show();
             window.Close();
         };
@@ -267,6 +267,7 @@ internal static class LoginWindow
             config.LastUser = user;
             AppConfigManager.Save(config);
 
+            ReapplyLanguage();
             var mainWin = new MainWindow(client, host, config, user, pwd).Build();
             mainWin.Show();
             kioskLoginUnlocked = true;

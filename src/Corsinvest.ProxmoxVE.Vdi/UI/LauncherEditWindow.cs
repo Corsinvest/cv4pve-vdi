@@ -17,6 +17,7 @@ internal static class LauncherEditWindow
     /// </summary>
     public static async Task<LauncherDefinition?> ShowAsync(Window owner, LauncherDefinition? existing = null)
     {
+        ReapplyLanguage();
         var isNew = existing is null;
 
         var txtServiceId = UiHelper.TextBox(existing?.ServiceId, "e.g. my-rdp-client", AppIcons.Tag);

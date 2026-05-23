@@ -23,6 +23,13 @@ internal static class AppLocalization
     /// </summary>
     private static readonly CultureInfo _systemCulture = CultureInfo.CurrentUICulture;
 
+    /// <summary>
+    /// Last culture set via <see cref="ApplyLanguage"/>. Used by <see cref="ReapplyLanguage"/> to
+    /// re-set <see cref="CultureInfo.CurrentUICulture"/> on the calling thread, recovering
+    /// from cases where async/dispatcher continuations leave the thread on a different culture.
+    /// </summary>
+    private static CultureInfo _currentCulture = CultureInfo.CurrentUICulture;
+
     /// <summary>Returns the localized string for <paramref name="key"/>, falling back to the key itself.</summary>
     public static string L(string key) => _rm.GetString(key, CultureInfo.CurrentUICulture) ?? key;
 
@@ -53,5 +60,19 @@ internal static class AppLocalization
         CultureInfo.CurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
         CultureInfo.DefaultThreadCurrentCulture = culture;
+        _currentCulture = culture;
+    }
+
+    /// <summary>
+    /// Re-applies the last culture set via <see cref="ApplyLanguage"/> on the calling thread.
+    /// Call as the first line of any window-builder method (e.g. <c>Create(...)</c>) so that
+    /// inline <see cref="L"/> calls used to construct controls always see the chosen culture,
+    /// even when the calling thread was left on a different culture by an earlier async or
+    /// dispatcher continuation.
+    /// </summary>
+    public static void ReapplyLanguage()
+    {
+        CultureInfo.CurrentUICulture = _currentCulture;
+        CultureInfo.CurrentCulture = _currentCulture;
     }
 }

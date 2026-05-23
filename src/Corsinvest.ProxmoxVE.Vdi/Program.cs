@@ -17,7 +17,7 @@ internal sealed class Program
     public static void Main(string[] args)
     {
         var config = AppConfigManager.Load();
-        AppLocalization.ApplyLanguage(config.Language);
+        ApplyLanguage(config.Language);
 
         var lifetime = new ClassicDesktopStyleApplicationLifetime
         {

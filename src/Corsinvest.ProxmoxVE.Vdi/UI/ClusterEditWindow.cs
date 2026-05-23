@@ -16,6 +16,7 @@ internal static class ClusterEditWindow
     /// </summary>
     public static Window Create(ClusterConfig? existing)
     {
+        ReapplyLanguage();
         var isEdit = existing != null;
 
         var txtName = UiHelper.TextBox(existing?.Name, "e.g. prod", AppIcons.Server);
