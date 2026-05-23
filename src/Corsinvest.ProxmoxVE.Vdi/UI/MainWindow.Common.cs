@@ -499,6 +499,19 @@ internal partial class MainWindow
         var showStopped = _chkStopped.IsChecked is true;
         var list = filtered.Where(a => a.HasAnyVdiAction
                                        || (showStopped && a.CanPower && !a.IsActive)).ToList();
+
+        // Sort VMs/CTs globally per the user's choice (nodes keep their alphabetical order
+        // applied at fetch time). _allRows is built in two passes (LXC first, then QEMU),
+        // so without this re-sort the rendered order would always be CT-then-VM regardless
+        // of ID/Name. Sorting here also makes the order observable in both grouped and
+        // flat (GroupByNode = false) layouts.
+        var sortedVms = _config.SortBy == AppConfig.SortByName
+                            ? list.Where(r => r.ResourceType == ClusterResourceType.Vm)
+                                  .OrderBy(r => r.Name, StringComparer.OrdinalIgnoreCase)
+                            : list.Where(r => r.ResourceType == ClusterResourceType.Vm)
+                                  .OrderBy(r => r.Resource.VmId);
+        list = [.. list.Where(r => r.ResourceType == ClusterResourceType.Node), .. sortedVms];
+
         RebuildCardView(list);
         RebuildListView(list);
 

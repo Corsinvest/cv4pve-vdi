@@ -16,6 +16,9 @@ internal class AppConfig
     public const string ViewCard = "Card";
     public const string ViewList = "List";
 
+    public const string SortById = "ID";
+    public const string SortByName = "Name";
+
     /// <summary>Default view: Card or List</summary>
     public string DefaultView { get; set; } = ViewCard;
 
@@ -72,6 +75,12 @@ internal class AppConfig
 
     /// <summary>Show tag badges in card/list and tag filter in sidebar (default true)</summary>
     public bool ShowTags { get; set; } = true;
+
+    /// <summary>Group VMs/CTs under their node header in Card/List view (default true)</summary>
+    public bool GroupByNode { get; set; } = true;
+
+    /// <summary>Sort VMs/CTs by <see cref="SortById"/> or <see cref="SortByName"/> (default ID)</summary>
+    public string SortBy { get; set; } = SortById;
 
     /// <summary>Enable SPICE console (default true)</summary>
     public bool EnableSpice { get; set; } = true;

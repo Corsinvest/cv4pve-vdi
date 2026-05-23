@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Show nodes filter</value></data>
   <data name="ShowPools"><value>Show pools</value></data>
   <data name="ShowTags"><value>Show tags</value></data>
+  <data name="GroupByNode"><value>Group by node</value></data>
+  <data name="SortBy"><value>Sort by</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Name</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>USB redirect</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: running</value></data>

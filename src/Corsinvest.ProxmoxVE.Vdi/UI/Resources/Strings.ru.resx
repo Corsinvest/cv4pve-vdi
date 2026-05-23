@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Показывать фильтр узлов</value></data>
   <data name="ShowPools"><value>Показывать пулы</value></data>
   <data name="ShowTags"><value>Показывать теги</value></data>
+  <data name="GroupByNode"><value>Группировать по узлам</value></data>
+  <data name="SortBy"><value>Сортировать по</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Имя</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-аудио</value></data>
   <data name="BadgeUsbRedirect"><value>Перенаправление USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: активен</value></data>

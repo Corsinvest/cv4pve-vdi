@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Knoten-Filter anzeigen</value></data>
   <data name="ShowPools"><value>Pools anzeigen</value></data>
   <data name="ShowTags"><value>Tags anzeigen</value></data>
+  <data name="GroupByNode"><value>Nach Knoten gruppieren</value></data>
+  <data name="SortBy"><value>Sortieren nach</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Name</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-Audio</value></data>
   <data name="BadgeUsbRedirect"><value>USB-Weiterleitung</value></data>
   <data name="BadgeAgentRunning"><value>Guest-Agent: aktiv</value></data>

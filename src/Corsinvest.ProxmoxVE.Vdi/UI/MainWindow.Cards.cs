@@ -196,6 +196,26 @@ internal partial class MainWindow
     {
         _cardContent.Children.Clear();
 
+        if (!_config.GroupByNode)
+        {
+            var flatVms = rows.Where(r => r.ResourceType == ClusterResourceType.Vm).ToList();
+            if (flatVms.Count > 0)
+            {
+                var wrap = new WrapPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    ItemSpacing = 12,
+                    LineSpacing = 12
+                };
+                foreach (var item in flatVms)
+                {
+                    wrap.Children.Add(BuildCard(item));
+                }
+                _cardContent.Children.Add(wrap);
+            }
+            return;
+        }
+
         ForEachNodeGroup(rows, (nodeName, nodeRow, nodeVms) =>
         {
             var header = BuildNodeHeader(nodeName, nodeRow);

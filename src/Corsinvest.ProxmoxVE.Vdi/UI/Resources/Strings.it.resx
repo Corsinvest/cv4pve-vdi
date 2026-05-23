@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Mostra filtro nodi</value></data>
   <data name="ShowPools"><value>Mostra pool</value></data>
   <data name="ShowTags"><value>Mostra tag</value></data>
+  <data name="GroupByNode"><value>Raggruppa per nodo</value></data>
+  <data name="SortBy"><value>Ordina per</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Nome</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>Redirezione USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: attivo</value></data>

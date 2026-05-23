@@ -6,6 +6,7 @@
 using Corsinvest.ProxmoxVE.Api.Extension;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
+using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
 using System.Text.RegularExpressions;
@@ -48,9 +49,12 @@ internal partial class MainWindow
                                  .OrderBy(r => r.Node)
                                  .ToList();
 
-            var vms = resources.Where(r => r.ResourceType == ClusterResourceType.Vm && !r.IsUnknown)
-                               .OrderBy(r => r.Node).ThenBy(r => r.VmId)
-                               .ToList();
+            var vms = (_config.SortBy == AppConfig.SortByName
+                            ? resources.Where(r => r.ResourceType == ClusterResourceType.Vm && !r.IsUnknown)
+                                       .OrderBy(r => r.Name, StringComparer.OrdinalIgnoreCase)
+                            : resources.Where(r => r.ResourceType == ClusterResourceType.Vm && !r.IsUnknown)
+                                       .OrderBy(r => r.VmId))
+                       .ToList();
 
             _progressBar.Value = 20;
 
