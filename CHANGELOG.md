@@ -7,13 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-05-23
+
 ### Added
+- **UI translations** with a language picker on the login window — ships with English, Italian, German, French, Spanish, Brazilian Portuguese, Russian, Polish, Dutch and Czech. See [docs/I18N.md](docs/I18N.md) for how to contribute or improve a translation
 - **Group by node** (Settings → Appearance) — toggle off to render VMs/CTs as a single flat list without node headers
-- **Sort by** (Settings → Appearance) — order VMs and CTs by *ID* or *Name*; both kinds are now interleaved by the chosen key instead of always being rendered as CTs-then-VMs
+- **Sort by** (Settings → Appearance) — order VMs and CTs by *ID* or *Name*; both kinds are interleaved by the chosen key instead of always being rendered as CTs-then-VMs
+- **Search by tag** — the search box now also matches against tag names, not just VM name/ID/description (#27)
+- **Empty-state message** — when filters hide every VM, a friendly message is shown instead of a blank area (#28)
+- **Keyboard shortcuts** — `Ctrl+F` focus search, `F5` refresh, `Ctrl+,` open settings (#29)
 - **Clear (✕) button** on the search box and on the kiosk login-background path field
 
 ### Changed
 - The **Group by node** and **Sort by** controls stay visible even in kiosk mode, so non-admin users can re-order the list without the admin password
+
+### Fixed
+- Stopped VMs/CTs were not shown when the **Stopped** status filter was ticked (#26)
+- Settings, Cluster edit, Launcher edit and Main window rendered strings in the startup culture instead of the language picked at the login when the user switched language at runtime
 
 ## [1.5.0] - 2026-05-11
 
