@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Zobrazit filtr uzlů</value></data>
   <data name="ShowPools"><value>Zobrazit pooly</value></data>
   <data name="ShowTags"><value>Zobrazit tagy</value></data>
+  <data name="GroupByNode"><value>Seskupit podle uzlu</value></data>
+  <data name="SortBy"><value>Seřadit podle</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Název</value></data>
   <data name="BadgeAudioSpice"><value>SPICE audio</value></data>
   <data name="BadgeUsbRedirect"><value>Přesměrování USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: aktivní</value></data>

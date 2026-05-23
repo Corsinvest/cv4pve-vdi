@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
 using AGrid = Avalonia.Controls.Grid;
@@ -132,6 +133,21 @@ internal partial class MainWindow
     internal void RebuildListView(List<ResourceRow> rows)
     {
         _listContent.Children.Clear();
+
+        if (!_config.GroupByNode)
+        {
+            var flatVms = rows.Where(r => r.ResourceType == ClusterResourceType.Vm).ToList();
+            if (flatVms.Count > 0)
+            {
+                var rowsPanel = new StackPanel { Spacing = 2 };
+                foreach (var item in flatVms)
+                {
+                    rowsPanel.Children.Add(BuildListRow(item));
+                }
+                _listContent.Children.Add(rowsPanel);
+            }
+            return;
+        }
 
         ForEachNodeGroup(rows, (nodeName, nodeRow, nodeVms) =>
         {

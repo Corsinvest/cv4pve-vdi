@@ -67,6 +67,35 @@ internal static partial class SettingsWindow
         var chkShowPools = new CheckBox { Content = UiHelper.WithText(AppIcons.Folder, L("ShowPools")), IsChecked = config.ShowPools };
         var chkShowTags = new CheckBox { Content = UiHelper.WithText(AppIcons.Tag, L("ShowTags")), IsChecked = config.ShowTags };
 
+        var chkGroupByNode = new CheckBox
+        {
+            Content = UiHelper.WithText(AppIcons.Server, L("GroupByNode")),
+            IsChecked = config.GroupByNode
+        };
+
+        var sortItems = new[] { AppConfig.SortById, AppConfig.SortByName };
+        var sortLabels = new[] { L("SortById"), L("SortByName") };
+        var cmbSortBy = new ComboBox
+        {
+            ItemsSource = sortLabels,
+            SelectedIndex = config.SortBy == AppConfig.SortByName ? 1 : 0,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Width = 120,
+            Padding = new Thickness(26, 0, 0, 0)
+        };
+        var cmbSortByWithIcon = UiHelper.WithIcon(cmbSortBy, AppIcons.Tune);
+        var sortRow = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 10,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock { Text = L("SortBy"), FontWeight = FontWeight.SemiBold, VerticalAlignment = VerticalAlignment.Center },
+                cmbSortByWithIcon
+            }
+        };
+
         var chkEnableAgentPing = new CheckBox { Content = UiHelper.WithText(AppIcons.Server, L("EnableAgentPing")), IsChecked = config.EnableAgentPing };
 
         var chkShowStart = new CheckBox { Content = UiHelper.WithText(AppIcons.Play, L("ShowStartButton"), new SolidColorBrush(AppColors.Running)), IsChecked = config.ShowStartButton };
@@ -79,6 +108,18 @@ internal static partial class SettingsWindow
 
         chkShowStart.IsCheckedChanged += (_, _) => chkConfirmStart.IsEnabled = chkShowStart.IsChecked is true;
         chkShowShutdown.IsCheckedChanged += (_, _) => chkConfirmShutdown.IsEnabled = chkShowShutdown.IsChecked is true;
+
+        // Group/Sort stays visible even when kiosk hides the rest of the advanced section,
+        // so kiosk users can re-order the VM list without the admin password.
+        var groupSortRow = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            Children =
+            {
+                chkGroupByNode,
+                Placed(sortRow, 1, 0),
+            }
+        };
 
         var advancedSection = new StackPanel
         {
@@ -117,6 +158,7 @@ internal static partial class SettingsWindow
                 {
                     SectionHeader(L("SectionDisplay")),
                     themeRow,
+                    groupSortRow,
                     advancedSection,
                 }
             }
@@ -130,6 +172,8 @@ internal static partial class SettingsWindow
             config.ShowNodes = chkShowNodes.IsChecked is true;
             config.ShowPools = chkShowPools.IsChecked is true;
             config.ShowTags = chkShowTags.IsChecked is true;
+            config.GroupByNode = chkGroupByNode.IsChecked is true;
+            config.SortBy = sortItems[Math.Max(0, cmbSortBy.SelectedIndex)];
             config.ShowStartButton = chkShowStart.IsChecked is true;
             config.ConfirmStart = chkConfirmStart.IsChecked is true;
             config.ShowShutdownButton = chkShowShutdown.IsChecked is true;

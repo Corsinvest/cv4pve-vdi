@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Nodefilter tonen</value></data>
   <data name="ShowPools"><value>Pools tonen</value></data>
   <data name="ShowTags"><value>Tags tonen</value></data>
+  <data name="GroupByNode"><value>Groeperen per node</value></data>
+  <data name="SortBy"><value>Sorteren op</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Naam</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-audio</value></data>
   <data name="BadgeUsbRedirect"><value>USB-omleiding</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: actief</value></data>

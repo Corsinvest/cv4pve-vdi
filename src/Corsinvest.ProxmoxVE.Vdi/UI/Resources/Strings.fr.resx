@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Afficher le filtre des nœuds</value></data>
   <data name="ShowPools"><value>Afficher les pools</value></data>
   <data name="ShowTags"><value>Afficher les étiquettes</value></data>
+  <data name="GroupByNode"><value>Grouper par nœud</value></data>
+  <data name="SortBy"><value>Trier par</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Nom</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>Redirection USB</value></data>
   <data name="BadgeAgentRunning"><value>Agent invité : actif</value></data>

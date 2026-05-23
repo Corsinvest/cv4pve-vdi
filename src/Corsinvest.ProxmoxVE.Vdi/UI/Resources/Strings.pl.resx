@@ -189,6 +189,10 @@
   <data name="ShowNodes"><value>Pokaż filtr węzłów</value></data>
   <data name="ShowPools"><value>Pokaż pule</value></data>
   <data name="ShowTags"><value>Pokaż tagi</value></data>
+  <data name="GroupByNode"><value>Grupuj wg węzła</value></data>
+  <data name="SortBy"><value>Sortuj wg</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>Nazwa</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>Przekierowanie USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: aktywny</value></data>

@@ -115,7 +115,8 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private readonly TextBox _txtSearch = new()
     {
         PlaceholderText = L("SearchWatermark"),
-        [ToolTip.TipProperty] = $"{L("SearchTooltip")} (Ctrl+F)"
+        [ToolTip.TipProperty] = $"{L("SearchTooltip")} (Ctrl+F)",
+        Classes = { "clearButton" }
     };
     private readonly StackPanel _nodeFilters = new() { Spacing = 4 };
     private readonly StackPanel _poolFilters = new() { Spacing = 4 };

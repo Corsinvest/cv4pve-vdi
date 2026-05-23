@@ -14,6 +14,8 @@ Controls how the VM list and card view look, plus a few behavioural toggles.
 |---------|-------------|
 | **Theme** | Light / Dark / System |
 | **Default view** | Card or List view at startup |
+| **Group by node** | When on (default), VMs and CTs are listed under their node header. When off, the headers disappear and everything renders as a single flat list across all nodes |
+| **Sort by** | *ID* (default) sorts by numeric VMID; *Name* sorts alphabetically. VMs and CTs are interleaved by the chosen key |
 | **Show CPU/RAM bars** | Toggle resource usage bars in card and list view |
 | **Show nodes filter** | Show the node filter section in the sidebar |
 | **Show pools** | Show the pool filter in the sidebar and pool info in cards |
@@ -24,7 +26,7 @@ Controls how the VM list and card view look, plus a few behavioural toggles.
 | **Ask confirmation** | Confirm before Start / Shutdown |
 
 > [!NOTE]
-> In **kiosk mode** non-admin users see only the **Theme** and **Default view** options on this tab. Everything else is hidden until the admin unlocks the session — see [docs/KIOSK.md](KIOSK.md).
+> In **kiosk mode** non-admin users see only **Theme**, **Default view**, **Group by node** and **Sort by** on this tab. Everything else is hidden until the admin unlocks the session — see [docs/KIOSK.md](KIOSK.md).
 
 ## Launchers tab
 
