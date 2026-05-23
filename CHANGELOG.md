@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Group by node** (Settings → Appearance) — toggle off to render VMs/CTs as a single flat list without node headers
+- **Sort by** (Settings → Appearance) — order VMs and CTs by *ID* or *Name*; both kinds are now interleaved by the chosen key instead of always being rendered as CTs-then-VMs
+- **Clear (✕) button** on the search box and on the kiosk login-background path field
+
+### Changed
+- The **Group by node** and **Sort by** controls stay visible even in kiosk mode, so non-admin users can re-order the list without the admin password
+
 ## [1.5.0] - 2026-05-11
 
 ### Added
