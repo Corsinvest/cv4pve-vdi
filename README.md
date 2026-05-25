@@ -66,15 +66,11 @@ Each VM card and list row shows visual indicators:
 
 | Badge | Description |
 |-------|-------------|
-| 🟢 **Running** dot | VM is running |
-| ⚫ **Stopped** dot | VM is stopped |
-| **VM / CT / Node** badge | Resource type with OS icon |
-| 🟢🔴⚫ **Agent** icon | QEMU guest agent status: green = running, red = not responding, gray = ping disabled or unknown |
-| 🔊 **Audio** icon | SPICE audio device configured |
-| 🔌 **USB** icon | SPICE USB redirect configured |
-| 📋 **Clipboard** icon | SPICE clipboard sharing configured |
-| **Tag** badges | Proxmox VE tags with color |
-| **CPU / RAM** bars | Real-time resource usage |
+| 🟢⚫ | VM status: green = running, gray = stopped |
+| 🟢🔴⚫ | QEMU guest agent status: green = running, red = not responding, gray = ping disabled or unknown |
+| 🔊 | SPICE audio device configured |
+| 🔌 | SPICE USB redirect configured |
+| 📋 | SPICE clipboard sharing configured |
 
 ### Guest setup
 
