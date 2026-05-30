@@ -192,7 +192,29 @@ internal static class VmServicesWindow
     {
         var checkboxes = found.Select(l => new CheckBox
         {
-            Content = $"{l.DisplayName}  (port {l.DefaultPort})",
+            // Same launcher icon + label format used in the Settings → Launchers
+            // list and the Connect menu, so the protocol is recognisable here too.
+            Content = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 8,
+                VerticalAlignment = VerticalAlignment.Center,
+                Children =
+                {
+                    new PathIcon
+                    {
+                        Data = Geometry.Parse(AppIcons.ForLauncher(l.Icon)),
+                        Width = 14,
+                        Height = 14,
+                        VerticalAlignment = VerticalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = $"{l.DisplayName}  (port {l.DefaultPort})",
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            },
             IsChecked = true
         }).ToList();
 

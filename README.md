@@ -48,7 +48,8 @@ Download the latest release from the [releases page](https://github.com/Corsinve
 - **Custom service launchers** — RDP, SSH, PuTTY and any other tool (see [docs/LAUNCHERS.md](docs/LAUNCHERS.md))
 - **Per-VM services** — multiple connections per VM with auto-discovery and RDP single sign-on (see [docs/SERVICES.md](docs/SERVICES.md))
 - **Kiosk mode** — lock down the application for thin-client and shared-workstation deployments (see [docs/KIOSK.md](docs/KIOSK.md))
-- **Switch user** — sign out and return to the login screen without restarting the app (from the **More** menu)
+- **Switch user** — sign out and return to the login screen without restarting the app (from the **More** menu); confirms before closing any open viewer sessions
+- **Open sessions panel** — a strip at the top of the main window lists every running viewer (SPICE, VNC, RDP, SSH, custom launchers); click a session to bring its window back to the front, click ✕ to close it. Particularly useful in kiosk mode where the Windows taskbar is not available
 - **VM/CT power control** — Start and Shutdown buttons (with optional confirmation)
 - **Real-time stats** — CPU and RAM usage bars per VM
 - **Auto-refresh** every 30 seconds — toggle from the toolbar

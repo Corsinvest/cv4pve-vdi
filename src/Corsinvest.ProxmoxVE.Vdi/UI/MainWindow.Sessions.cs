@@ -119,7 +119,7 @@ internal partial class MainWindow
             BorderBrush = new SolidColorBrush(Color.FromArgb(80, 128, 128, 128)),
             BorderThickness = new Thickness(1),
             Cursor = new Cursor(StandardCursorType.Hand),
-            [ToolTip.TipProperty] = $"{L("BringToFront")} (PID {entry.Process.Id})",
+            [ToolTip.TipProperty] = string.Format(L("BringToFrontFormat"), entry.VmName, entry.ServiceLabel),
             Child = inner
         };
 

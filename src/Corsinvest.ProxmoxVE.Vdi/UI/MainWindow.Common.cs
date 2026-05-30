@@ -142,18 +142,6 @@ internal partial class MainWindow
         }
     }
 
-    private static string IconForServiceId(string serviceId)
-    {
-        var s = serviceId.ToLowerInvariant();
-        if (s.Contains("rdp")) { return AppIcons.Rdp; }
-        if (s.Contains("vnc")) { return AppIcons.Vnc; }
-        if (s.Contains("spice")) { return AppIcons.Spice; }
-        if (s.Contains("ssh")) { return AppIcons.Console; }
-        if (s.Contains("ftp")) { return AppIcons.Network; }
-        return AppIcons.Console;
-    }
-
-
     private Button BuildConnectButton(ResourceRow row, Thickness padding)
     {
         var menu = new ContextMenu();
@@ -216,7 +204,7 @@ internal partial class MainWindow
                                        row.Resource.VmId,
                                        row.Name,
                                        launcherCopy.DisplayName,
-                                       IconForServiceId(launcherCopy.ServiceId),
+                                       AppIcons.ForLauncher(launcherCopy.Icon),
                                        row.OsType);
                 };
                 menu.Items.Add(item);

@@ -19,7 +19,7 @@ internal static class WindowActivator
     public static void BringToFront(Process process)
     {
         process.Refresh();
-        if (OperatingSystem.IsWindows())    { Windows.Activate(process); }
+        if (OperatingSystem.IsWindows()) { Windows.Activate(process); }
         else if (OperatingSystem.IsMacOS()) { MacOS.Activate(process); }
         else if (OperatingSystem.IsLinux()) { Linux.Activate(process); }
     }

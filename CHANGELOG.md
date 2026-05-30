@@ -8,7 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **Launcher icons** — each launcher declares its own icon (RDP, SPICE, VNC, SSH, FTP, web, database or a generic application glyph) that is shown wherever the launcher appears: Settings → Launchers list, VM services list, the Connect menu on a VM card, and the launcher edit window. Built-in launchers ship with an icon; custom launchers added by the user can pick one from a dropdown next to the display name
+- **Open sessions panel** (#33) — a strip at the top of the main window shows every viewer you have open. Click a session to bring its window back to the front, click the × to close it. The strip hides itself when nothing is running. Particularly useful in kiosk mode, where the Windows taskbar is not available
+- **Launcher icons** — RDP, SPICE, VNC, SSH and the other launchers now show a recognisable icon everywhere they appear (Settings → Launchers, the Connect menu on a VM, the services list on a VM). When you add a custom launcher you can pick its icon from a dropdown
+
+### Changed
+- Closing cv4pve-vdi or switching user now asks for confirmation if there are sessions open, and closes them cleanly so the next user doesn't inherit them
+- Closing a viewer from the Open sessions panel asks the viewer to shut down gracefully first, and only force-closes it after a short timeout
 
 ## [1.6.0] - 2026-05-23
 
