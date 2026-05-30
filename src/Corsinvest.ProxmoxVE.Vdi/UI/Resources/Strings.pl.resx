@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Sortuj wg</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Nazwa</value></data>
+  <data name="OpenSessions"><value>Otwarte sesje:</value></data>
+  <data name="CloseSession"><value>Zamknij sesję</value></data>
+  <data name="BringToFrontFormat"><value>Pokaż {0} ({1}) na wierzchu</value></data>
+  <data name="ConfirmCloseSessions"><value>Masz otwarte sesje przeglądarki. Kontynuacja je zamknie.</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>Przekierowanie USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: aktywny</value></data>

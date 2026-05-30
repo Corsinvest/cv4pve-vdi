@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Sortieren nach</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Name</value></data>
+  <data name="OpenSessions"><value>Offene Sitzungen:</value></data>
+  <data name="CloseSession"><value>Sitzung schließen</value></data>
+  <data name="BringToFrontFormat"><value>{0} ({1}) in den Vordergrund bringen</value></data>
+  <data name="ConfirmCloseSessions"><value>Es sind Viewer-Sitzungen geöffnet. Beim Fortfahren werden sie geschlossen.</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-Audio</value></data>
   <data name="BadgeUsbRedirect"><value>USB-Weiterleitung</value></data>
   <data name="BadgeAgentRunning"><value>Guest-Agent: aktiv</value></data>

@@ -8,6 +8,7 @@ using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
+using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
 using System.Text.RegularExpressions;
 
@@ -272,29 +273,37 @@ internal partial class MainWindow
 
     internal async Task LaunchVncAsync(ResourceRow row)
     {
-        var err = await RemoteViewerService.LaunchVncAsync(_client,
-                                                           row.Resource.Node,
-                                                           row.Resource.VmId,
-                                                           row.VmType,
-                                                           _config);
+        // VNC on Proxmox is one-session-per-VM at the server side: opening a
+        // 2nd VNC for the same VM invalidates the previous server-side ticket,
+        // the previous viewer hits "Server closed the connection" and exits on
+        // its own — its Exited handler removes the pill automatically.
+        var (err, p) = await RemoteViewerService.LaunchVncAsync(_client,
+                                                                row.Resource.Node,
+                                                                row.Resource.VmId,
+                                                                row.VmType,
+                                                                _config);
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);
+            return;
         }
+        _sessions.Register(p, row.Resource.VmId, row.Name, "VNC", AppIcons.Vnc, row.OsType);
     }
 
     internal async Task LaunchSpiceAsync(ResourceRow row)
     {
-        var err = await RemoteViewerService.LaunchSpiceAsync(_client,
-                                                             row.Resource.Node,
-                                                             row.Resource.VmId,
-                                                             row.VmType,
-                                                             _config,
-                                                             _host);
+        var (err, p) = await RemoteViewerService.LaunchSpiceAsync(_client,
+                                                                  row.Resource.Node,
+                                                                  row.Resource.VmId,
+                                                                  row.VmType,
+                                                                  _config,
+                                                                  _host);
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);
+            return;
         }
+        _sessions.Register(p, row.Resource.VmId, row.Name, "SPICE", AppIcons.Spice, row.OsType);
     }
 
     private async Task<bool?> GetAgentRunningAsync(dynamic vm, long vmId)

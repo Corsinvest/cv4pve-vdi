@@ -74,7 +74,17 @@ The application-side restrictions (hidden settings, admin password, switch user,
 
 In kiosk mode, the **More → Switch user** menu item returns the application to the login screen without closing the process. This is the recommended flow when multiple people share the same thin client: each user logs in with their own Proxmox account, does their work, and clicks *Switch user* to leave the workstation ready for the next person.
 
+If any viewer sessions are still open when Switch user (or the main window close) is triggered, cv4pve-vdi asks for confirmation and then cleanly closes them. This guarantees the next user never inherits the previous user's running viewers, even in deep-kiosk deployments where the Windows taskbar is not available.
+
 Switching user also clears the sticky admin unlock — the next user (or admin) will need to enter the admin password again to access protected configuration.
+
+## Open sessions panel
+
+When one or more viewers are running (SPICE, VNC, RDP, SSH, custom launcher), a strip appears at the top of the main window listing them. Each entry shows the OS icon, the service icon and the VM name.
+
+- **Click** a session entry to bring its viewer window to the foreground — handy in kiosk mode where the Windows taskbar is not available
+- **Click ✕** to close that single session
+- The strip auto-hides when no viewers are running
 
 ## Deploying a thin client
 

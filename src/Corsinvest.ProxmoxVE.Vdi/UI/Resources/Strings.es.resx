@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Ordenar por</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Nombre</value></data>
+  <data name="OpenSessions"><value>Sesiones abiertas:</value></data>
+  <data name="CloseSession"><value>Cerrar sesión</value></data>
+  <data name="BringToFrontFormat"><value>Traer {0} ({1}) al frente</value></data>
+  <data name="ConfirmCloseSessions"><value>Tienes sesiones de visor abiertas. Continuar las cerrará.</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>Redirección USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: activo</value></data>

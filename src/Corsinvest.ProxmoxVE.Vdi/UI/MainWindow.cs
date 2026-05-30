@@ -5,6 +5,7 @@
 
 using Corsinvest.ProxmoxVE.Api;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
+using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
 using AGrid = Avalonia.Controls.Grid;
@@ -18,6 +19,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private readonly PveClient _client = client;
     private readonly ClusterConfig _host = host;
     private readonly AppConfig _config = config;
+    private readonly SessionTracker _sessions = new();
 
     private readonly List<ResourceRow> _allRows = [];
     private string _tagColorMap = string.Empty;
@@ -88,9 +90,31 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     // refresh state
     private bool _isRefreshing = false;
     private bool _kioskUnlocked = false;
+    // Set by Switch user after it has already shown its own confirmation, so the
+    // Window.Closing handler doesn't ask the same question a second time.
+    private bool _sessionsConfirmed = false;
 
-    private void SwitchUser()
+    /// <summary>
+    /// If there are open viewer sessions, ask the user to confirm and tear them
+    /// down. Returns true when the caller can proceed (no sessions, or user
+    /// confirmed and they were closed), false when the user cancelled.
+    /// Sets <see cref="_sessionsConfirmed"/> so the Window.Closing handler
+    /// doesn't ask the same question again.
+    /// </summary>
+    private async Task<bool> ConfirmAndCloseSessionsAsync()
     {
+        if (_sessions.Sessions.Count == 0) { return true; }
+        if (!await DialogHelper.ConfirmAsync(_window!, L("ConfirmCloseSessions"))) { return false; }
+
+        _sessions.CloseAll();
+        _sessionsConfirmed = true;
+        return true;
+    }
+
+    private async void SwitchUser()
+    {
+        if (!await ConfirmAndCloseSessionsAsync()) { return; }
+
         KioskGuard.ResetAdmin();
         _kioskUnlocked = true;
         var login = LoginWindow.Create(_config);
@@ -368,9 +392,11 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             UpdateViewerWarning();
         };
 
+        var sessionsBanner = BuildSessionsBanner();
+
         var mainGrid = new AGrid
         {
-            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,*,Auto"),
             ColumnDefinitions = new ColumnDefinitions("*,Auto")
         };
         AGrid.SetRow(topbar, 0);
@@ -379,14 +405,17 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         AGrid.SetRow(viewerWarningBanner, 1);
         AGrid.SetColumnSpan(viewerWarningBanner, 2);
         mainGrid.Children.Add(viewerWarningBanner);
-        mainGrid.Add(scrollContent, 0, 2);
-        mainGrid.Add(_sidebar, 1, 2);
-        AGrid.SetRow(_progressBar, 3);
+        AGrid.SetRow(sessionsBanner, 2);
+        AGrid.SetColumnSpan(sessionsBanner, 2);
+        mainGrid.Children.Add(sessionsBanner);
+        mainGrid.Add(scrollContent, 0, 3);
+        mainGrid.Add(_sidebar, 1, 3);
+        AGrid.SetRow(_progressBar, 4);
         AGrid.SetColumnSpan(_progressBar, 2);
         mainGrid.Children.Add(_progressBar);
 
         // toast overlay — spans full grid, pointer passthrough except on toasts
-        AGrid.SetRow(_toastStack, 2);
+        AGrid.SetRow(_toastStack, 3);
         AGrid.SetColumnSpan(_toastStack, 2);
         mainGrid.Children.Add(_toastStack);
 
@@ -436,6 +465,19 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 }
             };
         }
+
+        // Ask the user before tearing down open viewer sessions, then close them.
+        // Single handler that covers both the close-from-X path and Switch user
+        // (Switch user calls _window.Close() too). Guarded by _sessionsConfirmed
+        // so the dialog only shows once even if the close is restarted.
+        _window.Closing += async (_, e) =>
+        {
+            if (_sessionsConfirmed || e.Cancel) { return; }
+            if (_sessions.Sessions.Count == 0) { return; }
+
+            e.Cancel = true;
+            if (await ConfirmAndCloseSessionsAsync()) { _window!.Close(); }
+        };
 
         void ApplyDefaultView()
         {

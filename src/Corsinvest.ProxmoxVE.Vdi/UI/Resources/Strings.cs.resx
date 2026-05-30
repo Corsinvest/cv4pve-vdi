@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Seřadit podle</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Název</value></data>
+  <data name="OpenSessions"><value>Otevřené relace:</value></data>
+  <data name="CloseSession"><value>Zavřít relaci</value></data>
+  <data name="BringToFrontFormat"><value>Přenést {0} ({1}) do popředí</value></data>
+  <data name="ConfirmCloseSessions"><value>Máte otevřené relace prohlížeče. Pokračování je zavře.</value></data>
   <data name="BadgeAudioSpice"><value>SPICE audio</value></data>
   <data name="BadgeUsbRedirect"><value>Přesměrování USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: aktivní</value></data>

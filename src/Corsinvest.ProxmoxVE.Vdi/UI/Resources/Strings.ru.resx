@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Сортировать по</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Имя</value></data>
+  <data name="OpenSessions"><value>Открытые сеансы:</value></data>
+  <data name="CloseSession"><value>Закрыть сеанс</value></data>
+  <data name="BringToFrontFormat"><value>Показать {0} ({1}) поверх окон</value></data>
+  <data name="ConfirmCloseSessions"><value>Открыты сеансы просмотрщика. Продолжение закроет их.</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-аудио</value></data>
   <data name="BadgeUsbRedirect"><value>Перенаправление USB</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: активен</value></data>

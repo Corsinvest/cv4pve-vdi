@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Sorteren op</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Naam</value></data>
+  <data name="OpenSessions"><value>Open sessies:</value></data>
+  <data name="CloseSession"><value>Sessie sluiten</value></data>
+  <data name="BringToFrontFormat"><value>{0} ({1}) naar voren halen</value></data>
+  <data name="ConfirmCloseSessions"><value>Er zijn viewer-sessies open. Doorgaan zal ze sluiten.</value></data>
   <data name="BadgeAudioSpice"><value>SPICE-audio</value></data>
   <data name="BadgeUsbRedirect"><value>USB-omleiding</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: actief</value></data>
