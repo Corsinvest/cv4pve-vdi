@@ -193,6 +193,10 @@
   <data name="SortBy"><value>Sort by</value></data>
   <data name="SortById"><value>ID</value></data>
   <data name="SortByName"><value>Name</value></data>
+  <data name="OpenSessions"><value>Open sessions:</value></data>
+  <data name="CloseSession"><value>Close session</value></data>
+  <data name="BringToFront"><value>Bring to front</value></data>
+  <data name="ConfirmCloseSessions"><value>You have open viewer sessions. Continuing will close them.</value></data>
   <data name="BadgeAudioSpice"><value>Audio SPICE</value></data>
   <data name="BadgeUsbRedirect"><value>USB redirect</value></data>
   <data name="BadgeAgentRunning"><value>Guest agent: running</value></data>

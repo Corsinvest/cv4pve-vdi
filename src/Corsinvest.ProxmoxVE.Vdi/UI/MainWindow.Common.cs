@@ -142,6 +142,18 @@ internal partial class MainWindow
         }
     }
 
+    private static string IconForServiceId(string serviceId)
+    {
+        var s = serviceId.ToLowerInvariant();
+        if (s.Contains("rdp")) { return AppIcons.Rdp; }
+        if (s.Contains("vnc")) { return AppIcons.Vnc; }
+        if (s.Contains("spice")) { return AppIcons.Spice; }
+        if (s.Contains("ssh")) { return AppIcons.Console; }
+        if (s.Contains("ftp")) { return AppIcons.Network; }
+        return AppIcons.Console;
+    }
+
+
     private Button BuildConnectButton(ResourceRow row, Thickness padding)
     {
         var menu = new ContextMenu();
@@ -198,8 +210,14 @@ internal partial class MainWindow
                     };
 
                     var extraArgs = string.IsNullOrEmpty(svcCopy.ExtraArgs) ? launcherCopy.ExtraArgs : svcCopy.ExtraArgs;
-                    var err = LauncherEngine.Launch(launcherCopy, ip, svcCopy.Port, creds, extraArgs);
-                    if (!string.IsNullOrEmpty(err)) { ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error); }
+                    var (err, p) = LauncherEngine.Launch(launcherCopy, ip, svcCopy.Port, creds, extraArgs);
+                    if (!string.IsNullOrEmpty(err)) { ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error); return; }
+                    _sessions.Register(p,
+                                       row.Resource.VmId,
+                                       row.Name,
+                                       launcherCopy.DisplayName,
+                                       IconForServiceId(launcherCopy.ServiceId),
+                                       row.OsType);
                 };
                 menu.Items.Add(item);
             }
@@ -255,6 +273,33 @@ internal partial class MainWindow
             VerticalAlignment = VerticalAlignment.Center
         };
 
+    /// <summary>
+    /// Returns the OS glyph (Windows / Linux) tinted with the OS-specific colour
+    /// used across the app. Single source of truth for both the type badge on the
+    /// VM card and the pill in the Open sessions panel.
+    /// </summary>
+    internal static PathIcon BuildOsIcon(string osType) => new()
+    {
+        Data = Geometry.Parse(osType.StartsWith("win") ? AppIcons.Windows : AppIcons.Linux),
+        Width = 12,
+        Height = 12,
+        Foreground = new SolidColorBrush(AppColors.OsBrushColor(osType)),
+        VerticalAlignment = VerticalAlignment.Center
+    };
+
+    /// <summary>
+    /// 12x12 inline glyph used by chips/pills/badges (e.g. SPICE, VNC, RDP markers
+    /// on a session pill). Picks up the default foreground from the theme so it
+    /// stays readable in both light and dark mode.
+    /// </summary>
+    internal static PathIcon BuildServiceIcon(string iconData) => new()
+    {
+        Data = Geometry.Parse(iconData),
+        Width = 12,
+        Height = 12,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+
     private static Border BuildTypeBadge(ResourceRow row)
     {
         var stack = new StackPanel
@@ -291,16 +336,9 @@ internal partial class MainWindow
 
         if (row.ResourceType != ClusterResourceType.Node && !string.IsNullOrEmpty(row.OsType))
         {
-            stack.Children.Add(new PathIcon
-            {
-                Data = Geometry.Parse(row.OsType.StartsWith("win")
-                        ? AppIcons.Windows
-                        : AppIcons.Linux),
-                Width = 12,
-                Height = 12,
-                Foreground = new SolidColorBrush(AppColors.OsBrushColor(row.OsType)),
-                Margin = new Thickness(2, 0, 0, 0)
-            });
+            var osIcon = BuildOsIcon(row.OsType);
+            osIcon.Margin = new Thickness(2, 0, 0, 0);
+            stack.Children.Add(osIcon);
         }
 
         return new Border

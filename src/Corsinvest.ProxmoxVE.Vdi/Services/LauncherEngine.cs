@@ -90,13 +90,18 @@ internal static partial class LauncherEngine
 
     /// <summary>
     /// Launches the given definition with the provided IP, port and credentials.
-    /// Returns an error message, or empty string on success.
+    /// Returns the error message (or empty string on success) and the spawned <see cref="Process"/>
+    /// — the latter is null on error or when the OS refuses to start the binary.
     /// </summary>
-    public static string Launch(LauncherDefinition def, string ip, int port, Credentials? credentials, string? extraArgsOverride = null)
+    public static (string Error, Process? Process) Launch(LauncherDefinition def,
+                                                          string ip,
+                                                          int port,
+                                                          Credentials? credentials,
+                                                          string? extraArgsOverride = null)
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(def.Executable)) { return $"No executable defined for launcher '{def.ServiceId}'."; }
+            if (string.IsNullOrWhiteSpace(def.Executable)) { return ($"No executable defined for launcher '{def.ServiceId}'.", null); }
 
             var extraArgs = extraArgsOverride ?? def.ExtraArgs;
             var effectivePort = port > 0 ? port : def.DefaultPort;
@@ -104,25 +109,26 @@ internal static partial class LauncherEngine
 
             if (def.WindowsCredential.Enable && !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return $"Launcher '{def.ServiceId}' requires Windows Credential Manager, which is not supported on this platform.";
+                return ($"Launcher '{def.ServiceId}' requires Windows Credential Manager, which is not supported on this platform.", null);
             }
 
+            Process? process = null;
             if (def.WindowsCredential.Enable)
             {
                 var target = def.WindowsCredential.Target.Replace("{ip}", ip);
                 WindowsCredentialManager.WithTemporaryCredential(target,
                                                                  def.WindowsCredential.Type,
                                                                  credentials,
-                                                                 () => Start(def.Executable, args));
+                                                                 () => process = Start(def.Executable, args));
             }
             else
             {
-                Start(def.Executable, args);
+                process = Start(def.Executable, args);
             }
 
-            return string.Empty;
+            return (string.Empty, process);
         }
-        catch (Exception ex) { return ex.Message; }
+        catch (Exception ex) { return (ex.Message, null); }
     }
 
     private static List<LauncherDefinition> LoadEmbedded()
@@ -226,14 +232,15 @@ internal static partial class LauncherEngine
         return false;
     }
 
-    private static void Start(string fileName, string arguments)
+    private static Process? Start(string fileName, string arguments)
     {
         Console.WriteLine($"[LauncherEngine] {fileName} {arguments}");
-        Process.Start(new ProcessStartInfo
+        return Process.Start(new ProcessStartInfo
         {
             FileName = fileName,
             Arguments = arguments,
-            UseShellExecute = true
+            UseShellExecute = false,
+            CreateNoWindow = true
         });
     }
 

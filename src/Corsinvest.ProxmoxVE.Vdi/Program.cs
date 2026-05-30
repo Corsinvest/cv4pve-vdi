@@ -7,7 +7,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Themes.Fluent;
 using Corsinvest.ProxmoxVE.Vdi.Config;
 using Corsinvest.ProxmoxVE.Vdi.UI;
-using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 
 namespace Corsinvest.ProxmoxVE.Vdi;
 
