@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-05-30
+
 ### Added
 - **Open sessions panel** (#33) — a strip at the top of the main window shows every viewer you have open. Click a session to bring its window back to the front, click the × to close it. The strip hides itself when nothing is running. Particularly useful in kiosk mode, where the Windows taskbar is not available
 - **Launcher icons** — RDP, SPICE, VNC, SSH and the other launchers now show a recognisable icon everywhere they appear (Settings → Launchers, the Connect menu on a VM, the services list on a VM). When you add a custom launcher you can pick its icon from a dropdown
