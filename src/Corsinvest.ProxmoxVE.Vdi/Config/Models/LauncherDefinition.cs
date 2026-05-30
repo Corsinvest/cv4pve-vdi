@@ -21,4 +21,5 @@ internal sealed class LauncherDefinition
     public string Executable { get; set; } = string.Empty;
     public string Arguments { get; set; } = string.Empty;
     public string ExtraArgs { get; set; } = string.Empty;
+    public string Icon { get; set; } = string.Empty;
 }

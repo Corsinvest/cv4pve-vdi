@@ -13,6 +13,7 @@ launchers:
     executable: "mstsc.exe"
     arguments: "/v:{ip}{?::{port}} {extraArgs}"
     extra-args: ""
+    icon: rdp
 
   # RDP — xFreeRDP
   - service-id: rdp-xfreerdp-windows
@@ -24,6 +25,7 @@ launchers:
     executable: "xfreerdp.exe"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
     extra-args: ""
+    icon: rdp
 
   - service-id: rdp-xfreerdp-linux
     display-name: "RDP (xFreeRDP)"
@@ -34,6 +36,7 @@ launchers:
     executable: "xfreerdp"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
     extra-args: ""
+    icon: rdp
 
   - service-id: rdp-xfreerdp-osx
     display-name: "RDP (xFreeRDP)"
@@ -44,6 +47,7 @@ launchers:
     executable: "xfreerdp"
     arguments: "/v:{ip}{?::{port}} /cert:ignore {?/u:{username}} {?/p:{password}} {extraArgs}"
     extra-args: ""
+    icon: rdp
 
   # SSH — Windows (cmd)
   - service-id: ssh-windows
@@ -55,6 +59,7 @@ launchers:
     executable: "cmd.exe"
     arguments: "/k ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — Windows (PuTTY)
   - service-id: ssh-putty-windows
@@ -66,6 +71,7 @@ launchers:
     executable: "putty.exe"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — Linux (GNOME Terminal)
   - service-id: ssh-gnome-terminal
@@ -77,6 +83,7 @@ launchers:
     executable: "gnome-terminal"
     arguments: "-- ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — Linux (xterm)
   - service-id: ssh-xterm
@@ -88,6 +95,7 @@ launchers:
     executable: "xterm"
     arguments: "-e ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — Linux (Konsole)
   - service-id: ssh-konsole
@@ -99,6 +107,7 @@ launchers:
     executable: "konsole"
     arguments: "--hold -e ssh {?-p {port}} {?{username}@}{ip} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — Linux (PuTTY)
   - service-id: ssh-putty-linux
@@ -110,6 +119,7 @@ launchers:
     executable: "putty"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"
     extra-args: ""
+    icon: ssh
 
   # SSH — macOS (Terminal)
   - service-id: ssh-mac
@@ -121,6 +131,7 @@ launchers:
     executable: "osascript"
     arguments: "-e 'tell app \"Terminal\" to do script \"ssh {?-p {port}} {?{username}@}{ip} {extraArgs}\"'"
     extra-args: ""
+    icon: ssh
 
   # SSH — macOS (PuTTY)
   - service-id: ssh-putty-osx
@@ -132,3 +143,4 @@ launchers:
     executable: "putty"
     arguments: "-ssh {ip} {?-P {port}} {?-l {username}} {?-pw {password}} {extraArgs}"
     extra-args: ""
+    icon: ssh

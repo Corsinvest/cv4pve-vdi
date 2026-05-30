@@ -128,7 +128,8 @@ internal static partial class SettingsWindow
                                                          Label,
                                                          toolbarButtons,
                                                          rowButtons,
-                                                         visibleRows: 6);
+                                                         visibleRows: 6,
+                                                         icon: def => AppIcons.ForLauncher(def.Icon));
         refresh = refreshFn;
 
         var tab = new TabItem

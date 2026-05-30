@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Launcher icons** — each launcher declares its own icon (RDP, SPICE, VNC, SSH, FTP, web, database or a generic application glyph) that is shown wherever the launcher appears: Settings → Launchers list, VM services list, the Connect menu on a VM card, and the launcher edit window. Built-in launchers ship with an icon; custom launchers added by the user can pick one from a dropdown next to the display name
+
 ## [1.6.0] - 2026-05-23
 
 ### Added

@@ -177,7 +177,7 @@ internal partial class MainWindow
 
                 var svcCopy = svc;
                 var launcherCopy = launcher;
-                var item = new MenuItem { Header = launcher.DisplayName };
+                var item = new MenuItem { Header = UiHelper.WithText(AppIcons.ForLauncher(launcher.Icon), launcher.DisplayName) };
                 item.Click += async (_, _) =>
                 {
                     var ip = !string.IsNullOrEmpty(svcCopy.IpOverride)

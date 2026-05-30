@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using Avalonia.Controls.Templates;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 
@@ -18,15 +19,31 @@ internal static class VmServiceEditWindow
         ReapplyLanguage();
         var isEdit = existing is not null;
 
-        // Launcher combo
         var cmbLauncher = new ComboBox
         {
             ItemsSource = launchers,
-            DisplayMemberBinding = new Binding("DisplayName"),
             HorizontalAlignment = HorizontalAlignment.Stretch,
-            Padding = new Thickness(26, 0, 0, 0)
+            ItemTemplate = new FuncDataTemplate<LauncherDefinition>((def, _) => new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 8,
+                Children =
+                {
+                    new PathIcon
+                    {
+                        Data = Geometry.Parse(AppIcons.ForLauncher(def?.Icon ?? string.Empty)),
+                        Width = 14,
+                        Height = 14,
+                        VerticalAlignment = VerticalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = def?.DisplayName ?? string.Empty,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            })
         };
-        var cmbLauncherWithIcon = UiHelper.WithIcon(cmbLauncher, AppIcons.Tag);
 
         if (isEdit)
         {
@@ -100,7 +117,7 @@ internal static class VmServiceEditWindow
                 Spacing = 10,
                 Children =
                 {
-                    UiHelper.Label("Launcher"), cmbLauncherWithIcon,
+                    UiHelper.Label("Launcher"), cmbLauncher,
                     UiHelper.Label("Port"), numPortWithIcon,
                     UiHelper.Label("IpOverride"), txtIpOverride,
                     UiHelper.Label("ExtraArgs"), txtExtraArgs,

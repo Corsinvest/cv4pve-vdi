@@ -131,7 +131,9 @@ internal static class VmServicesWindow
             Label,
             toolbarButtons,
             rowButtons,
-            visibleRows: 6);
+            visibleRows: 6,
+            icon: svc => AppIcons.ForLauncher(
+                launchers.FirstOrDefault(l => l.ServiceId == svc.ServiceId)?.Icon ?? string.Empty));
 
         refresh = refreshFn;
 
