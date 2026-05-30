@@ -38,7 +38,8 @@ internal static class ActionListBox
                                                               Func<T, string> label,
                                                               IList<ToolbarButton> toolbarButtons,
                                                               IList<RowButton<T>> rowButtons,
-                                                              int visibleRows = 6)
+                                                              int visibleRows = 6,
+                                                              Func<T, string?>? icon = null)
     {
         const double rowHeight = 32.0;
         var stackRows = new StackPanel { Spacing = 0 };
@@ -56,7 +57,7 @@ internal static class ActionListBox
             foreach (var item in items)
             {
                 var itemCopy = item;
-                var row = BuildRow(itemCopy, label, rowButtons);
+                var row = BuildRow(itemCopy, label, rowButtons, icon);
                 stackRows.Children.Add(row);
             }
         }
@@ -92,7 +93,7 @@ internal static class ActionListBox
         return (panel, Refresh);
     }
 
-    private static Border BuildRow<T>(T item, Func<T, string> label, IList<RowButton<T>> rowButtons)
+    private static Border BuildRow<T>(T item, Func<T, string> label, IList<RowButton<T>> rowButtons, Func<T, string?>? icon)
     {
         var txtLabel = new TextBlock
         {
@@ -101,6 +102,22 @@ internal static class ActionListBox
             HorizontalAlignment = HorizontalAlignment.Stretch,
             TextTrimming = TextTrimming.CharacterEllipsis
         };
+
+        // Optional inline glyph rendered before the label (e.g. launcher icon
+        // in the Launchers list). Skipped when icon callback is null or empty.
+        PathIcon? glyph = null;
+        var iconData = icon?.Invoke(item);
+        if (!string.IsNullOrEmpty(iconData))
+        {
+            glyph = new PathIcon
+            {
+                Data = Geometry.Parse(iconData),
+                Width = 14,
+                Height = 14,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 8, 0)
+            };
+        }
 
         var btnPanel = new StackPanel
         {
@@ -129,12 +146,25 @@ internal static class ActionListBox
             btnPanel.Children.Add(btn);
         }
 
+        Control leftCell = txtLabel;
+        if (glyph is not null)
+        {
+            var iconRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            iconRow.Children.Add(glyph);
+            iconRow.Children.Add(txtLabel);
+            leftCell = iconRow;
+        }
+
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
         grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        Grid.SetColumn(txtLabel, 0);
+        Grid.SetColumn(leftCell, 0);
         Grid.SetColumn(btnPanel, 1);
-        grid.Children.Add(txtLabel);
+        grid.Children.Add(leftCell);
         grid.Children.Add(btnPanel);
 
         var border = new Border

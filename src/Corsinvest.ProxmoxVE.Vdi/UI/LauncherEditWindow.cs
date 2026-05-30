@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using Avalonia.Controls.Templates;
 using Avalonia.Platform.Storage;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
@@ -28,6 +29,44 @@ internal static class LauncherEditWindow
         var (cmbPlatform, cmbPlatformWithIcon) = UiHelper.ComboBoxWithIcon(Enum.GetValues<LauncherPlatform>(),
                                                                            AppIcons.Server,
                                                                            existing?.Platform ?? LauncherPlatform.Windows);
+
+        // Icon picker — selection box shows just the glyph so it stays compact
+        // next to the display-name textbox; the dropdown still lists icon + id
+        // so the user can recognise each entry while choosing.
+        var cmbIcon = new ComboBox
+        {
+            ItemsSource = LauncherIcons.All,
+            SelectedItem = LauncherIcons.All.Contains(existing?.Icon ?? string.Empty)
+                            ? existing!.Icon
+                            : LauncherIcons.Application,
+            SelectionBoxItemTemplate = new FuncDataTemplate<string>((id, _) => new PathIcon
+            {
+                Data = Geometry.Parse(AppIcons.ForLauncher(id ?? string.Empty)),
+                Width = 14,
+                Height = 14,
+                VerticalAlignment = VerticalAlignment.Center
+            }),
+            ItemTemplate = new FuncDataTemplate<string>((id, _) => new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 8,
+                Children =
+                {
+                    new PathIcon
+                    {
+                        Data = Geometry.Parse(AppIcons.ForLauncher(id ?? string.Empty)),
+                        Width = 14,
+                        Height = 14,
+                        VerticalAlignment = VerticalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = id ?? string.Empty,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            })
+        };
 
         // Default port
         var numPort = new NumericUpDown
@@ -122,7 +161,7 @@ internal static class LauncherEditWindow
                 Children =
                 {
                     UiHelper.Label("LauncherServiceId"), txtServiceId,
-                    UiHelper.Label("LauncherDisplayName"), txtDisplayName,
+                    UiHelper.Label("LauncherDisplayName"), DisplayNameRow(cmbIcon, txtDisplayName),
                     UiHelper.Label("LauncherPlatform"), cmbPlatformWithIcon,
                     UiHelper.Label("LauncherDefaultPort"), numPortWithIcon,
                     UiHelper.Label("LauncherExecutable"), executableRow,
@@ -185,6 +224,7 @@ internal static class LauncherEditWindow
                 Executable = txtExecutable.Text!.Trim(),
                 Arguments = txtArguments.Text?.Trim() ?? string.Empty,
                 ExtraArgs = txtExtraArgs.Text?.Trim() ?? string.Empty,
+                Icon = cmbIcon.SelectedItem as string ?? LauncherIcons.Application,
                 SupportsCredentials = chkCredentials.IsChecked is true,
                 WindowsCredential = new WindowsCredentialDefinition
                 {
@@ -197,5 +237,21 @@ internal static class LauncherEditWindow
         };
 
         return await window.ShowDialog<LauncherDefinition?>(owner);
+    }
+
+    private static Grid DisplayNameRow(ComboBox iconCombo, TextBox displayName)
+    {
+        // Compact: enough room for the glyph + dropdown chevron, no name text.
+        iconCombo.MinWidth = 56;
+        var grid = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,*"),
+            ColumnSpacing = 8
+        };
+        Grid.SetColumn(iconCombo, 0);
+        Grid.SetColumn(displayName, 1);
+        grid.Children.Add(iconCombo);
+        grid.Children.Add(displayName);
+        return grid;
     }
 }
