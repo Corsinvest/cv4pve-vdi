@@ -519,12 +519,13 @@ internal partial class MainWindow
                                             || a.Tags.Any(t => _filterTags.Contains(t)));
         }
 
-        // When the user explicitly ticks the Stopped status filter, include powerable rows
-        // even if they have no live VDI action — otherwise the Start button can't be reached
-        // for stopped VMs/CTs.
-        var showStopped = _chkStopped.IsChecked is true;
+        // Always include stopped-but-powerable rows so the Start button is reachable.
+        // Without this, a stopped VM is only kept via HasAnyVdiAction, which for a stopped
+        // VM depends solely on its VGA being SPICE-capable (qxl/spice) — so a stopped
+        // VNC-only VM (e.g. vga: virtio) would silently vanish while stopped SPICE VMs stay
+        // visible. Status filters applied above still remove these when "Running" is ticked.
         var list = filtered.Where(a => a.HasAnyVdiAction
-                                       || (showStopped && a.CanPower && !a.IsActive)).ToList();
+                                       || (a.CanPower && !a.IsActive)).ToList();
 
         // Sort VMs/CTs globally per the user's choice (nodes keep their alphabetical order
         // applied at fetch time). _allRows is built in two passes (LXC first, then QEMU),
