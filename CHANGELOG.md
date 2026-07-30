@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-07-30
+
+### Fixed
+- A stopped VM disappeared from the list unless its VGA was SPICE-capable (`qxl`/`spice`); a stopped VNC-only VM (e.g. `vga: virtio`) vanished while stopped SPICE VMs stayed visible. Stopped VMs you can power on are now always shown, so the Start button is reachable regardless of VGA type (#37)
+
 ## [1.7.0] - 2026-05-30
 
 ### Added
