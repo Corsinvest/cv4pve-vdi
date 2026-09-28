@@ -128,6 +128,7 @@
   <data name="SectionLaunchers"><value>LANCEURS</value></data>
   <data name="ViewerPath"><value>Chemin du viewer (remote-viewer, utilisé pour SPICE et VNC)</value></data>
   <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="SelectSpiceViewer"><value>Sélectionner la visionneuse SPICE</value></data>
   <data name="EnableSpice"><value>SPICE</value></data>
   <data name="EnableVnc"><value>VNC</value></data>
   <data name="EnableAgentPing"><value>Pinger l'agent invité (QEMU uniquement)</value></data>
