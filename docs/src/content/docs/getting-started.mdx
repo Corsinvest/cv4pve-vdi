@@ -1,0 +1,109 @@
+---
+title: Getting started
+description: Install cv4pve-vdi and remote-viewer, add a Proxmox VE cluster and log in with your Proxmox account.
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import CliInstall from '@corsinvest/cv4pve-docs-theme/components/CliInstall.astro';
+import editCluster from '../../assets/edit-cluster.png';
+import settingsLaunchers from '../../assets/settings-launchers.png';
+import login from '../../assets/login.png';
+
+cv4pve-vdi runs **on the user's computer** — a workstation, a laptop, a thin client — and talks to the
+Proxmox VE REST API on port 8006. Nothing is installed on the nodes.
+
+## Installation
+
+cv4pve-vdi is a single executable. The shared release workflow publishes a zip for each system and
+the WinGet package:
+
+<CliInstall repo="cv4pve-vdi" channels={['linux', 'winget', 'windows', 'macos']} />
+
+WinGet installs the `cv4pve-vdi` command; from a zip, start the extracted executable. There is no
+Homebrew formula, macOS `.pkg`, `.deb`, `.rpm` or AUR package for cv4pve-vdi.
+
+## Install remote-viewer
+
+SPICE and VNC consoles open in `remote-viewer`, the viewer of the virt-viewer project. cv4pve-vdi does not
+look for it: until its path is set, the main window shows *remote-viewer is not configured — SPICE and
+VNC consoles will not work* with an **Open Settings** button. RDP, SSH and the other
+[services](/cv4pve-vdi/services/) do not need it.
+
+<Tabs syncKey="os">
+  <TabItem label="Windows">
+    ```powershell
+    winget install RedHat.VirtViewer
+    ```
+    The viewer is `C:\Program Files\VirtViewer v<version>\bin\remote-viewer.exe`, e.g. `VirtViewer v11.0-256`.
+    The installer is also on the [SPICE download page](https://www.spice-space.org/download.html).
+  </TabItem>
+  <TabItem label="Debian / Ubuntu">
+    ```bash
+    sudo apt install virt-viewer    # /usr/bin/remote-viewer
+    ```
+  </TabItem>
+  <TabItem label="RHEL / Fedora">
+    ```bash
+    sudo dnf install virt-viewer    # /usr/bin/remote-viewer
+    ```
+  </TabItem>
+  <TabItem label="macOS">
+    See the [SPICE macOS client page](https://www.spice-space.org/osx-client.html).
+  </TabItem>
+</Tabs>
+
+Then set its path in **Settings → Launchers → Viewer path** (the folder button opens a file picker):
+
+<img src={settingsLaunchers.src} alt="Settings, Launchers tab: viewer path, SPICE and VNC switches, launcher list" width="431" />
+
+## Add your cluster
+
+<Steps>
+
+1. Start cv4pve-vdi. The login window opens.
+
+2. Click the gear next to **Cluster** (*Manage clusters*), then **+** to add a cluster.
+
+3. Fill in the cluster:
+
+   <img src={editCluster.src} alt="Edit Cluster dialog" width="317" />
+
+   | Field | What to enter |
+   |---|---|
+   | **Name** | The name shown in the login window, e.g. `prod`. |
+   | **Hosts** | One or more nodes as `host[:port]`, comma-separated: `pve1.example.com,pve2.example.com:8006`. The port defaults to 8006. At login cv4pve-vdi uses the first host that answers, so the cluster stays reachable while a node is down. |
+   | **Skip TLS certificate validation** | For nodes with the self-signed certificate Proxmox VE installs by default. Leave it off when the nodes have a trusted certificate. |
+   | **Timeout (seconds)** | How long to wait for each host. Default 10, from 5 to 120. |
+   | **SPICE proxy** | Optional — see [How it connects](/cv4pve-vdi/how-it-connects/#spice). |
+   | **Viewer extra options** | Optional arguments added to `remote-viewer` for this cluster, e.g. `--full-screen`. |
+
+4. Click the save button of the dialog, then **Save** in Settings.
+
+</Steps>
+
+Add one entry per cluster; the login window lets you pick which one to open.
+
+## Log in
+
+Log in with a **Proxmox VE account**, the same you would use in the web interface:
+
+- **Username** with its realm: `alice@pve`, `alice@pam`, or `alice@<your LDAP/AD realm>`. The last
+  username is filled in next time.
+- **Password**.
+- **OTP** — the code from the authenticator, only if the account has two-factor authentication.
+
+The globe menu at the top right changes the language of the interface — see
+[Languages](/cv4pve-vdi/languages/).
+
+<img src={login.src} alt="Login window: cluster, username, password, OTP and language" width="301" />
+
+cv4pve-vdi logs in with a user and password, not with an API token: the account belongs to the person
+in front of the screen, and its password can be passed on to RDP for
+[single sign-on](/cv4pve-vdi/services/#single-sign-on-for-rdp-windows). What the account may see and do
+is set in Proxmox VE — see [Permissions](/cv4pve-vdi/permissions/).
+
+## Next
+
+- [The main window](/cv4pve-vdi/main-window/): which VMs appear, filters, Start and Shutdown.
+- [SPICE and VNC](/cv4pve-vdi/consoles/): when each console is offered.
+- [Services](/cv4pve-vdi/services/): RDP and SSH to a VM.
