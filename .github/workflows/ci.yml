@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  ci:
+    uses: Corsinvest/.github/.github/workflows/cv4pve-tools-ci.yml@ci/tools-ci
+    with:
+      build: false
