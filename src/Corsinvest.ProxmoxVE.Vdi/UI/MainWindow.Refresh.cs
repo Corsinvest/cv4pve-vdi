@@ -281,8 +281,7 @@ internal partial class MainWindow
                                                                 row.Resource.Node,
                                                                 row.Resource.VmId,
                                                                 row.VmType,
-                                                                _config,
-                                                                ShowViewerErrorToast);
+                                                                _config);
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);
@@ -298,8 +297,7 @@ internal partial class MainWindow
                                                                   row.Resource.VmId,
                                                                   row.VmType,
                                                                   _config,
-                                                                  _host,
-                                                                  ShowViewerErrorToast);
+                                                                  _host);
         if (!string.IsNullOrEmpty(err))
         {
             ShowToast($"{L("ErrorPrefix")}{err}", NotificationSeverity.Error);
@@ -307,9 +305,6 @@ internal partial class MainWindow
         }
         _sessions.Register(p, row.Resource.VmId, row.Name, "SPICE", AppIcons.Spice, row.OsType);
     }
-
-    private void ShowViewerErrorToast(string message)
-        => ShowToast($"{L("ErrorPrefix")}{message}", NotificationSeverity.Error);
 
     private async Task<bool?> GetAgentRunningAsync(dynamic vm, long vmId)
     {

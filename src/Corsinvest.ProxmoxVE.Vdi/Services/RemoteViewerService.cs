@@ -8,90 +8,93 @@ using Corsinvest.ProxmoxVE.Api.Extension.Utils;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using System.Diagnostics;
-using System.Text;
 
 namespace Corsinvest.ProxmoxVE.Vdi.Services;
 
 internal static class RemoteViewerService
 {
-    // Window during which a viewer exit counts as an immediate failure worth
-    // reporting; a working session never ends this fast.
-    private const int EarlyExitSeconds = 5;
-    private const int MaxCapturedStderrChars = 2000;
-    private const int MaxStderrTailChars = 800;
+    /// <summary>
+    /// Startup banner warning for the configured viewer: null when the path is
+    /// usable, otherwise a localized message ("not configured" or virt-viewer
+    /// selected without a repairable remote-viewer sibling).
+    /// </summary>
+    public static string? GetViewerPathWarning(string? viewerPath)
+        => string.IsNullOrWhiteSpace(viewerPath)
+                ? L("ViewerNotConfigured")
+                : ResolveRemoteViewerPath(viewerPath) is null
+                        ? L("ViewerVirtViewerNeedsRemote")
+                        : null;
 
     /// <summary>
-    /// Validates the configured viewer executable. Returns an error message, or
-    /// null when the path looks usable. An empty path is valid here — "not
-    /// configured" is reported separately.
+    /// The Linux <c>virt-viewer</c> package and the Windows VirtViewer installer
+    /// both place <c>remote-viewer</c> next to <c>virt-viewer</c>, so a path
+    /// pointing at virt-viewer can be repaired on the fly. virt-viewer itself
+    /// treats a .vv file as a local libvirt domain name and fails with the
+    /// misleading "No running virtual machine found" dialog, so it must never
+    /// be launched. Returns the usable path, or null when virt-viewer was
+    /// selected and no remote-viewer sibling exists.
     /// </summary>
-    public static string? ValidateViewerPath(string? viewerPath)
+    public static string? ResolveRemoteViewerPath(string viewerPath)
     {
-        if (string.IsNullOrWhiteSpace(viewerPath)) { return null; }
+        if (!IsVirtViewer(viewerPath)) { return viewerPath; }
 
-        if (!File.Exists(viewerPath))
-        {
-            return $"Viewer executable not found: {viewerPath}";
-        }
+        var dir = System.IO.Path.GetDirectoryName(viewerPath);
+        var sibling = string.IsNullOrEmpty(dir)
+                            ? RemoteViewerName()
+                            : System.IO.Path.Combine(dir, RemoteViewerName());
 
-        // virt-viewer treats a .vv file path as a local libvirt domain name and
-        // never contacts Proxmox VE; the user sees the misleading
-        // "Failed to connect: No running virtual machine found" dialog.
-        var name = System.IO.Path.GetFileNameWithoutExtension(viewerPath);
-        if (string.Equals(name, "virt-viewer", StringComparison.OrdinalIgnoreCase))
-        {
-            return $"{viewerPath} is virt-viewer, which cannot open .vv connection files: it looks " +
-                   "for a local libvirt domain named after the file and then fails with " +
-                   "\"Failed to connect: No running virtual machine found\". " +
-                   "Use the remote-viewer executable instead.";
-        }
-
-        return null;
+        // A bare file name resolves through PATH at launch — accept it as-is.
+        return string.IsNullOrEmpty(dir) || File.Exists(sibling) ? sibling : null;
     }
 
+    private static bool IsVirtViewer(string viewerPath)
+        => string.Equals(System.IO.Path.GetFileName(viewerPath), VirtViewerName(), StringComparison.OrdinalIgnoreCase);
+
+    private static string VirtViewerName() => OperatingSystem.IsWindows() ? "virt-viewer.exe" : "virt-viewer";
+
+    private static string RemoteViewerName() => OperatingSystem.IsWindows() ? "remote-viewer.exe" : "remote-viewer";
+
     public static async Task<(string Error, Process? Process)>
-        LaunchSpiceAsync(PveClient client, string node, long vmId, VmType vmType, AppConfig config, ClusterConfig host,
-                         Action<string>? onEarlyExit = null)
+        LaunchSpiceAsync(PveClient client, string node, long vmId, VmType vmType, AppConfig config, ClusterConfig host)
     {
         if (string.IsNullOrWhiteSpace(config.ViewerPath))
         {
-            return ("SPICE viewer path is not configured. Please set it in Settings → Viewer.", null);
+            return (L("ViewerPathNotSet"), null);
         }
 
-        var validationError = ValidateViewerPath(config.ViewerPath);
-        if (validationError != null) { return (validationError, null); }
+        var viewerPath = ResolveRemoteViewerPath(config.ViewerPath);
+        if (viewerPath is null) { return (L("ViewerVirtViewerNeedsRemote"), null); }
 
         var (error, fileName) = await RemoteViewerHelper.PrepareSpiceAsync(client, node, vmType, vmId, host.Spice.Proxy);
         if (error != null) { return (error, null); }
 
         var viewerOptions = host.Spice.ViewerOptions.Replace(Environment.NewLine, " ");
-        var p = LaunchViewer(config.ViewerPath, fileName!, viewerOptions, onEarlyExit);
-        if (p == null) { return ("Failed to start viewer process.", null); }
+        var (p, launchError) = LaunchViewer(viewerPath, fileName!, viewerOptions);
+        if (p == null) { return (launchError ?? L("ViewerLaunchFailed"), null); }
         return (string.Empty, p);
     }
 
     public static async Task<(string Error, Process? Process)>
-        LaunchVncAsync(PveClient client, string node, long vmId, VmType vmType, AppConfig config,
-                       Action<string>? onEarlyExit = null)
+        LaunchVncAsync(PveClient client, string node, long vmId, VmType vmType, AppConfig config)
     {
         if (string.IsNullOrWhiteSpace(config.ViewerPath))
         {
-            return ("SPICE viewer path is not configured. Please set it in Settings → Viewer.", null);
+            return (L("ViewerPathNotSet"), null);
         }
 
-        var validationError = ValidateViewerPath(config.ViewerPath);
-        if (validationError != null) { return (validationError, null); }
+        var viewerPath = ResolveRemoteViewerPath(config.ViewerPath);
+        if (viewerPath is null) { return (L("ViewerVirtViewerNeedsRemote"), null); }
 
         var (error, fileName, bridge) = await RemoteViewerHelper.PrepareVncAsync(client, node, vmType, vmId);
         if (error != null) { return (error, null); }
 
         // VNC needs the WebSocket bridge to stay alive until the viewer exits,
         // so we launch the process here and dispose the bridge on the Exited event.
-        var process = LaunchViewer(config.ViewerPath, fileName!, string.Empty, onEarlyExit);
+        var (process, launchError) = LaunchViewer(viewerPath, fileName!, string.Empty);
         if (process == null)
         {
             await bridge!.DisposeAsync();
-            return ("Failed to start viewer process.", null);
+            return (launchError ?? L("ViewerLaunchFailed"), null);
         }
 
         process.EnableRaisingEvents = true;
@@ -103,11 +106,10 @@ internal static class RemoteViewerService
     /// <summary>
     /// Launches the viewer binary directly (no shell wrapper) so we keep a usable
     /// <see cref="Process"/> handle for session tracking and bring-to-front.
-    /// When <paramref name="onEarlyExit"/> is set, stderr is captured and the
-    /// callback fires with the viewer's own failure reason if the process exits
-    /// immediately — otherwise a broken viewer dies silently on the client side.
+    /// Returns the exception message as the error when the process could not be
+    /// started (e.g. path does not exist), so the toast says why.
     /// </summary>
-    private static Process? LaunchViewer(string viewerPath, string vvFile, string viewerOptions, Action<string>? onEarlyExit = null)
+    private static (Process? Process, string? Error) LaunchViewer(string viewerPath, string vvFile, string viewerOptions)
     {
         var psi = new ProcessStartInfo
         {
@@ -124,44 +126,8 @@ internal static class RemoteViewerService
         {
             psi.ArgumentList.Add(opt);
         }
-
-        if (onEarlyExit != null) { psi.RedirectStandardError = true; }
-
-        Process? p;
-        try { p = Process.Start(psi); }
-        catch { return null; }
-
-        if (p != null && onEarlyExit != null)
-        {
-            var stderr = new StringBuilder();
-            p.ErrorDataReceived += (_, e) =>
-            {
-                if (e.Data == null || stderr.Length >= MaxCapturedStderrChars) { return; }
-                stderr.AppendLine(e.Data);
-            };
-            p.BeginErrorReadLine();
-
-            var startedAt = DateTime.UtcNow;
-            p.EnableRaisingEvents = true;
-            p.Exited += (_, _) =>
-            {
-                if ((DateTime.UtcNow - startedAt).TotalSeconds < EarlyExitSeconds)
-                {
-                    onEarlyExit(BuildEarlyExitMessage(viewerPath, stderr.ToString(), p.ExitCode));
-                }
-            };
-        }
-
-        return p;
-    }
-
-    private static string BuildEarlyExitMessage(string viewerPath, string stderr, int exitCode)
-    {
-        var tail = stderr.TrimEnd();
-        if (tail.Length > MaxStderrTailChars) { tail = "…" + tail[^MaxStderrTailChars..]; }
-        return tail.Length > 0
-            ? $"The viewer {System.IO.Path.GetFileName(viewerPath)} exited immediately (exit code {exitCode}): {tail}"
-            : $"The viewer {System.IO.Path.GetFileName(viewerPath)} exited immediately (exit code {exitCode}).";
+        try { return (Process.Start(psi), null); }
+        catch (Exception ex) { return (null, ex.Message); }
     }
 
     /// <summary>
