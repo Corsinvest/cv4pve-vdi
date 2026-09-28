@@ -17,4 +17,4 @@ concurrency:
 
 jobs:
   docs:
-    uses: Corsinvest/.github/.github/workflows/cv4pve-tools-docs.yml@ci/tools-docs
+    uses: Corsinvest/.github/.github/workflows/cv4pve-tools-docs.yml@main
