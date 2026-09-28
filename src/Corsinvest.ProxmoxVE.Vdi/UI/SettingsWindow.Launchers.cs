@@ -197,6 +197,7 @@ internal static partial class SettingsWindow
                     || def.WindowsCredential.Type != builtin.WindowsCredential.Type
                     || def.WindowsCredential.Target != builtin.WindowsCredential.Target
                     || def.Executable != builtin.Executable
+                    || def.Icon != builtin.Icon
                     || def.Platform != builtin.Platform
                     || def.DocumentationUrl != builtin.DocumentationUrl;
         }).ToList();

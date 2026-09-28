@@ -188,6 +188,10 @@ internal static partial class LauncherEngine
             Executable = string.IsNullOrEmpty(user.Executable)
                         ? builtin.Executable
                         : user.Executable,
+
+            Icon = string.IsNullOrEmpty(user.Icon)
+                        ? builtin.Icon
+                        : user.Icon,
         };
 
     // Interpolation
