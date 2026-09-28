@@ -234,9 +234,6 @@ internal static class VmServicesWindow
 
         var tcs = new TaskCompletionSource<bool>();
 
-        btnAdd.Click += (_, _) => tcs.TrySetResult(true);
-        btnCancel.Click += (_, _) => tcs.TrySetResult(false);
-
         var itemsPanel = new StackPanel { Spacing = 6 };
         foreach (var chk in checkboxes) { itemsPanel.Children.Add(chk); }
 
@@ -266,6 +263,8 @@ internal static class VmServicesWindow
             }
         };
 
+        btnAdd.Click += (_, _) => { tcs.TrySetResult(true); dlg.Close(); };
+        btnCancel.Click += (_, _) => { tcs.TrySetResult(false); dlg.Close(); };
         dlg.Closed += (_, _) => tcs.TrySetResult(false);
 
         await dlg.ShowDialog(owner);
