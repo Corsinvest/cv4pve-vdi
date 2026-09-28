@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+- **Documentation site.** The documentation moved from Markdown files in the repository to [corsinvest.github.io/cv4pve-vdi](https://corsinvest.github.io/cv4pve-vdi/): getting started, permissions, how it connects, the main window, SPICE and VNC, services, launchers, guest setup, kiosk mode, settings and languages. Every page was checked against the code
+- New product icon for the documentation site and the README
+
 ## [1.7.1] - 2026-07-30
 
 ### Fixed
@@ -25,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.0] - 2026-05-23
 
 ### Added
-- **UI translations** with a language picker on the login window — ships with English, Italian, German, French, Spanish, Brazilian Portuguese, Russian, Polish, Dutch and Czech. See [docs/I18N.md](docs/I18N.md) for how to contribute or improve a translation
+- **UI translations** with a language picker on the login window — ships with English, Italian, German, French, Spanish, Brazilian Portuguese, Russian, Polish, Dutch and Czech. See [Languages](https://corsinvest.github.io/cv4pve-vdi/languages/) for how to contribute or improve a translation
 - **Group by node** (Settings → Appearance) — toggle off to render VMs/CTs as a single flat list without node headers
 - **Sort by** (Settings → Appearance) — order VMs and CTs by *ID* or *Name*; both kinds are interleaved by the chosen key instead of always being rendered as CTs-then-VMs
 - **Search by tag** — the search box now also matches against tag names, not just VM name/ID/description (#27)
@@ -43,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.0] - 2026-05-11
 
 ### Added
-- **Kiosk mode** — lock down the application for thin-client and shared-workstation deployments. Full-screen login and main window, advanced settings (Launchers, Clusters, advanced Appearance) hidden behind an admin password, optional login background image for branding. See [docs/KIOSK.md](docs/KIOSK.md) for the full guide.
+- **Kiosk mode** — lock down the application for thin-client and shared-workstation deployments. Full-screen login and main window, advanced settings (Launchers, Clusters, advanced Appearance) hidden behind an admin password, optional login background image for branding. See [Kiosk mode](https://corsinvest.github.io/cv4pve-vdi/kiosk/) for the full guide.
 - **Switch user** — sign out and return to the login screen without restarting the application. Found in the **More** menu. Especially useful in kiosk mode where multiple people share the same thin client.
 - **Admin unlock** — once the admin password is entered, the session stays unlocked until the application is closed or **Switch user** is clicked. No need to re-enter the password for each protected action.
 

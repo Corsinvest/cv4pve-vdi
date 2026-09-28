@@ -64,7 +64,7 @@ Today `CredentialSource.Manual` saves the password as plaintext in `~/.cv4pve/vd
   - macOS: `/Library/Application Support/cv4pve-vdi/config.yaml`, defaults domain
 - [ ] Merge order: defaults → machine → user, with **machine settings able to lock fields** (kiosk mode in particular)
 - [ ] Ship an `.adml`/`.admx` pair so admins can manage cv4pve-vdi from Group Policy like Citrix Workspace does
-- [ ] Document the precedence and the locked-field syntax in `docs/KIOSK.md` (already the natural home of fleet deployment notes)
+- [ ] Document the precedence and the locked-field syntax in the Kiosk mode page of the documentation site (already the natural home of fleet deployment notes)
 
 ## OIDC / SAML / AD login
 
