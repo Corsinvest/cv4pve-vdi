@@ -14,7 +14,7 @@ namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
 internal static partial class SettingsWindow
 {
-    private static (TabItem Tab, Action Save) BuildTabLaunchers(AppConfig config, Window owner)
+    private static (TabItem Tab, Func<string?> Save) BuildTabLaunchers(AppConfig config, Window owner)
     {
         var txtViewerPath = UiHelper.TextBox(config.ViewerPath, L("ViewerPathWatermark"), AppIcons.Console);
         var btnBrowseViewer = UiHelper.IconButton(AppIcons.Folder, "SelectSpiceViewer", margin: new Thickness(4, 0, 0, 0));
@@ -170,11 +170,18 @@ internal static partial class SettingsWindow
             if (files.Count > 0) { txtViewerPath.Text = files[0].Path.LocalPath; }
         };
 
-        void Save()
+        // Returns an error message when the viewer path is invalid (the caller
+        // shows it and keeps the window open); null when saving may proceed.
+        string? Save()
         {
-            config.ViewerPath = txtViewerPath.Text?.Trim() ?? string.Empty;
+            var viewerPath = txtViewerPath.Text?.Trim() ?? string.Empty;
+            var viewerError = RemoteViewerService.ValidateViewerPath(viewerPath);
+            if (viewerError != null) { return viewerError; }
+
+            config.ViewerPath = viewerPath;
             config.EnableSpice = chkEnableSpice.IsChecked is true;
             config.EnableVnc = chkEnableVnc.IsChecked is true;
+            return null;
         }
 
         return (tab, Save);

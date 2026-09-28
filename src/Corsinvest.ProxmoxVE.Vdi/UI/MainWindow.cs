@@ -690,11 +690,17 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         if (string.IsNullOrEmpty(_config.ViewerPath))
         {
             ShowBanner(L("ViewerNotConfigured"), NotificationSeverity.Warning);
+            return;
         }
-        else
+
+        var viewerError = RemoteViewerService.ValidateViewerPath(_config.ViewerPath);
+        if (viewerError != null)
         {
-            HideBanner();
+            ShowBanner(viewerError, NotificationSeverity.Warning);
+            return;
         }
+
+        HideBanner();
     }
 
     internal void ApplySidebarVisibility()

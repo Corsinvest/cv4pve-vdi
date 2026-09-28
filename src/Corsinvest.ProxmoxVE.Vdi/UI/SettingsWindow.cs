@@ -104,7 +104,15 @@ internal static partial class SettingsWindow
             }
 
             saveAppearance();
-            if (!kioskLocked) { saveLaunchers(); }
+            if (!kioskLocked)
+            {
+                var launcherError = saveLaunchers();
+                if (launcherError != null)
+                {
+                    await DialogHelper.MessageAsync(window, launcherError, NotificationSeverity.Error);
+                    return;
+                }
+            }
             AppConfigManager.Save(config);
             Application.Current?.RequestedThemeVariant = config.ThemeVariant;
             window.Close();
