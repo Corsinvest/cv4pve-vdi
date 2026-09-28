@@ -48,6 +48,9 @@ internal static class AppConfigManager
         }
         catch
         {
+            // Preserve the unreadable file instead of letting the next Save overwrite it
+            // with a fresh default config.
+            try { File.Copy(ConfigFile, $"{ConfigFile}.bak-{DateTime.Now:yyyyMMdd-HHmmss}", overwrite: false); } catch { }
             return new AppConfig();
         }
     }
@@ -55,7 +58,12 @@ internal static class AppConfigManager
     public static void Save(AppConfig config)
     {
         Directory.CreateDirectory(ConfigDir);
-        File.WriteAllText(ConfigFile, Serializer.Serialize(config));
+
+        // Write to a temp file in the same directory, then move over the target:
+        // a crash mid-write must not leave a truncated config behind.
+        var tmpFile = $"{ConfigFile}.tmp";
+        File.WriteAllText(tmpFile, Serializer.Serialize(config));
+        File.Move(tmpFile, ConfigFile, overwrite: true);
 
         // chmod 600 on Linux/macOS
         if (!OperatingSystem.IsWindows())
