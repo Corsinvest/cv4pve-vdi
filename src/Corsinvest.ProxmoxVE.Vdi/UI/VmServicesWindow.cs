@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Collections.ObjectModel;
 using Corsinvest.ProxmoxVE.Api;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
-using System.Collections.ObjectModel;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
