@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Diagnostics;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config;
@@ -10,7 +11,6 @@ using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
-using System.Diagnostics;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -96,7 +96,6 @@ internal partial class MainWindow
 
         return panel;
     }
-
 
     internal void AddActionButtons(DockPanel panel, ResourceRow row, bool isCard)
     {
