@@ -32,6 +32,8 @@ internal static class LoginWindow
         ("pl",    "Polski"),
         ("pt-BR", "Português (Brasil)"),
         ("ru",    "Русский"),
+        ("zh-Hans", "简体中文"),
+        ("zh-Hant", "繁體中文"),
     ];
 
     public static Window Create(AppConfig config)
