@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Leading and trailing spaces were removed from the password of a service with Manual credentials
 
 ### Changed
+- The application and window icon is the cv4pve-vdi product icon, as on the documentation site, instead of the Corsinvest logo
 - Updated Corsinvest.ProxmoxVE.Api.Extension to 9.2.3
 - Project metadata, symbols (Source Link) and code style aligned with the other cv4pve tools
 
