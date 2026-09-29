@@ -15,7 +15,7 @@ terminal…), on which port, with which credentials.
 
 Services appear in the guest's **Connect** menu, after SPICE and VNC:
 
-<img src={vmServicesMenu.src} alt="Connect menu with VNC, RDP (mstsc) and Services…" width="216" />
+<img src={vmServicesMenu.src} alt="Connect menu with VNC, RDP (mstsc) and Services…" width="144" />
 
 ## Configure services for a VM
 
@@ -23,9 +23,9 @@ Services appear in the guest's **Connect** menu, after SPICE and VNC:
 to discover them, and edit and delete on each row (double-click also edits). **Save** keeps the changes.
 In [kiosk mode](/cv4pve-vdi/kiosk/) the window asks for the admin password first.
 
-<img src={vmServicesManager.src} alt="Services window of a VM with one RDP service" width="362" />
+<img src={vmServicesManager.src} alt="Services window of a VM with one RDP service" width="483" />
 
-<img src={vmServicesEdit.src} alt="Add Service dialog" width="287" />
+<img src={vmServicesEdit.src} alt="Add Service dialog" width="383" />
 
 | Field | What it does |
 |---|---|
@@ -58,7 +58,7 @@ The search button in the services window lists what answers on the VM: cv4pve-vd
 address through the guest agent, tries to open a TCP connection to the default port of each launcher of
 this system not yet configured for the VM, and offers those that answer within half a second.
 
-<img src={vmServicesDiscover.src} alt="Discover dialog with the services found" width="242" />
+<img src={vmServicesDiscover.src} alt="Discover dialog with the services found" width="323" />
 
 Tick the ones to add and click **Add selected**. They are added with the launcher's default port and
 credentials `None`; edit them afterwards to set credentials or arguments.

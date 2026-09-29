@@ -5,6 +5,7 @@ description: Card and list view, which guests appear and why, filters, badges, S
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import vmServicesMenu from '../../assets/vm-services-menu.png';
+import openSessions from '../../assets/open-sessions.png';
 
 After login the main window lists the VMs and containers of the cluster that the account may use, grouped
 by node. Each guest has a **Connect** button with its consoles and services.
@@ -90,12 +91,14 @@ The **Connect** button opens a menu with, in this order:
 2. the [services](/cv4pve-vdi/services/) configured for the guest, for the launchers of this operating system;
 3. **Services…**, to configure them (admin password in [kiosk mode](/cv4pve-vdi/kiosk/)).
 
-<img src={vmServicesMenu.src} alt="Connect menu with VNC, RDP (mstsc) and Services…" width="216" />
+<img src={vmServicesMenu.src} alt="Connect menu with VNC, RDP (mstsc) and Services…" width="144" />
 
 ## Open sessions
 
 Every viewer or launcher started from cv4pve-vdi appears in a strip at the top of the window, with the
 guest's OS, the protocol and the guest name. The strip hides itself when nothing is open.
+
+<img src={openSessions.src} alt="Open sessions strip with two VNC sessions" width="547" />
 
 - **Click** a session to bring its window to the front — useful in [kiosk mode](/cv4pve-vdi/kiosk/), where
   there may be no taskbar.
