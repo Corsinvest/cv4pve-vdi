@@ -53,7 +53,10 @@ internal static class LoginWindow
         {
             Foreground = Brushes.Red,
             IsVisible = true,
-            Text = " ",
+            Text = AppConfigManager.UnreadableConfigBackup is { } backup
+                    ? string.Format(L("ConfigUnreadable"), backup)
+                    : " ",
+            TextWrapping = TextWrapping.Wrap,
             MinHeight = 20
         };
 

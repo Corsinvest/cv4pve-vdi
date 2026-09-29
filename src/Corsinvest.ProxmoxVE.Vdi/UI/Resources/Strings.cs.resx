@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Spravovat clustery</value></data>
   <data name="Connecting"><value>Připojování...</value></data>
   <data name="PleaseSelectHost"><value>Přidejte a vyberte hostitele.</value></data>
+  <data name="ConfigUnreadable"><value>Konfiguraci nelze načíst: bylo načteno výchozí nastavení. Kopie byla uložena jako {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Obnovit</value></data>

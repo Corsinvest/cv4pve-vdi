@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Manage clusters</value></data>
   <data name="Connecting"><value>Connecting...</value></data>
   <data name="PleaseSelectHost"><value>Please add and select a host.</value></data>
+  <data name="ConfigUnreadable"><value>The configuration could not be read and the default settings were loaded. A copy of it was saved as {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Refresh</value></data>

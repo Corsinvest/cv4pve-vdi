@@ -30,6 +30,12 @@ internal static class AppConfigManager
 
     public static string LaunchersUserFile => SystemIO.Path.Combine(ConfigDir, "launchers.yaml");
 
+    /// <summary>
+    /// Copy of the configuration file that could not be read by <see cref="Load"/>, shown to the user
+    /// at login; null when the file was read (or there was none).
+    /// </summary>
+    public static string? UnreadableConfigBackup { get; private set; }
+
     public static AppConfig Load()
     {
         if (!File.Exists(ConfigFile)) { return new AppConfig(); }
@@ -48,6 +54,16 @@ internal static class AppConfigManager
         }
         catch
         {
+            // Preserve the unreadable file instead of letting the next Save overwrite it
+            // with a fresh default config.
+            try
+            {
+                var backup = $"{ConfigFile}.bak-{DateTime.Now:yyyyMMdd-HHmmss}";
+                WritePrivate(backup, File.ReadAllBytes(ConfigFile), FileMode.CreateNew);
+                UnreadableConfigBackup = backup;
+            }
+            catch { }
+
             return new AppConfig();
         }
     }
@@ -55,12 +71,37 @@ internal static class AppConfigManager
     public static void Save(AppConfig config)
     {
         Directory.CreateDirectory(ConfigDir);
-        File.WriteAllText(ConfigFile, Serializer.Serialize(config));
 
-        // chmod 600 on Linux/macOS
+        // Write to a temp file in the same directory, then move over the target:
+        // a crash mid-write must not leave a truncated config behind.
+        // The temp file is created 600, so the config takes that mode with the move.
+        var tmpFile = $"{ConfigFile}.tmp";
+        File.Delete(tmpFile);
+        WritePrivate(tmpFile, System.Text.Encoding.UTF8.GetBytes(Serializer.Serialize(config)), FileMode.CreateNew);
+        File.Move(tmpFile, ConfigFile, overwrite: true);
+
+        // A readable config is on disk again: the login notice about the backup is no longer needed.
+        UnreadableConfigBackup = null;
+    }
+
+    /// <summary>
+    /// Writes a file readable only by the user (600 on Linux/macOS) from the moment it is created:
+    /// the configuration holds service credentials, so no copy of it may be world-readable, even briefly.
+    /// </summary>
+    private static void WritePrivate(string path, byte[] content, FileMode mode)
+    {
+        var options = new FileStreamOptions
+        {
+            Mode = mode,
+            Access = FileAccess.Write
+        };
+
         if (!OperatingSystem.IsWindows())
         {
-            File.SetUnixFileMode(ConfigFile, UnixFileMode.UserRead | UnixFileMode.UserWrite);
+            options.UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite;
         }
+
+        using var stream = new FileStream(path, options);
+        stream.Write(content);
     }
 }

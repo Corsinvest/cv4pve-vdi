@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Cluster verwalten</value></data>
   <data name="Connecting"><value>Verbindung wird hergestellt...</value></data>
   <data name="PleaseSelectHost"><value>Bitte einen Host hinzufügen und auswählen.</value></data>
+  <data name="ConfigUnreadable"><value>Die Konfiguration konnte nicht gelesen werden; die Standardeinstellungen wurden geladen. Eine Kopie wurde als {0} gespeichert.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Aktualisieren</value></data>

@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Gérer les clusters</value></data>
   <data name="Connecting"><value>Connexion en cours...</value></data>
   <data name="PleaseSelectHost"><value>Veuillez ajouter et sélectionner un hôte.</value></data>
+  <data name="ConfigUnreadable"><value>Impossible de lire la configuration : les paramètres par défaut ont été chargés. Une copie a été enregistrée sous {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Actualiser</value></data>

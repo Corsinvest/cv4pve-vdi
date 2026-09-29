@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>管理集群</value></data>
   <data name="Connecting"><value>连接中…</value></data>
   <data name="PleaseSelectHost"><value>请先添加并选择一个主机。</value></data>
+  <data name="ConfigUnreadable"><value>无法读取配置，已加载默认设置。副本已保存为 {0}。</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>刷新</value></data>
