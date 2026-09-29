@@ -187,7 +187,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     internal static WindowIcon AppIcon()
     {
-        using var stream = Avalonia.Platform.AssetLoader.Open(new Uri("avares://cv4pve-vdi/Corsinvest.ico"));
+        using var stream = Avalonia.Platform.AssetLoader.Open(new Uri("avares://cv4pve-vdi/icon.ico"));
         return new WindowIcon(stream);
     }
 

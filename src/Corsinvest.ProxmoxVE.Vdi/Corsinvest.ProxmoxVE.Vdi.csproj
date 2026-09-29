@@ -16,11 +16,11 @@
     <SelfContained>true</SelfContained>
 
     <RuntimeIdentifiers>win-x64;linux-x64;linux-arm64;osx-x64;osx-arm64</RuntimeIdentifiers>
-    <ApplicationIcon>Corsinvest.ico</ApplicationIcon>
+    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Corsinvest.ico" />
+    <AvaloniaResource Include="..\..\icon.ico" Link="icon.ico" />
     <EmbeddedResource Include="Config\launchers.yaml" />
   </ItemGroup>
 
