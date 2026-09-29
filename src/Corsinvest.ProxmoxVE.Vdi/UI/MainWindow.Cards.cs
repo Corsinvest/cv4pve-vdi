@@ -242,21 +242,5 @@ internal partial class MainWindow
 
             _cardContent.Children.Add(group);
         });
-
-        var standaloneNodes = rows.Where(r => r.ResourceType == ClusterResourceType.Node).ToList();
-        if (standaloneNodes.Count > 0 && _cardContent.Children.Count == 0)
-        {
-            var wrap = new WrapPanel
-            {
-                Orientation = Orientation.Horizontal,
-                ItemSpacing = 12,
-                LineSpacing = 12
-            };
-            foreach (var item in standaloneNodes)
-            {
-                wrap.Children.Add(BuildCard(item));
-            }
-            _cardContent.Children.Add(wrap);
-        }
     }
 }

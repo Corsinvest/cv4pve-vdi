@@ -154,7 +154,7 @@ internal static class VmServiceEditWindow
                 credentials = new Credentials
                 {
                     Username = txtUsername.Text?.Trim() ?? string.Empty,
-                    Password = txtPassword.Text?.Trim() ?? string.Empty
+                    Password = txtPassword.Text ?? string.Empty
                 };
             }
 

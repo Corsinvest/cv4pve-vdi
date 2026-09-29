@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Diagnostics;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config;
@@ -10,7 +11,6 @@ using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
-using System.Diagnostics;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -97,7 +97,6 @@ internal partial class MainWindow
         return panel;
     }
 
-
     internal void AddActionButtons(DockPanel panel, ResourceRow row, bool isCard)
     {
         var padding = isCard ? new Thickness(8, 6) : new Thickness(4, 2);
@@ -116,9 +115,13 @@ internal partial class MainWindow
             btn.Click += async (_, _) =>
             {
                 if (_config.ConfirmStart && !await DialogHelper.ConfirmAsync(_window!, string.Format(L("ConfirmStart"), row.Name))) { return; }
-                await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Start);
-                if (_btnAutoRef?.IsChecked is not true) { _btnAutoRef!.IsChecked = true; }
-                await RefreshAsync();
+                try
+                {
+                    await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Start);
+                    if (_btnAutoRef is { IsChecked: false }) { _btnAutoRef.IsChecked = true; }
+                    await RefreshAsync();
+                }
+                catch (Exception ex) { ShowToast($"{L("ErrorPrefix")}{ex.Message}", NotificationSeverity.Error); }
             };
             AddLeft(btn);
         }
@@ -129,9 +132,13 @@ internal partial class MainWindow
             btn.Click += async (_, _) =>
             {
                 if (_config.ConfirmShutdown && !await DialogHelper.ConfirmAsync(_window!, string.Format(L("ConfirmShutdown"), row.Name))) { return; }
-                await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Shutdown);
-                if (_btnAutoRef?.IsChecked is not true) { _btnAutoRef!.IsChecked = true; }
-                await RefreshAsync();
+                try
+                {
+                    await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Shutdown);
+                    if (_btnAutoRef is { IsChecked: false }) { _btnAutoRef.IsChecked = true; }
+                    await RefreshAsync();
+                }
+                catch (Exception ex) { ShowToast($"{L("ErrorPrefix")}{ex.Message}", NotificationSeverity.Error); }
             };
             AddLeft(btn);
         }
@@ -166,7 +173,7 @@ internal partial class MainWindow
         var services = vmConfig?.Services ?? [];
         if (services.Count > 0)
         {
-            var launchers = LauncherEngine.LoadForCurrentPlatform(AppConfigManager.LaunchersUserFile);
+            var launchers = PlatformLaunchers;
 
             if (menu.Items.Count > 0) { menu.Items.Add(new Separator()); }
 
@@ -182,7 +189,7 @@ internal partial class MainWindow
                 {
                     var ip = !string.IsNullOrEmpty(svcCopy.IpOverride)
                                 ? svcCopy.IpOverride
-                                : await VmService.GetVmIpAsync(_client, row.Resource.Node, row.Resource.VmId);
+                                : await VmService.GetGuestIpAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType);
 
                     if (string.IsNullOrEmpty(ip))
                     {
@@ -221,7 +228,7 @@ internal partial class MainWindow
 
             var vmId = (int)row.Resource.VmId;
             var vmConfig = _host.Vms.FirstOrDefault(v => v.VmId == vmId) ?? new Config.Models.VmConfig { VmId = vmId };
-            var updated = await VmServicesWindow.ShowAsync(_window!, vmConfig, row.Name, AppConfigManager.LaunchersUserFile, _client, row.Resource.Node);
+            var updated = await VmServicesWindow.ShowAsync(_window!, vmConfig, row.Name, AppConfigManager.LaunchersUserFile, _client, row.Resource.Node, row.VmType);
             var existing = _host.Vms.FindIndex(v => v.VmId == vmId);
             if (existing >= 0) { _host.Vms[existing] = updated; }
             else { _host.Vms.Add(updated); }
@@ -423,7 +430,8 @@ internal partial class MainWindow
         {
             var nodeRow = _allRows.FirstOrDefault(r => r.ResourceType == ClusterResourceType.Node && r.Name == nodeName);
             var nodeVms = rows.Where(r => r.ResourceType == ClusterResourceType.Vm && r.NodeName == nodeName).ToList();
-            if (nodeRow == null && nodeVms.Count == 0)
+            // A node header without guests is noise: with a filter active it is every node the filter emptied.
+            if (nodeVms.Count == 0)
             {
                 continue;
             }
@@ -473,6 +481,8 @@ internal partial class MainWindow
 
     internal void ApplyFilter()
     {
+        if (_suspendFilter) { return; }
+
         var filtered = _allRows.AsEnumerable();
 
         if (!string.IsNullOrWhiteSpace(_filterText))
@@ -515,7 +525,7 @@ internal partial class MainWindow
 
         if (_filterTags.Count > 0)
         {
-            filtered = filtered.Where(a => a.Tags.Length == 0
+            filtered = filtered.Where(a => a.ResourceType == ClusterResourceType.Node
                                             || a.Tags.Any(t => _filterTags.Contains(t)));
         }
 
@@ -545,6 +555,7 @@ internal partial class MainWindow
         RebuildCardView(list);
         RebuildListView(list);
 
-        _emptyState.IsVisible = list.Count == 0;
+        // Node rows always pass the filters: the list is "empty" when no guest is left.
+        _emptyState.IsVisible = !list.Any(r => r.ResourceType == ClusterResourceType.Vm);
     }
 }

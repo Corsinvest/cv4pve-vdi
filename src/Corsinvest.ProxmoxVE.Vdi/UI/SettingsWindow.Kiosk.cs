@@ -89,7 +89,7 @@ internal static partial class SettingsWindow
             chkForceFullScreen.IsVisible = on;
         };
 
-        const string docsUrl = "https://github.com/Corsinvest/cv4pve-vdi/blob/master/docs/KIOSK.md";
+        const string docsUrl = "https://corsinvest.github.io/cv4pve-vdi/kiosk/";
 
         var description = new HyperlinkButton
         {

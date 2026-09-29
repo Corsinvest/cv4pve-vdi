@@ -32,6 +32,8 @@ internal static class LoginWindow
         ("pl",    "Polski"),
         ("pt-BR", "Português (Brasil)"),
         ("ru",    "Русский"),
+        ("zh-Hans", "简体中文"),
+        ("zh-Hant", "繁體中文"),
     ];
 
     public static Window Create(AppConfig config)
@@ -223,7 +225,7 @@ internal static class LoginWindow
             dlg.Icon = MainWindow.AppIcon();
             await dlg.ShowDialog(window!);
 
-            if (dlg.Tag as string == "reopen")
+            if ((dlg.Tag as string) == "reopen")
             {
                 var dlg2 = SettingsWindow.Create(config, RefreshHostList, clustersOnly: true);
                 dlg2.Icon = MainWindow.AppIcon();

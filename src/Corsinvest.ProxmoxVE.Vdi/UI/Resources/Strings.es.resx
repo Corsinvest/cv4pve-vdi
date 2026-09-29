@@ -84,6 +84,9 @@
   <data name="SettingsWindowTitle"><value>Ajustes</value></data>
   <data name="TabAppearance"><value>Apariencia</value></data>
   <data name="ViewerNotConfigured"><value>remote-viewer no está configurado — las consolas SPICE y VNC no funcionarán.</value></data>
+  <data name="ViewerPathNotSet"><value>La ruta de remote-viewer no está configurada. Configúrala en Ajustes → Lanzadores.</value></data>
+  <data name="ViewerLaunchFailed"><value>No se pudo iniciar el proceso del viewer.</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer no puede abrir los archivos de consola de Proxmox VE y no se encontró remote-viewer en la misma carpeta. Selecciona remote-viewer en Ajustes → Lanzadores.</value></data>
   <data name="OpenSettings"><value>Abrir ajustes</value></data>
   <data name="More"><value>Más</value></data>
   <data name="DefaultView"><value>Vista</value></data>
@@ -128,6 +131,7 @@
   <data name="SectionLaunchers"><value>LANZADORES</value></data>
   <data name="ViewerPath"><value>Ruta del viewer (remote-viewer, usado para SPICE y VNC)</value></data>
   <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="SelectSpiceViewer"><value>Seleccionar el visor SPICE</value></data>
   <data name="EnableSpice"><value>SPICE</value></data>
   <data name="EnableVnc"><value>VNC</value></data>
   <data name="EnableAgentPing"><value>Hacer ping al guest agent (solo QEMU)</value></data>

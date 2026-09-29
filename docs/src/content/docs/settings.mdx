@@ -1,0 +1,129 @@
+---
+title: Settings
+description: Every setting of cv4pve-vdi — Appearance, Launchers, Clusters, Kiosk — with its default, and the configuration files it writes.
+---
+
+import settingsAppearance from '../../assets/settings-appearance.png';
+import settingsLaunchers from '../../assets/settings-launchers.png';
+import settingsClusters from '../../assets/settings-clusters.png';
+import settingsKiosk from '../../assets/settings-kiosk.png';
+import editCluster from '../../assets/edit-cluster.png';
+import editLauncher from '../../assets/edit-launcher.png';
+
+**⋮ → Settings** (`Ctrl+,`) opens four tabs: **Appearance**, **Launchers**, **Clusters** and **Kiosk**.
+Changes apply when you click **Save** — except the launcher list, saved at every change. In [kiosk mode](/cv4pve-vdi/kiosk/) Launchers and Clusters are hidden
+and Appearance is reduced until the admin password is entered.
+
+## Appearance
+
+<img src={settingsAppearance.src} alt="Settings, Appearance tab" width="575" />
+
+| Setting | Default | What it does |
+|---|---|---|
+| **Theme** | Dark | System, Light or Dark. |
+| **View** | Card | Card or List at start. |
+| **Group by node** | On | Guests under a header per node; off, one flat list. |
+| **Sort by** | ID | VMID or name; VMs and containers are sorted together. |
+| **Show CPU/RAM bars** | On | Usage bars in cards and rows. |
+| **Show nodes filter** | Off | *Node* section in the filters. |
+| **Show pools** | Off | *Pool* section in the filters, pool next to the VMID. |
+| **Show tags** | On | Tags on guests and *Tags* section in the filters. |
+| **Ping guest agent (QEMU only)** | Off | Live agent badge — one more API call per running VM, see [Guest setup](/cv4pve-vdi/guest-setup/#qemu-guest-agent). |
+| **Show Start button** | Off | Start on stopped guests the account may power. |
+| **Show Shutdown button** | Off | Shutdown on running guests the account may power. |
+| **Ask confirmation** | Off | One for Start, one for Shutdown. |
+
+In kiosk mode, without the admin password, only Theme, View, Group by node and Sort by are shown.
+
+## Launchers
+
+<img src={settingsLaunchers.src} alt="Settings, Launchers tab" width="575" />
+
+| Setting | Default | What it does |
+|---|---|---|
+| **Viewer path** | Empty | Path of `remote-viewer`, used for SPICE and VNC. Empty: no console opens and the main window shows a warning. |
+| **SPICE** | On | Offer SPICE consoles. Off, cv4pve-vdi also stops reading the display type of each VM at refresh. |
+| **VNC** | On | Offer VNC consoles. |
+| **Launchers** | Built-in list | Add, edit and reset launchers — see [Launchers](/cv4pve-vdi/launchers/). |
+
+The viewer path and the launchers belong to the computer, not to a cluster. Editing a launcher opens:
+
+<img src={editLauncher.src} alt="Edit Launcher dialog" width="443" />
+
+## Clusters
+
+<img src={settingsClusters.src} alt="Settings, Clusters tab" width="575" />
+
+The clusters offered at login. The gear of the login window opens this tab alone. Fields of a cluster:
+
+<img src={editCluster.src} alt="Edit Cluster dialog" width="423" />
+
+| Field | Default | What it does |
+|---|---|---|
+| **Name** | — | Shown in the login window. |
+| **Hosts** | — | `host[:port]`, comma-separated; the first that answers is used. Port 8006 when omitted. |
+| **Skip TLS certificate validation** | Off | Accept the nodes' certificate without checking it. |
+| **Timeout (seconds)** | 10 | Wait per host, 5–120. |
+| **SPICE proxy** | Empty | Host name or IP address `remote-viewer` connects to on port 3128; empty, the node cv4pve-vdi is connected to — see [How it connects](/cv4pve-vdi/how-it-connects/#spice). |
+| **Viewer extra options** | Empty | Arguments added to `remote-viewer` for SPICE sessions of this cluster. |
+
+## Kiosk
+
+<img src={settingsKiosk.src} alt="Settings, Kiosk tab" width="575" />
+
+| Setting | Default | What it does |
+|---|---|---|
+| **Enable kiosk mode** | Off | Full-screen, settings behind the admin password — see [Kiosk mode](/cv4pve-vdi/kiosk/). |
+| **Force full-screen (recommended)** | On | Login and main window full-screen in kiosk mode. |
+| **Admin password** | — | Required to enable kiosk mode; leave empty to keep the current one. |
+| **Login background image** | Empty | PNG, JPG, BMP or GIF behind the login form in kiosk mode. |
+
+## Configuration files
+
+cv4pve-vdi keeps its configuration in the home folder of the operating system user —
+`~/.cv4pve/vdi/` on Linux and macOS, `%USERPROFILE%\.cv4pve\vdi\` on Windows:
+
+| File | Content |
+|---|---|
+| `config` | Settings, clusters, services of each VM, kiosk settings, last username, language. YAML. |
+| `launchers.yaml` | Custom launchers and changed built-in launchers. |
+
+On Linux and macOS cv4pve-vdi makes `config` readable by its owner only each time it saves it: it can
+contain [Manual credentials](/cv4pve-vdi/services/#credentials) in plain text. An excerpt, with the keys as
+cv4pve-vdi writes them:
+
+```yaml
+default-view: Card
+last-user: alice@pve
+viewer-path: /usr/bin/remote-viewer
+theme: Dark
+clusters:
+- name: prod
+  hosts: pve1.example.com,pve2.example.com
+  skip-ssl-validation: true
+  timeout: 10
+  spice:
+    proxy: ''
+    viewer-options: ''
+  vms:
+  - vm-id: 101
+    services:
+    - service-id: rdp-mstsc
+      port: 3389
+      credential-source: Vdi
+      ip-override: ''
+      extra-args: ''
+show-start-button: true
+group-by-node: true
+sort-by: ID
+enable-spice: true
+enable-vnc: true
+kiosk: false
+kiosk-admin-password-hash: ''
+kiosk-force-full-screen: true
+language: auto
+```
+
+The file is rewritten at every save and at every login. A file that cannot be parsed — after a manual
+edit, for example — is ignored: cv4pve-vdi starts with the defaults and overwrites it at the next save or
+login, so keep a copy before editing it by hand.

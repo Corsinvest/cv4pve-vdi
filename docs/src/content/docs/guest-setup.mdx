@@ -1,0 +1,45 @@
+---
+title: Guest setup
+description: What to configure in Proxmox VE and install inside the VM so cv4pve-vdi can resolve its IP address, show the agent status and give SPICE its audio, USB and clipboard.
+---
+
+Nothing inside the guest is needed to open a SPICE or VNC console. Two things make the rest work: the
+QEMU guest agent, and for SPICE the guest tools.
+
+## QEMU guest agent
+
+The agent lets Proxmox VE ask the running OS for its network addresses. cv4pve-vdi uses it to:
+
+- find the **IP address** for [services](/cv4pve-vdi/services/#ip-address) (RDP, SSH) and for Discover;
+- show the **agent badge** on the VM.
+
+Install the agent in the VM and enable it in **Options → QEMU Guest Agent** — see
+[Qemu-guest-agent](https://pve.proxmox.com/wiki/Qemu-guest-agent) in the Proxmox VE wiki. The user needs
+`VM.GuestAgent.Audit` on the VM (`VM.Monitor` on Proxmox VE 8).
+
+The badge appears on VMs whose options enable the agent. It stays grey until **Ping guest agent** is on in
+[Settings → Appearance](/cv4pve-vdi/settings/#appearance); then cv4pve-vdi pings the agent of each running VM
+during a refresh — at most once a minute per VM, waiting half a second — and turns the badge green when the
+agent answers, red when it does not. The ping is one more API call per running VM, which is why it is off by
+default.
+
+Containers have no guest agent: set the IP address in their services.
+
+## SPICE guest tools
+
+SPICE carries more than the screen, if the VM is prepared for it:
+
+| Feature | In Proxmox VE | Inside the VM |
+|---|---|---|
+| Screen resize, clipboard | **Display**: SPICE | SPICE agent |
+| Sound | **Audio device** with driver *SPICE* | — |
+| USB devices of the client in the VM | **USB device**: *Spice Port* | — |
+| Folder sharing | **Options → Spice Enhancements**: folder sharing | SPICE WebDAV daemon |
+
+The SPICE agent and the WebDAV daemon come with the *SPICE guest tools* for Windows and with the
+`spice-vdagent` and `spice-webdavd` packages on Linux — see [SPICE](https://pve.proxmox.com/wiki/SPICE) in
+the Proxmox VE wiki and the [SPICE download page](https://www.spice-space.org/download.html).
+
+cv4pve-vdi shows an **audio** badge on VMs whose audio device uses the SPICE driver and a **USB** badge on VMs
+with a USB port redirected to SPICE. They are read from the VM configuration, so they show what is set up,
+also while the VM is stopped.

@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Diagnostics;
 using Avalonia.Platform.Storage;
 using Corsinvest.ProxmoxVE.Vdi.Config;
 using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
-using System.Diagnostics;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -63,8 +63,10 @@ internal static partial class SettingsWindow
                 {
                     if (!await DialogHelper.ConfirmAsync(owner, L("ConfirmResetAllLaunchers"))) { return; }
                     var builtins = LauncherEngine.LoadAll();
+                    var custom = launchers.Where(l => builtins.All(b => b.ServiceId != l.ServiceId)).ToList();
                     launchers.Clear();
                     launchers.AddRange(builtins);
+                    launchers.AddRange(custom);
                     SaveUserOverrides(launchers);
                     refresh();
                 }
@@ -167,7 +169,13 @@ internal static partial class SettingsWindow
                 AllowMultiple = false
             });
 
-            if (files.Count > 0) { txtViewerPath.Text = files[0].Path.LocalPath; }
+            if (files.Count > 0)
+            {
+                // virt-viewer picked: silently prefer the remote-viewer in the same
+                // folder — it is what can actually open .vv connection files.
+                var picked = files[0].Path.LocalPath;
+                txtViewerPath.Text = RemoteViewerService.ResolveRemoteViewerPath(picked) ?? picked;
+            }
         };
 
         void Save()
@@ -197,6 +205,7 @@ internal static partial class SettingsWindow
                     || def.WindowsCredential.Type != builtin.WindowsCredential.Type
                     || def.WindowsCredential.Target != builtin.WindowsCredential.Target
                     || def.Executable != builtin.Executable
+                    || def.Icon != builtin.Icon
                     || def.Platform != builtin.Platform
                     || def.DocumentationUrl != builtin.DocumentationUrl;
         }).ToList();

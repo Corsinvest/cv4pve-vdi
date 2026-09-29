@@ -5,6 +5,10 @@
     <UseAppHost>true</UseAppHost>
     <AssemblyName>cv4pve-vdi</AssemblyName>
     <RootNamespace>Corsinvest.ProxmoxVE.Vdi</RootNamespace>
+    <Product>Corsinvest for Proxmox VE VDI</Product>
+    <AssemblyTitle>Corsinvest for Proxmox VE VDI</AssemblyTitle>
+    <Description>VDI client for Proxmox VE - SPICE, VNC and custom service launcher</Description>
+    <IsPackable>false</IsPackable>
 
     <PublishSingleFile>true</PublishSingleFile>
     <PublishReadyToRun>true</PublishReadyToRun>
@@ -12,11 +16,11 @@
     <SelfContained>true</SelfContained>
 
     <RuntimeIdentifiers>win-x64;linux-x64;linux-arm64;osx-x64;osx-arm64</RuntimeIdentifiers>
-    <ApplicationIcon>Corsinvest.ico</ApplicationIcon>
+    <ApplicationIcon>..\..\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Corsinvest.ico" />
+    <AvaloniaResource Include="..\..\icon.ico" Link="icon.ico" />
     <EmbeddedResource Include="Config\launchers.yaml" />
   </ItemGroup>
 

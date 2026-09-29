@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root><accessability>internal</accessability>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="xml:space" default="preserve"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <!-- Login -->
+  <data name="LoginWindowTitle"><value>cv4pve-vdi — 登入</value></data>
+  <data name="Username"><value>使用者名稱</value></data>
+  <data name="Password"><value>密碼</value></data>
+  <data name="OtpLabel"><value>OTP（可選）</value></data>
+  <data name="OtpWatermark"><value>OTP（無要求則留空）</value></data>
+  <data name="Login"><value>登入</value></data>
+  <data name="ManageClusters"><value>管理叢集</value></data>
+  <data name="Connecting"><value>連線中…</value></data>
+  <data name="PleaseSelectHost"><value>請先新增並選擇一個主機。</value></data>
+
+  <!-- Main window -->
+  <data name="Refresh"><value>重新整理</value></data>
+  <data name="AutoRefresh"><value>每 30 秒自動重新整理</value></data>
+  <data name="Settings"><value>設定</value></data>
+
+  <!-- Filter sidebar -->
+  <data name="SearchWatermark"><value>名稱、ID、描述、標籤…</value></data>
+  <data name="SearchTooltip"><value>篩選虛擬機器和容器</value></data>
+  <data name="NoResults"><value>沒有符合目前篩選條件的虛擬機器或容器。</value></data>
+  <data name="ResetFilters"><value>重設篩選</value></data>
+  <data name="SectionFilters"><value>篩選</value></data>
+  <data name="SectionSearch"><value>搜尋</value></data>
+  <data name="SectionDisplay"><value>顯示</value></data>
+  <data name="SectionBehaviour"><value>行為</value></data>
+  <data name="SectionNodes"><value>節點</value></data>
+  <data name="SectionPools"><value>資源池</value></data>
+  <data name="SectionStatus"><value>狀態</value></data>
+  <data name="SectionType"><value>類型</value></data>
+  <data name="SectionTags"><value>標籤</value></data>
+
+  <!-- Status / type labels -->
+  <data name="StatusRunning"><value>執行中</value></data>
+  <data name="StatusStopped"><value>已停止</value></data>
+  <data name="TypeVm"><value>VM</value></data>
+  <data name="TypeCt"><value>CT</value></data>
+  <data name="TypeNode"><value>節點</value></data>
+
+  <!-- VM action buttons -->
+  <data name="Start"><value>啟動</value></data>
+  <data name="Shutdown"><value>關機</value></data>
+  <data name="Spice"><value>SPICE</value></data>
+  <data name="Vnc"><value>VNC</value></data>
+
+  <!-- Confirm dialog -->
+  <data name="Confirm"><value>確認</value></data>
+  <data name="Yes"><value>是</value></data>
+  <data name="No"><value>否</value></data>
+  <data name="Information"><value>資訊</value></data>
+  <data name="Warning"><value>警告</value></data>
+  <data name="Error"><value>錯誤</value></data>
+  <data name="Ok"><value>確定</value></data>
+  <data name="Cancel"><value>取消</value></data>
+
+  <!-- Errors -->
+  <data name="ErrorPrefix"><value>錯誤：</value></data>
+  <data name="Copy"><value>複製</value></data>
+
+  <!-- Settings window -->
+  <data name="SettingsWindowTitle"><value>設定</value></data>
+  <data name="TabAppearance"><value>外觀</value></data>
+  <data name="ViewerNotConfigured"><value>未設定 remote-viewer——SPICE 和 VNC 主控台將無法使用。</value></data>
+  <data name="ViewerPathNotSet"><value>未設定 remote-viewer 路徑。請在 設定 → 啟動器 中設定。</value></data>
+  <data name="ViewerLaunchFailed"><value>無法啟動檢視器處理程序。</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer 無法開啟 Proxmox VE 主控台檔案，且在同一資料夾中找不到 remote-viewer。請在 設定 → 啟動器 中選擇 remote-viewer。</value></data>
+  <data name="OpenSettings"><value>開啟設定</value></data>
+  <data name="More"><value>更多</value></data>
+  <data name="DefaultView"><value>檢視</value></data>
+  <data name="UpdateAvailable"><value>可用</value></data>
+  <data name="Documentation"><value>說明文件</value></data>
+  <data name="ReleaseNotes"><value>發行說明</value></data>
+  <data name="Support"><value>支援</value></data>
+  <data name="ReportBug"><value>回報 Bug</value></data>
+  <data name="RequestFeature"><value>功能建議</value></data>
+  <data name="TabClusters"><value>叢集</value></data>
+  <data name="Theme"><value>佈景主題</value></data>
+  <data name="ShowBars"><value>顯示 CPU/RAM 佔用條</value></data>
+  <data name="ShowStartButton"><value>顯示啟動按鈕</value></data>
+  <data name="ShowShutdownButton"><value>顯示關機按鈕</value></data>
+  <data name="AskConfirmation"><value>需要確認</value></data>
+  <data name="PowerButtons"><value>電源按鈕</value></data>
+  <data name="Save"><value>儲存</value></data>
+  <data name="Add"><value>新增</value></data>
+  <data name="Edit"><value>編輯</value></data>
+  <data name="Delete"><value>刪除</value></data>
+
+  <!-- Settings tabs -->
+  <data name="TabLaunchers"><value>啟動器</value></data>
+  <data name="TabKiosk"><value>Kiosk</value></data>
+  <data name="KioskEnable"><value>啟用 Kiosk 模式</value></data>
+  <data name="KioskAdminPassword"><value>管理員密碼</value></data>
+  <data name="KioskConfirmPassword"><value>確認管理員密碼</value></data>
+  <data name="KioskDocumentationLink"><value>檢視說明文件</value></data>
+  <data name="KioskPasswordRequired"><value>啟用 Kiosk 模式時必須設定管理員密碼。</value></data>
+  <data name="KioskPasswordMismatch"><value>兩次輸入的密碼不一致。</value></data>
+  <data name="KioskUnlockPrompt"><value>輸入管理員密碼以繼續。</value></data>
+  <data name="KioskUnlockWrong"><value>管理員密碼錯誤。</value></data>
+  <data name="KioskPasswordSet"><value>（已設定密碼——留空則保持不變）</value></data>
+  <data name="SwitchUser"><value>切換使用者</value></data>
+  <data name="KioskLoginBackground"><value>登入背景圖片（可選）</value></data>
+  <data name="KioskForceFullScreen"><value>強制全螢幕（建議）</value></data>
+  <data name="KioskBackgroundWatermark"><value>圖片路徑（PNG、JPG、BMP、GIF）</value></data>
+  <data name="KioskBackgroundBrowse"><value>瀏覽背景圖片…</value></data>
+  <data name="SectionViewer"><value>檢視器</value></data>
+  <data name="SectionProtocols"><value>通訊協定</value></data>
+  <data name="SectionClusters"><value>叢集</value></data>
+  <data name="SectionLaunchers"><value>啟動器</value></data>
+  <data name="ViewerPath"><value>檢視器路徑（remote-viewer，用於 SPICE 和 VNC）</value></data>
+  <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="EnableSpice"><value>SPICE</value></data>
+  <data name="EnableVnc"><value>VNC</value></data>
+  <data name="EnableAgentPing"><value>探測 Guest Agent（僅 QEMU）</value></data>
+  <data name="ResetAllToDefault"><value>將所有內建啟動器還原為預設</value></data>
+  <data name="ConfirmResetAllLaunchers"><value>將所有內建啟動器還原為預設設定？自訂啟動器將保留。</value></data>
+  <data name="SelectSpiceViewer"><value>選擇 SPICE 檢視器</value></data>
+
+  <!-- Launcher edit window -->
+  <data name="SelectLauncher"><value>請選擇一個啟動器。</value></data>
+  <data name="NewLauncher"><value>新增啟動器</value></data>
+  <data name="EditLauncher"><value>編輯啟動器</value></data>
+  <data name="LauncherServiceId"><value>服務 ID（唯一鍵）</value></data>
+  <data name="LauncherDisplayName"><value>顯示名稱</value></data>
+  <data name="LauncherDefaultPort"><value>預設連接埠</value></data>
+  <data name="LauncherPlatform"><value>平台</value></data>
+  <data name="LauncherExecutable"><value>可執行檔</value></data>
+  <data name="BrowseExecutable"><value>瀏覽可執行檔…</value></data>
+  <data name="ExeWatermark"><value>可執行檔路徑（如 mstsc.exe）</value></data>
+  <data name="LauncherArguments"><value>參數範本</value></data>
+  <data name="SupportsCredentials"><value>支援認證</value></data>
+  <data name="UseWindowsCredential"><value>使用 Windows 認證管理員</value></data>
+  <data name="WinCredentialType"><value>認證類型</value></data>
+  <data name="WinCredentialTarget"><value>目標範本</value></data>
+  <data name="LauncherIdAndNameRequired"><value>必須填寫服務 ID 和顯示名稱。</value></data>
+  <data name="LauncherExecutableRequired"><value>必須填寫可執行檔路徑。</value></data>
+  <data name="ExtraArgs"><value>額外參數</value></data>
+  <data name="IpOverride"><value>IP / 主機名稱覆蓋（留空 = 自動解析）</value></data>
+  <data name="IpOverrideWatermark"><value>192.168.1.10  或  myvm.local（留空為自動）</value></data>
+  <data name="ExtraArgsWatermark"><value>可選的額外參數…</value></data>
+
+  <!-- VM services window -->
+  <data name="Services"><value>服務</value></data>
+  <data name="ConfigureServices"><value>服務…</value></data>
+  <data name="Connect"><value>連線</value></data>
+  <data name="NoIpAvailable"><value>無法解析該虛擬機器的 IP 位址。</value></data>
+  <data name="Discover"><value>探索服務</value></data>
+  <data name="DiscoverNoneFound"><value>未在該虛擬機器上發現可達的服務。</value></data>
+  <data name="DiscoverFound"><value>選擇要新增的服務：</value></data>
+  <data name="AddSelected"><value>新增所選</value></data>
+  <data name="EditService"><value>編輯服務</value></data>
+  <data name="AddService"><value>新增服務</value></data>
+  <data name="Launcher"><value>啟動器</value></data>
+  <data name="Port"><value>連接埠</value></data>
+  <data name="CredentialSource"><value>認證</value></data>
+
+  <!-- ClusterConfig label in login -->
+  <data name="ClusterConfig"><value>叢集</value></data>
+
+  <!-- Host edit window -->
+  <data name="EditHost"><value>編輯叢集</value></data>
+  <data name="AddHost"><value>新增叢集</value></data>
+  <data name="HostName"><value>名稱</value></data>
+  <data name="HostHosts"><value>主機（HA 時多個用 host:port,host:port）</value></data>
+  <data name="HostSkipSsl"><value>跳過 TLS 憑證驗證</value></data>
+  <data name="HostTimeout"><value>逾時（秒）</value></data>
+  <data name="HostSpiceProxy"><value>SPICE 代理（可選）</value></data>
+  <data name="HostViewerOptions"><value>檢視器額外選項（可選）</value></data>
+  <data name="HostNameRequired"><value>必須填寫名稱和 URL。</value></data>
+  <data name="HostViewerOptionsWatermark"><value>remote-viewer 的額外參數…</value></data>
+  <data name="ShowNodes"><value>顯示節點篩選</value></data>
+  <data name="ShowPools"><value>顯示資源池</value></data>
+  <data name="ShowTags"><value>顯示標籤</value></data>
+  <data name="GroupByNode"><value>按節點分組</value></data>
+  <data name="SortBy"><value>排序方式</value></data>
+  <data name="SortById"><value>ID</value></data>
+  <data name="SortByName"><value>名稱</value></data>
+  <data name="OpenSessions"><value>開啟的工作階段：</value></data>
+  <data name="CloseSession"><value>關閉工作階段</value></data>
+  <data name="BringToFrontFormat"><value>將 {0}（{1}）移至最前景</value></data>
+  <data name="ConfirmCloseSessions"><value>有開啟中的檢視器工作階段，繼續將關閉它們。</value></data>
+  <data name="BadgeAudioSpice"><value>SPICE 音訊</value></data>
+  <data name="BadgeUsbRedirect"><value>USB 重新導向</value></data>
+  <data name="BadgeAgentRunning"><value>Guest Agent：執行中</value></data>
+  <data name="BadgeAgentStopped"><value>Guest Agent：未回應</value></data>
+  <data name="BadgeAgentUnknown"><value>Guest Agent：已設定（探測已關閉）</value></data>
+  <data name="BadgeClipboard"><value>剪貼簿共享</value></data>
+  <data name="ConfirmStart"><value>啟動 {0}？</value></data>
+  <data name="ConfirmShutdown"><value>關機 {0}？</value></data>
+
+</root>

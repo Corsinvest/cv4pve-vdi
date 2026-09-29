@@ -21,6 +21,17 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private readonly AppConfig _config = config;
     private readonly SessionTracker _sessions = new();
 
+    // Cancelled when the window closes: background work (update check) must not outlive it, or every
+    // Switch user leaves another loop running that keeps the old window — client and password — alive.
+    private readonly CancellationTokenSource _lifetime = new();
+
+    // Launchers for this platform, read from launchers.yaml once instead of once per guest row;
+    // cleared when Settings closes, where launchers can change.
+    private IReadOnlyList<LauncherDefinition>? _platformLaunchers;
+
+    private IReadOnlyList<LauncherDefinition> PlatformLaunchers
+        => _platformLaunchers ??= LauncherEngine.LoadForCurrentPlatform(Config.AppConfigManager.LaunchersUserFile);
+
     private readonly List<ResourceRow> _allRows = [];
     private string _tagColorMap = string.Empty;
     private IReadOnlyDictionary<string, IReadOnlyList<string>> _permissions =
@@ -39,6 +50,12 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private const int AgentPingTimeoutMs = 500;
 
     private string _filterText = string.Empty;
+
+    // Search box: filter once typing pauses, not on every keystroke — each filter rebuilds every card/row.
+    private readonly DispatcherTimer _searchDebounce = new() { Interval = TimeSpan.FromMilliseconds(250) };
+
+    // Set while Reset clears several filters: each cleared checkbox would rebuild the view on its own.
+    private bool _suspendFilter;
     private readonly HashSet<string> _filterNodes = [];
     private readonly HashSet<string> _filterTags = [];
     private readonly HashSet<string> _filterPools = [];
@@ -187,7 +204,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     internal static WindowIcon AppIcon()
     {
-        using var stream = Avalonia.Platform.AssetLoader.Open(new Uri("avares://cv4pve-vdi/Corsinvest.ico"));
+        using var stream = Avalonia.Platform.AssetLoader.Open(new Uri("avares://cv4pve-vdi/icon.ico"));
         return new WindowIcon(stream);
     }
 
@@ -382,13 +399,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             w.Icon = AppIcon();
             await w.ShowDialog(_window!);
 
-            if (w.Tag as string == "reopen")
+            if ((w.Tag as string) == "reopen")
             {
                 var w2 = SettingsWindow.Create(_config, initialTab: 1);
                 w2.Icon = AppIcon();
                 await w2.ShowDialog(_window!);
             }
 
+            _platformLaunchers = null;
             UpdateViewerWarning();
         };
 
@@ -487,10 +505,16 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             scrollContent.HorizontalScrollBarVisibility = isList ? ScrollBarVisibility.Auto : ScrollBarVisibility.Disabled;
         }
 
-        _txtSearch.TextChanged += (_, _) =>
+        _searchDebounce.Tick += (_, _) =>
         {
+            _searchDebounce.Stop();
             _filterText = _txtSearch.Text ?? string.Empty;
             ApplyFilter();
+        };
+        _txtSearch.TextChanged += (_, _) =>
+        {
+            _searchDebounce.Stop();
+            _searchDebounce.Start();
         };
         _chkRunning.IsCheckedChanged += (_, _) => ApplyFilter();
         _chkStopped.IsCheckedChanged += (_, _) => ApplyFilter();
@@ -499,7 +523,10 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
         _btnReset.Click += (_, _) =>
         {
+            _suspendFilter = true;
             _txtSearch.Text = string.Empty;
+            _searchDebounce.Stop();
+            _filterText = string.Empty;
             _chkRunning.IsChecked = _chkStopped.IsChecked = false;
             _chkQemu.IsChecked = _chkLxc.IsChecked = false;
             _filterNodes.Clear();
@@ -520,6 +547,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 child.IsChecked = false;
             }
 
+            _suspendFilter = false;
             ApplyFilter();
         };
 
@@ -538,13 +566,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             await w.ShowDialog(_window!);
 
             // Admin just unlocked — reopen Settings so the advanced tabs become visible
-            if (w.Tag as string == "reopen")
+            if ((w.Tag as string) == "reopen")
             {
                 var w2 = SettingsWindow.Create(_config);
                 w2.Icon = AppIcon();
                 await w2.ShowDialog(_window!);
             }
 
+            _platformLaunchers = null;
             ApplySidebarVisibility();
             ApplyDefaultView();
             UpdateViewerWarning();
@@ -569,7 +598,6 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                             || (_config.ShowTags && !prevShowTags)
                             || (_config.ViewerPath != prevViewerPath);
 
-
             if (needsRefresh)
             {
                 await RefreshAsync();
@@ -579,7 +607,6 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 ApplyFilter();
             }
         };
-
 
         btnRefresh.Click += async (_, _) => await RefreshAsync();
 
@@ -615,11 +642,21 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             await RefreshAsync();
         };
 
-        Application.Current?.ActualThemeVariantChanged += (_, _) =>
+        // Application-wide event: unsubscribe on close, or the application keeps this window alive.
+        void OnThemeChanged(object? sender, EventArgs e)
         {
             RefreshChipColors();
             UpdateViewerWarning();
             ApplyFilter();
+        }
+
+        Application.Current?.ActualThemeVariantChanged += OnThemeChanged;
+        _window.Closed += (_, _) =>
+        {
+            Application.Current?.ActualThemeVariantChanged -= OnThemeChanged;
+            _searchDebounce.Stop();
+            _lifetime.Cancel();
+            _lifetime.Dispose();
         };
 
         return _window;
@@ -687,14 +724,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     internal void UpdateViewerWarning()
     {
-        if (string.IsNullOrEmpty(_config.ViewerPath))
+        var viewerWarning = RemoteViewerService.GetViewerPathWarning(_config.ViewerPath);
+        if (viewerWarning != null)
         {
-            ShowBanner(L("ViewerNotConfigured"), NotificationSeverity.Warning);
+            ShowBanner(viewerWarning, NotificationSeverity.Warning);
+            return;
         }
-        else
-        {
-            HideBanner();
-        }
+
+        HideBanner();
     }
 
     internal void ApplySidebarVisibility()

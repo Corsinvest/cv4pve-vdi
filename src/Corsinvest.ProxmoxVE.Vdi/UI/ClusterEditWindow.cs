@@ -109,7 +109,10 @@ internal static class ClusterEditWindow
                 {
                     Proxy = txtProxy.Text?.Trim() ?? string.Empty,
                     ViewerOptions = txtViewerOptions.Text?.Trim() ?? string.Empty
-                }
+                },
+
+                // Keep the services configured on the cluster's VMs: the dialog does not edit them.
+                Vms = existing?.Vms ?? []
             };
 
             window.Close(result);

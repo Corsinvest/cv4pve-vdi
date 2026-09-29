@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Text.RegularExpressions;
 using Corsinvest.ProxmoxVE.Api.Extension;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
@@ -10,7 +11,6 @@ using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
-using System.Text.RegularExpressions;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -112,8 +112,6 @@ internal partial class MainWindow
                 _nodeFilters.Children.Add(chk);
             }
 
-            UpdateStats(nodes.Count);
-            ApplyFilter();
             _progressBar.Value = 30;
 
             // 4. QEMU — parallel chunks of 5, progressive
@@ -124,6 +122,10 @@ internal partial class MainWindow
                                 : [];
             var totalQemu = qemuToCheck.Count;
             var doneQemu = 0;
+
+            // Show SPICE/OS results as they arrive, but at most every half second: with one rebuild
+            // per chunk of 5, a cluster of 200 guests rebuilt the whole view 40 times per refresh.
+            var sinceLastFilter = System.Diagnostics.Stopwatch.StartNew();
 
             // add all QEMU as placeholders first, SPICE resolved progressively
             foreach (var item in qemuVms)
@@ -207,7 +209,11 @@ internal partial class MainWindow
                 doneQemu += chunk.Length;
                 _progressBar.Value = 30 + (doneQemu * 50 / Math.Max(totalQemu, 1));
                 UpdateStats(nodes.Count);
-                ApplyFilter();
+                if (sinceLastFilter.ElapsedMilliseconds >= 500)
+                {
+                    ApplyFilter();
+                    sinceLastFilter.Restart();
+                }
             }
 
             _progressBar.Value = 80;
@@ -319,7 +325,14 @@ internal partial class MainWindow
         var timeout = Task.Delay(AgentPingTimeoutMs);
         Task<Api.Result> pingTask = vm.Agent.Ping.Ping();
         var completed = await Task.WhenAny(pingTask, timeout);
-        var running = completed != timeout && pingTask.Result?.IsSuccessStatusCode is true;
+        bool running;
+        if (completed == timeout) { running = false; }
+        else if (pingTask.IsFaulted)
+        {
+            _ = pingTask.Exception; // observe: a faulted ping means "not running", not "skip this row"
+            running = false;
+        }
+        else { running = pingTask.Result?.IsSuccessStatusCode is true; }
         _agentPingCache[vmId] = (running, DateTime.Now);
         return running;
     }

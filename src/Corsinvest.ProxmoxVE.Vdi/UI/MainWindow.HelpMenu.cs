@@ -91,12 +91,17 @@ internal partial class MainWindow
         ToolTip.SetTip(btn, L("More"));
         btn.Click += (_, _) => menu.Open(btn);
 
+        // Subscribed once: the check repeats every 12 hours, and a handler added per hit opened the
+        // release page once per hit.
+        var updateUrl = string.Empty;
+        miUpdate.Click += (_, _) => { if (updateUrl.Length > 0) { OpenUrl(updateUrl); } };
+
         UpdateChecker.StartBackground((version, url) =>
         {
             miUpdate.Header = UiHelper.WithText(AppIcons.Update, $"{version} {L("UpdateAvailable")}", new SolidColorBrush(Colors.OrangeRed));
             miUpdate.IsVisible = true;
-            miUpdate.Click += (_, _) => OpenUrl(url);
-        });
+            updateUrl = url;
+        }, _lifetime.Token);
 
         return btn;
     }
