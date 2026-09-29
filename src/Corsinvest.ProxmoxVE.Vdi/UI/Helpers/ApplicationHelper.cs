@@ -16,7 +16,7 @@ internal static class ApplicationHelper
         ?? "?.?.?";
 
     public const string GitHubRepo = "https://github.com/Corsinvest/cv4pve-vdi";
-    public const string DocumentationUrl = "https://github.com/Corsinvest/cv4pve-vdi#readme";
+    public const string DocumentationUrl = "https://corsinvest.github.io/cv4pve-vdi/";
     public const string ReleaseNotesUrl = "https://github.com/Corsinvest/cv4pve-vdi/releases";
     public const string SupportUrl = "https://github.com/Corsinvest/cv4pve-vdi/issues";
 
