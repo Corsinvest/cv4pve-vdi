@@ -319,7 +319,14 @@ internal partial class MainWindow
         var timeout = Task.Delay(AgentPingTimeoutMs);
         Task<Api.Result> pingTask = vm.Agent.Ping.Ping();
         var completed = await Task.WhenAny(pingTask, timeout);
-        var running = completed != timeout && pingTask.Result?.IsSuccessStatusCode is true;
+        bool running;
+        if (completed == timeout) { running = false; }
+        else if (pingTask.IsFaulted)
+        {
+            _ = pingTask.Exception; // observe: a faulted ping means "not running", not "skip this row"
+            running = false;
+        }
+        else { running = pingTask.Result?.IsSuccessStatusCode is true; }
         _agentPingCache[vmId] = (running, DateTime.Now);
         return running;
     }
