@@ -27,6 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Editing a cluster in Settings → Clusters deleted the services configured on its VMs, with their credentials
 - **Reset all built-ins to default** in Settings → Launchers also deleted the custom launchers, although the confirmation says they are kept
 - Leading and trailing spaces were removed from the password of a service with Manual credentials
+- Services on a container never found its IP address: it was asked to the QEMU guest agent, which containers do not have. It now comes from the container interfaces (`VM.Audit` is enough)
+- The IP address of a guest running Docker could be a Docker bridge (172.17.0.1, ...) instead of the real NIC: the interface with the MAC of a NIC configured in Proxmox VE is now used first
+- The tag filter kept every guest without tags
+- A node with no guest left by the filters still showed its header, and the "no results" message never appeared
+- After **Switch user** the previous window stayed in memory, with its session and password, and kept checking for updates: N switches meant N update checks. The update menu item opened the release page once per check (part of #51)
+- The launcher list was read from disk once per guest at every redraw (part of #51)
 
 ### Changed
 - The application and window icon is the cv4pve-vdi product icon, as on the documentation site, instead of the Corsinvest logo
