@@ -63,8 +63,10 @@ internal static partial class SettingsWindow
                 {
                     if (!await DialogHelper.ConfirmAsync(owner, L("ConfirmResetAllLaunchers"))) { return; }
                     var builtins = LauncherEngine.LoadAll();
+                    var custom = launchers.Where(l => builtins.All(b => b.ServiceId != l.ServiceId)).ToList();
                     launchers.Clear();
                     launchers.AddRange(builtins);
+                    launchers.AddRange(custom);
                     SaveUserOverrides(launchers);
                     refresh();
                 }

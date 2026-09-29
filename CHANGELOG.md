@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - An IP address from the guest agent or the IP override that is not a host name or address is rejected before starting a launcher, so a guest cannot inject arguments into its command line (#49)
 - The folder button next to the viewer path showed the raw text `SelectSpiceViewer` (#50)
 - The viewer messages are translated in every language, and point to Settings → Launchers, where the viewer path is set
+- Editing a cluster in Settings → Clusters deleted the services configured on its VMs, with their credentials
+- **Reset all built-ins to default** in Settings → Launchers also deleted the custom launchers, although the confirmation says they are kept
+- Leading and trailing spaces were removed from the password of a service with Manual credentials
 
 ### Changed
 - Updated Corsinvest.ProxmoxVE.Api.Extension to 9.2.3
