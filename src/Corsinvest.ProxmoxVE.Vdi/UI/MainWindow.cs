@@ -21,6 +21,17 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private readonly AppConfig _config = config;
     private readonly SessionTracker _sessions = new();
 
+    // Cancelled when the window closes: background work (update check) must not outlive it, or every
+    // Switch user leaves another loop running that keeps the old window — client and password — alive.
+    private readonly CancellationTokenSource _lifetime = new();
+
+    // Launchers for this platform, read from launchers.yaml once instead of once per guest row;
+    // cleared when Settings closes, where launchers can change.
+    private IReadOnlyList<LauncherDefinition>? _platformLaunchers;
+
+    private IReadOnlyList<LauncherDefinition> PlatformLaunchers
+        => _platformLaunchers ??= LauncherEngine.LoadForCurrentPlatform(Config.AppConfigManager.LaunchersUserFile);
+
     private readonly List<ResourceRow> _allRows = [];
     private string _tagColorMap = string.Empty;
     private IReadOnlyDictionary<string, IReadOnlyList<string>> _permissions =
@@ -389,6 +400,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 await w2.ShowDialog(_window!);
             }
 
+            _platformLaunchers = null;
             UpdateViewerWarning();
         };
 
@@ -545,6 +557,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 await w2.ShowDialog(_window!);
             }
 
+            _platformLaunchers = null;
             ApplySidebarVisibility();
             ApplyDefaultView();
             UpdateViewerWarning();
@@ -613,11 +626,20 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             await RefreshAsync();
         };
 
-        Application.Current?.ActualThemeVariantChanged += (_, _) =>
+        // Application-wide event: unsubscribe on close, or the application keeps this window alive.
+        void OnThemeChanged(object? sender, EventArgs e)
         {
             RefreshChipColors();
             UpdateViewerWarning();
             ApplyFilter();
+        }
+
+        Application.Current?.ActualThemeVariantChanged += OnThemeChanged;
+        _window.Closed += (_, _) =>
+        {
+            Application.Current?.ActualThemeVariantChanged -= OnThemeChanged;
+            _lifetime.Cancel();
+            _lifetime.Dispose();
         };
 
         return _window;
