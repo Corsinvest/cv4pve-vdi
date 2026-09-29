@@ -14,6 +14,4 @@ permissions:
 
 jobs:
   ci:
-    uses: Corsinvest/.github/.github/workflows/cv4pve-tools-ci.yml@main
-    with:
-      build: false
+    uses: Corsinvest/.github/.github/workflows/cv4pve-tools-ci.yml@ci/single-build
