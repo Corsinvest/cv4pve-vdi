@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation site.** The documentation moved from Markdown files in the repository to [corsinvest.github.io/cv4pve-vdi](https://corsinvest.github.io/cv4pve-vdi/): getting started, permissions, how it connects, the main window, SPICE and VNC, services, launchers, guest setup, kiosk mode, settings and languages. Every page was checked against the code
 - New product icon for the documentation site and the README
 
+### Fixed
+- **View documentation** in Settings → Kiosk opened `docs/KIOSK.md` on GitHub, removed with the move to the documentation site; it now opens the Kiosk mode page. **Documentation** in the ⋮ menu opens the documentation site instead of the README
+
 ### Changed
 - Updated Corsinvest.ProxmoxVE.Api.Extension to 9.2.3
 - Project metadata, symbols (Source Link) and code style aligned with the other cv4pve tools
