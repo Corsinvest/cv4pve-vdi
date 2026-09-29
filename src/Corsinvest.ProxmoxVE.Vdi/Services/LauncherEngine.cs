@@ -233,17 +233,14 @@ internal static partial class LauncherEngine
     }
 
     private static Process? Start(string fileName, string arguments)
-    {
-        Console.WriteLine($"[LauncherEngine] {fileName} {arguments}");
-        return Process.Start(new ProcessStartInfo
+        // arguments may contain interpolated credentials ({password}): never log the full command line
+        => Process.Start(new ProcessStartInfo
         {
             FileName = fileName,
             Arguments = arguments,
             UseShellExecute = false,
             CreateNoWindow = true
         });
-    }
-
     private static LauncherPlatform CurrentPlatform()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) { return LauncherPlatform.Windows; }
