@@ -481,6 +481,8 @@ internal partial class MainWindow
 
     internal void ApplyFilter()
     {
+        if (_suspendFilter) { return; }
+
         var filtered = _allRows.AsEnumerable();
 
         if (!string.IsNullOrWhiteSpace(_filterText))

@@ -50,6 +50,12 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private const int AgentPingTimeoutMs = 500;
 
     private string _filterText = string.Empty;
+
+    // Search box: filter once typing pauses, not on every keystroke — each filter rebuilds every card/row.
+    private readonly DispatcherTimer _searchDebounce = new() { Interval = TimeSpan.FromMilliseconds(250) };
+
+    // Set while Reset clears several filters: each cleared checkbox would rebuild the view on its own.
+    private bool _suspendFilter;
     private readonly HashSet<string> _filterNodes = [];
     private readonly HashSet<string> _filterTags = [];
     private readonly HashSet<string> _filterPools = [];
@@ -499,10 +505,16 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             scrollContent.HorizontalScrollBarVisibility = isList ? ScrollBarVisibility.Auto : ScrollBarVisibility.Disabled;
         }
 
-        _txtSearch.TextChanged += (_, _) =>
+        _searchDebounce.Tick += (_, _) =>
         {
+            _searchDebounce.Stop();
             _filterText = _txtSearch.Text ?? string.Empty;
             ApplyFilter();
+        };
+        _txtSearch.TextChanged += (_, _) =>
+        {
+            _searchDebounce.Stop();
+            _searchDebounce.Start();
         };
         _chkRunning.IsCheckedChanged += (_, _) => ApplyFilter();
         _chkStopped.IsCheckedChanged += (_, _) => ApplyFilter();
@@ -511,7 +523,10 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
         _btnReset.Click += (_, _) =>
         {
+            _suspendFilter = true;
             _txtSearch.Text = string.Empty;
+            _searchDebounce.Stop();
+            _filterText = string.Empty;
             _chkRunning.IsChecked = _chkStopped.IsChecked = false;
             _chkQemu.IsChecked = _chkLxc.IsChecked = false;
             _filterNodes.Clear();
@@ -532,6 +547,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 child.IsChecked = false;
             }
 
+            _suspendFilter = false;
             ApplyFilter();
         };
 
@@ -638,6 +654,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         _window.Closed += (_, _) =>
         {
             Application.Current?.ActualThemeVariantChanged -= OnThemeChanged;
+            _searchDebounce.Stop();
             _lifetime.Cancel();
             _lifetime.Dispose();
         };

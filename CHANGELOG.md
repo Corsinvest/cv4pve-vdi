@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - The application and window icon is the cv4pve-vdi product icon, as on the documentation site, instead of the Corsinvest logo
 - Updated Corsinvest.ProxmoxVE.Api.Extension to 9.2.3
+- Faster filtering on large clusters: the search box filters once typing pauses instead of on every keystroke, Reset rebuilds the view once, and a refresh redraws at most twice a second while SPICE and OS details load
 - Project metadata, symbols (Source Link) and code style aligned with the other cv4pve tools
 
 ## [1.7.1] - 2026-07-30
