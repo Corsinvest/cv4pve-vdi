@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New product icon for the documentation site and the README
 
 ### Fixed
+- An unreadable configuration file was silently replaced by the defaults on the next save, losing clusters, VM services and stored credentials: it is now kept as `config.bak-<timestamp>` and the login window says so. The configuration is written to a temporary file and moved into place, so a crash mid-write no longer truncates it; on Linux and macOS the temporary and backup files are created readable only by the user (#48, thanks @skygunner)
 - **View documentation** in Settings → Kiosk opened `docs/KIOSK.md` on GitHub, removed with the move to the documentation site; it now opens the Kiosk mode page. **Documentation** in the ⋮ menu opens the documentation site instead of the README
 - The viewer path pointed to `virt-viewer`, installed next to `remote-viewer` by the same package, and every console opened the misleading *No running virtual machine found* dialog: cv4pve-vdi now uses the `remote-viewer` in the same folder, and warns only when it is missing. A SPICE viewer that fails to start is reported instead of ignored (#41)
 - The command line of a launcher, with the password it may contain, is no longer printed to the console; the temporary Windows Credential Manager entry is removed also when the program fails to start (#44)

@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Управление кластерами</value></data>
   <data name="Connecting"><value>Подключение...</value></data>
   <data name="PleaseSelectHost"><value>Добавьте и выберите хост.</value></data>
+  <data name="ConfigUnreadable"><value>Не удалось прочитать конфигурацию: загружены настройки по умолчанию. Копия сохранена как {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Обновить</value></data>

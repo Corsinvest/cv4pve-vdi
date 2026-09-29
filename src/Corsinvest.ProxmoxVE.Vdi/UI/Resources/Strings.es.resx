@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Administrar clústeres</value></data>
   <data name="Connecting"><value>Conectando...</value></data>
   <data name="PleaseSelectHost"><value>Agregue y seleccione un host.</value></data>
+  <data name="ConfigUnreadable"><value>No se pudo leer la configuración: se cargaron los ajustes predeterminados. Se guardó una copia como {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Actualizar</value></data>

@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>管理叢集</value></data>
   <data name="Connecting"><value>連線中…</value></data>
   <data name="PleaseSelectHost"><value>請先新增並選擇一個主機。</value></data>
+  <data name="ConfigUnreadable"><value>無法讀取設定，已載入預設設定。副本已儲存為 {0}。</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>重新整理</value></data>

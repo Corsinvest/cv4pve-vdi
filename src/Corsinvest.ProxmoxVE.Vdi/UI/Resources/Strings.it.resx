@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Gestisci cluster</value></data>
   <data name="Connecting"><value>Connessione in corso...</value></data>
   <data name="PleaseSelectHost"><value>Aggiungi e seleziona un host.</value></data>
+  <data name="ConfigUnreadable"><value>Impossibile leggere la configurazione: sono state caricate le impostazioni predefinite. Una copia è stata salvata come {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Aggiorna</value></data>

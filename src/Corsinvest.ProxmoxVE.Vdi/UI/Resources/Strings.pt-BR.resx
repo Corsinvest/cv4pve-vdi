@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Gerenciar clusters</value></data>
   <data name="Connecting"><value>Conectando...</value></data>
   <data name="PleaseSelectHost"><value>Adicione e selecione um host.</value></data>
+  <data name="ConfigUnreadable"><value>Não foi possível ler a configuração: as configurações padrão foram carregadas. Uma cópia foi salva como {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Atualizar</value></data>

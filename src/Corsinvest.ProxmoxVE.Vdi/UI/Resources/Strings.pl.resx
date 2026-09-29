@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Zarządzaj klastrami</value></data>
   <data name="Connecting"><value>Łączenie...</value></data>
   <data name="PleaseSelectHost"><value>Dodaj i wybierz host.</value></data>
+  <data name="ConfigUnreadable"><value>Nie można odczytać konfiguracji: wczytano ustawienia domyślne. Kopia została zapisana jako {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Odśwież</value></data>

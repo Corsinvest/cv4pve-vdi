@@ -32,6 +32,7 @@
   <data name="ManageClusters"><value>Clusters beheren</value></data>
   <data name="Connecting"><value>Verbinden...</value></data>
   <data name="PleaseSelectHost"><value>Voeg een host toe en selecteer deze.</value></data>
+  <data name="ConfigUnreadable"><value>De configuratie kon niet worden gelezen; de standaardinstellingen zijn geladen. Een kopie is opgeslagen als {0}.</value></data>
 
   <!-- Main window -->
   <data name="Refresh"><value>Vernieuwen</value></data>
