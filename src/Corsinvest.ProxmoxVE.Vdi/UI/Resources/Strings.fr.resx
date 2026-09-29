@@ -84,6 +84,9 @@
   <data name="SettingsWindowTitle"><value>Paramètres</value></data>
   <data name="TabAppearance"><value>Apparence</value></data>
   <data name="ViewerNotConfigured"><value>remote-viewer n'est pas configuré — les consoles SPICE et VNC ne fonctionneront pas.</value></data>
+  <data name="ViewerPathNotSet"><value>Le chemin de remote-viewer n'est pas configuré. Définissez-le dans Paramètres → Lanceurs.</value></data>
+  <data name="ViewerLaunchFailed"><value>Impossible de démarrer le processus du viewer.</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer ne peut pas ouvrir les fichiers de console Proxmox VE, et remote-viewer est introuvable dans le même dossier. Sélectionnez remote-viewer dans Paramètres → Lanceurs.</value></data>
   <data name="OpenSettings"><value>Ouvrir les paramètres</value></data>
   <data name="More"><value>Plus</value></data>
   <data name="DefaultView"><value>Vue</value></data>

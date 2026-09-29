@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **View documentation** in Settings → Kiosk opened `docs/KIOSK.md` on GitHub, removed with the move to the documentation site; it now opens the Kiosk mode page. **Documentation** in the ⋮ menu opens the documentation site instead of the README
+- The viewer path pointed to `virt-viewer`, installed next to `remote-viewer` by the same package, and every console opened the misleading *No running virtual machine found* dialog: cv4pve-vdi now uses the `remote-viewer` in the same folder, and warns only when it is missing. A SPICE viewer that fails to start is reported instead of ignored (#41)
+- The command line of a launcher, with the password it may contain, is no longer printed to the console; the temporary Windows Credential Manager entry is removed also when the program fails to start (#44)
+- **Add selected** and **Cancel** in the Discover dialog did not close it (#45)
+- Editing a built-in launcher lost its icon, and changing only the icon was not saved (#46)
+- A failing Start or Shutdown closed the application; now the error is shown. A failed guest agent ping no longer skips the update of that VM (#47)
+- An IP address from the guest agent or the IP override that is not a host name or address is rejected before starting a launcher, so a guest cannot inject arguments into its command line (#49)
+- The folder button next to the viewer path showed the raw text `SelectSpiceViewer` (#50)
+- The viewer messages are translated in every language, and point to Settings → Launchers, where the viewer path is set
 
 ### Changed
 - Updated Corsinvest.ProxmoxVE.Api.Extension to 9.2.3
