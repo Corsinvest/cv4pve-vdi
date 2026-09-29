@@ -84,6 +84,9 @@
   <data name="SettingsWindowTitle"><value>設定</value></data>
   <data name="TabAppearance"><value>外觀</value></data>
   <data name="ViewerNotConfigured"><value>未設定 remote-viewer——SPICE 和 VNC 主控台將無法使用。</value></data>
+  <data name="ViewerPathNotSet"><value>未設定 remote-viewer 路徑。請在 設定 → 啟動器 中設定。</value></data>
+  <data name="ViewerLaunchFailed"><value>無法啟動檢視器處理程序。</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer 無法開啟 Proxmox VE 主控台檔案，且在同一資料夾中找不到 remote-viewer。請在 設定 → 啟動器 中選擇 remote-viewer。</value></data>
   <data name="OpenSettings"><value>開啟設定</value></data>
   <data name="More"><value>更多</value></data>
   <data name="DefaultView"><value>檢視</value></data>
