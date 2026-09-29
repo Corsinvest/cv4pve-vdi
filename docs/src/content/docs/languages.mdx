@@ -1,0 +1,58 @@
+---
+title: Languages
+description: The languages of the cv4pve-vdi interface, how to choose one, and how to improve a translation or add a new language.
+---
+
+The interface is available in ten languages. Choose one from the globe menu at the top right of the login
+window; the window is rebuilt in that language at once, and the choice is saved in the
+[configuration file](/cv4pve-vdi/settings/#configuration-files) (`language:`).
+
+| Choice | Code |
+|---|---|
+| Auto — the language of the operating system | `auto` (default) |
+| English | `en` |
+| Čeština | `cs` |
+| Deutsch | `de` |
+| Español | `es` |
+| Français | `fr` |
+| Italiano | `it` |
+| Nederlands | `nl` |
+| Polski | `pl` |
+| Português (Brasil) | `pt-BR` |
+| Русский | `ru` |
+
+A text missing from a translation is shown in English.
+
+## Improve a translation
+
+The texts are in `.resx` files in
+[`src/Corsinvest.ProxmoxVE.Vdi/UI/Resources`](https://github.com/Corsinvest/cv4pve-vdi/tree/master/src/Corsinvest.ProxmoxVE.Vdi/UI/Resources):
+`Strings.resx` is English, `Strings.<code>.resx` each translation. Change the `<value>` of the entries that
+read badly and open a pull request — corrections from native speakers are welcome, down to a single word.
+
+## Add a language
+
+1. Copy `Strings.resx` to `Strings.<code>.resx`, with a standard culture code (`ja`, `zh-Hans`; a region only
+   when it matters, as in `pt-BR`).
+2. Translate every `<value>`. Leave the `name` attributes and the XML header as they are.
+3. Add the language to the `Languages` list in
+   [`UI/LoginWindow.cs`](https://github.com/Corsinvest/cv4pve-vdi/blob/master/src/Corsinvest.ProxmoxVE.Vdi/UI/LoginWindow.cs),
+   with the name of the language written in the language itself, in alphabetical order:
+   ```csharp
+   ("ja", "日本語"),
+   ```
+4. Build, pick the language at login and go through every window — login, main window, the Settings tabs,
+   the services and launcher dialogs, the kiosk password prompt — looking for missing texts and labels that
+   do not fit.
+5. Open a pull request with the new file and the `Languages` line.
+
+## Conventions
+
+| Term | Treatment |
+|---|---|
+| `Cluster`, `Node`, `Pool`, `Tag` | Proxmox VE terms: keep them, or use the term of the Proxmox VE interface in that language |
+| `CT` | Keep as the short label for containers |
+| `SPICE`, `VNC`, `RDP`, `SSH`, `OTP` | Never translated |
+| `Proxmox VE VDI Client` | Product name, not in the resource files |
+
+A new text in the code gets its entry in `Strings.resx` **and in every translation**, in the same change.

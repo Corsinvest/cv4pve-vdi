@@ -84,6 +84,9 @@
   <data name="SettingsWindowTitle"><value>Instellingen</value></data>
   <data name="TabAppearance"><value>Weergave</value></data>
   <data name="ViewerNotConfigured"><value>remote-viewer is niet geconfigureerd — SPICE- en VNC-consoles werken niet.</value></data>
+  <data name="ViewerPathNotSet"><value>Het pad naar remote-viewer is niet geconfigureerd. Stel het in via Instellingen → Launchers.</value></data>
+  <data name="ViewerLaunchFailed"><value>Het viewer-proces kon niet worden gestart.</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer kan geen Proxmox VE-consolebestanden openen en remote-viewer is niet gevonden in dezelfde map. Selecteer remote-viewer via Instellingen → Launchers.</value></data>
   <data name="OpenSettings"><value>Instellingen openen</value></data>
   <data name="More"><value>Meer</value></data>
   <data name="DefaultView"><value>Weergave</value></data>
@@ -128,6 +131,7 @@
   <data name="SectionLaunchers"><value>LAUNCHERS</value></data>
   <data name="ViewerPath"><value>Viewer-pad (remote-viewer, voor SPICE en VNC)</value></data>
   <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="SelectSpiceViewer"><value>SPICE-viewer selecteren</value></data>
   <data name="EnableSpice"><value>SPICE</value></data>
   <data name="EnableVnc"><value>VNC</value></data>
   <data name="EnableAgentPing"><value>Guest agent pingen (alleen QEMU)</value></data>

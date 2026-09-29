@@ -1,0 +1,53 @@
+---
+title: Permissions
+description: The Proxmox VE user and privileges each person needs in cv4pve-vdi — to see VMs, open consoles, start them and reach them by RDP or SSH.
+---
+
+cv4pve-vdi works through the API with the account of the person logging in, so the VMs it lists and what
+it lets you do with them are exactly what that account is allowed to. There is no user list inside
+cv4pve-vdi: Proxmox VE permissions are the configuration.
+
+## User
+
+Create a [user](https://pve.proxmox.com/pve-docs/chapter-pveum.html#pveum_users) for each person, in any
+realm (`pve`, `pam`, LDAP, Active Directory), and
+[assign it](https://pve.proxmox.com/pve-docs/chapter-pveum.html#pveum_permission_management) the privileges
+below on the guests it should use: on `/vms/<vmid>` for single guests, on `/pool/<pool>` for every guest of a
+[pool](https://pve.proxmox.com/pve-docs/chapter-pveum.html#pveum_pools), on `/vms` for all of them.
+
+cv4pve-vdi logs in with user and password, not with an API token: the session belongs to a person, and
+its password can be passed on to [RDP single sign-on](/cv4pve-vdi/services/#single-sign-on-for-rdp-windows).
+
+## Privileges
+
+| Privilege | On | Used for | Without it |
+|---|---|---|---|
+| `VM.Audit` | `/vms` | Listing the guest, its status and configuration (SPICE display, OS type, badges) | The guest is not in the list |
+| `VM.Console` | `/vms` | SPICE and VNC consoles | No SPICE or VNC in the Connect menu; a running guest is shown only if it is a VM with a SPICE display |
+| `VM.PowerMgmt` | `/vms` | Start and Shutdown buttons | No power buttons; a stopped VM is shown only if its display is SPICE, a stopped container not at all |
+| `VM.GuestAgent.Audit` | `/vms` | Guest agent ping, the VM's IP address for [services](/cv4pve-vdi/services/) and Discover | The agent badge turns red (with **Ping guest agent** on); services need an IP override |
+
+The built-in `PVEVMUser` role contains all four, and also backup, CD-ROM, cloud-init and guest agent file
+privileges that cv4pve-vdi does not use. For an account limited to what cv4pve-vdi needs, create a role with
+these four only; leave out `VM.PowerMgmt` if users should not start or shut down their VMs.
+
+:::note[Proxmox VE 8]
+`VM.GuestAgent.Audit` exists from Proxmox VE 9. On Proxmox VE 8 the guest agent calls need `VM.Monitor`.
+:::
+
+Nothing more is needed for the rest of the window: nodes are always listed (their CPU and memory figures
+only with `Sys.Audit` on the node), and the datacenter tag colours are readable by every user.
+
+## How missing privileges are reported
+
+Proxmox VE answers a request the caller is only partly entitled to by *filtering the response*:
+`/cluster/resources` leaves out the guests the account cannot audit, with `200 OK`. A guest without
+`VM.Audit` is therefore simply missing from cv4pve-vdi, with no error.
+
+For the other privileges cv4pve-vdi does not wait for an error: after login it reads the account's
+effective permissions (`GET /access/permissions`) and shows SPICE, VNC, Start and Shutdown only on the
+guests where the account holds `VM.Console` or `VM.PowerMgmt`. The exact rules for which guests appear are
+in [The main window](/cv4pve-vdi/main-window/#which-guests-appear).
+
+A call that fails anyway — a console refused by Proxmox VE, a node that does not answer — shows the Proxmox
+VE message in a notification at the bottom right of the window.

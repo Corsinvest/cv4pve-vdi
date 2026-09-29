@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Text.RegularExpressions;
 using Corsinvest.ProxmoxVE.Api.Extension;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
@@ -10,7 +11,6 @@ using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
-using System.Text.RegularExpressions;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -319,7 +319,14 @@ internal partial class MainWindow
         var timeout = Task.Delay(AgentPingTimeoutMs);
         Task<Api.Result> pingTask = vm.Agent.Ping.Ping();
         var completed = await Task.WhenAny(pingTask, timeout);
-        var running = completed != timeout && pingTask.Result?.IsSuccessStatusCode is true;
+        bool running;
+        if (completed == timeout) { running = false; }
+        else if (pingTask.IsFaulted)
+        {
+            _ = pingTask.Exception; // observe: a faulted ping means "not running", not "skip this row"
+            running = false;
+        }
+        else { running = pingTask.Result?.IsSuccessStatusCode is true; }
         _agentPingCache[vmId] = (running, DateTime.Now);
         return running;
     }

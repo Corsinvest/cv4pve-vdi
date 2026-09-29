@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+using System.Diagnostics;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
 using Corsinvest.ProxmoxVE.Vdi.Config;
@@ -10,7 +11,6 @@ using Corsinvest.ProxmoxVE.Vdi.Config.Models;
 using Corsinvest.ProxmoxVE.Vdi.Services;
 using Corsinvest.ProxmoxVE.Vdi.UI.Helpers;
 using Corsinvest.ProxmoxVE.Vdi.UI.Models;
-using System.Diagnostics;
 
 namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
@@ -97,7 +97,6 @@ internal partial class MainWindow
         return panel;
     }
 
-
     internal void AddActionButtons(DockPanel panel, ResourceRow row, bool isCard)
     {
         var padding = isCard ? new Thickness(8, 6) : new Thickness(4, 2);
@@ -116,9 +115,13 @@ internal partial class MainWindow
             btn.Click += async (_, _) =>
             {
                 if (_config.ConfirmStart && !await DialogHelper.ConfirmAsync(_window!, string.Format(L("ConfirmStart"), row.Name))) { return; }
-                await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Start);
-                if (_btnAutoRef?.IsChecked is not true) { _btnAutoRef!.IsChecked = true; }
-                await RefreshAsync();
+                try
+                {
+                    await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Start);
+                    if (_btnAutoRef is { IsChecked: false }) { _btnAutoRef.IsChecked = true; }
+                    await RefreshAsync();
+                }
+                catch (Exception ex) { ShowToast($"{L("ErrorPrefix")}{ex.Message}", NotificationSeverity.Error); }
             };
             AddLeft(btn);
         }
@@ -129,9 +132,13 @@ internal partial class MainWindow
             btn.Click += async (_, _) =>
             {
                 if (_config.ConfirmShutdown && !await DialogHelper.ConfirmAsync(_window!, string.Format(L("ConfirmShutdown"), row.Name))) { return; }
-                await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Shutdown);
-                if (_btnAutoRef?.IsChecked is not true) { _btnAutoRef!.IsChecked = true; }
-                await RefreshAsync();
+                try
+                {
+                    await VmService.ChangeStatusAsync(_client, row.Resource.Node, row.Resource.VmId, row.VmType, VmStatus.Shutdown);
+                    if (_btnAutoRef is { IsChecked: false }) { _btnAutoRef.IsChecked = true; }
+                    await RefreshAsync();
+                }
+                catch (Exception ex) { ShowToast($"{L("ErrorPrefix")}{ex.Message}", NotificationSeverity.Error); }
             };
             AddLeft(btn);
         }

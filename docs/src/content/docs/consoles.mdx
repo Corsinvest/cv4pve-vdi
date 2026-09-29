@@ -1,0 +1,54 @@
+---
+title: SPICE and VNC
+description: When cv4pve-vdi offers a SPICE or a VNC console, what each needs on the VM and on the network, and how they open in remote-viewer.
+---
+
+import openVnc from '../../assets/open-vnc.png';
+
+Both consoles open in `remote-viewer` — its path is set once in **Settings → Launchers → Viewer path**,
+see [Getting started](/cv4pve-vdi/getting-started/#install-remote-viewer). They show the guest's screen as
+the Proxmox VE console does, from boot onwards, so they work before the guest OS has a network or while it
+is broken.
+
+## Which one
+
+| | SPICE | VNC |
+|---|---|---|
+| **Offered for** | Running VMs with a SPICE display; running containers | Every running VM and container |
+| **Needs** | `VM.Console`; for VMs, display (VGA) set to **SPICE** | `VM.Console` |
+| **Network** | Client → SPICE proxy on port 3128 | Client → API port (8006) only |
+| **Extras** | Audio, USB redirection, clipboard, folder sharing, several monitors — with the SPICE guest tools | Screen, keyboard and mouse |
+
+SPICE is the better desktop experience; VNC is the one that works without SPICE on the VM. Either can be
+turned off in **Settings → Launchers → Protocols**, for all clusters: a turned-off protocol disappears from
+the Connect menu.
+
+## SPICE
+
+A VM offers SPICE when Proxmox VE reports it running with a SPICE display — **Hardware → Display** set to
+*SPICE* (`qxl`, `qxl2`, `qxl3`, `qxl4`) in the Proxmox VE web interface. A stopped VM with that display stays
+in the list so it can be started. For containers Proxmox VE provides the SPICE console of the container's
+terminal.
+
+What SPICE adds over VNC depends on the VM configuration and on the
+[SPICE guest tools](/cv4pve-vdi/guest-setup/#spice-guest-tools) inside it.
+
+**SPICE proxy** and **Viewer extra options** are per cluster — see
+[How it connects](/cv4pve-vdi/how-it-connects/#spice) and [Settings](/cv4pve-vdi/settings/#clusters).
+
+## VNC
+
+VNC works on running guests with or without a SPICE display: it is the same console the Proxmox VE web
+interface opens with noVNC. cv4pve-vdi tunnels it through the API port, so no port besides 8006
+has to be reachable — see [How it connects](/cv4pve-vdi/how-it-connects/#vnc).
+
+The viewer window is titled `VNC: VM <vmid>` or `VNC: CT <vmid>`:
+
+<img src={openVnc.src} alt="remote-viewer showing the VNC console of VM 1007, at the Windows lock screen" width="641" />
+
+## When a console does not open
+
+- **No SPICE or VNC entry in the Connect menu**: the account lacks `VM.Console`, the guest is not running,
+  the protocol is off in Settings → Launchers, or — for SPICE — the VM's display is not SPICE.
+- **An error when clicking**: the message returned by Proxmox VE appears in a notification at the bottom right of the window.
+- More in [Troubleshooting](/cv4pve-vdi/troubleshooting/).

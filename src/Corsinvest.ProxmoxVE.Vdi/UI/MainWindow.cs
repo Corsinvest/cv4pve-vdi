@@ -382,7 +382,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             w.Icon = AppIcon();
             await w.ShowDialog(_window!);
 
-            if (w.Tag as string == "reopen")
+            if ((w.Tag as string) == "reopen")
             {
                 var w2 = SettingsWindow.Create(_config, initialTab: 1);
                 w2.Icon = AppIcon();
@@ -538,7 +538,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             await w.ShowDialog(_window!);
 
             // Admin just unlocked — reopen Settings so the advanced tabs become visible
-            if (w.Tag as string == "reopen")
+            if ((w.Tag as string) == "reopen")
             {
                 var w2 = SettingsWindow.Create(_config);
                 w2.Icon = AppIcon();
@@ -569,7 +569,6 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                             || (_config.ShowTags && !prevShowTags)
                             || (_config.ViewerPath != prevViewerPath);
 
-
             if (needsRefresh)
             {
                 await RefreshAsync();
@@ -579,7 +578,6 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
                 ApplyFilter();
             }
         };
-
 
         btnRefresh.Click += async (_, _) => await RefreshAsync();
 
@@ -687,14 +685,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
 
     internal void UpdateViewerWarning()
     {
-        if (string.IsNullOrEmpty(_config.ViewerPath))
+        var viewerWarning = RemoteViewerService.GetViewerPathWarning(_config.ViewerPath);
+        if (viewerWarning != null)
         {
-            ShowBanner(L("ViewerNotConfigured"), NotificationSeverity.Warning);
+            ShowBanner(viewerWarning, NotificationSeverity.Warning);
+            return;
         }
-        else
-        {
-            HideBanner();
-        }
+
+        HideBanner();
     }
 
     internal void ApplySidebarVisibility()

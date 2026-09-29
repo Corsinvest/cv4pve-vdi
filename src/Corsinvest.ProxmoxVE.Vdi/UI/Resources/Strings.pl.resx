@@ -84,6 +84,9 @@
   <data name="SettingsWindowTitle"><value>Ustawienia</value></data>
   <data name="TabAppearance"><value>Wygląd</value></data>
   <data name="ViewerNotConfigured"><value>remote-viewer nie jest skonfigurowany — konsole SPICE i VNC nie będą działać.</value></data>
+  <data name="ViewerPathNotSet"><value>Ścieżka do remote-viewer nie jest skonfigurowana. Ustaw ją w Ustawienia → Launchery.</value></data>
+  <data name="ViewerLaunchFailed"><value>Nie udało się uruchomić procesu viewera.</value></data>
+  <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer nie może otwierać plików konsoli Proxmox VE, a remote-viewer nie został znaleziony w tym samym folderze. Wybierz remote-viewer w Ustawienia → Launchery.</value></data>
   <data name="OpenSettings"><value>Otwórz ustawienia</value></data>
   <data name="More"><value>Więcej</value></data>
   <data name="DefaultView"><value>Widok</value></data>
@@ -128,6 +131,7 @@
   <data name="SectionLaunchers"><value>LAUNCHERY</value></data>
   <data name="ViewerPath"><value>Ścieżka viewera (remote-viewer, dla SPICE i VNC)</value></data>
   <data name="ViewerPathWatermark"><value>/usr/bin/remote-viewer</value></data>
+  <data name="SelectSpiceViewer"><value>Wybierz przeglądarkę SPICE</value></data>
   <data name="EnableSpice"><value>SPICE</value></data>
   <data name="EnableVnc"><value>VNC</value></data>
   <data name="EnableAgentPing"><value>Ping guest agent (tylko QEMU)</value></data>

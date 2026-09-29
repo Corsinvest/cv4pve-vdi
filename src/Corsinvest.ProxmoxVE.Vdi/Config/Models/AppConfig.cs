@@ -37,7 +37,9 @@ internal class AppConfig
     public string LastUser { get; set; } = string.Empty;
 
     /// <summary>
-    /// Path to remote-viewer / virt-viewer executable for SPICE
+    /// Path to the remote-viewer executable (used for SPICE and VNC consoles).
+    /// Note: on Linux the package providing it is named virt-viewer, but the
+    /// binary to configure here is remote-viewer.
     /// </summary>
     public string ViewerPath { get; set; } = string.Empty;
 

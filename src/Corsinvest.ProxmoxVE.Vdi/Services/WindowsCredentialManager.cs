@@ -103,15 +103,20 @@ internal static class WindowsCredentialManager
         var alreadyExisted = Exists(target, type);
         if (!alreadyExisted) { Add(target, type, credentials!.Username, credentials.Password); }
 
-        action();
-
-        if (!alreadyExisted)
+        try
         {
-            Task.Run(async () =>
+            action();
+        }
+        finally
+        {
+            if (!alreadyExisted)
             {
-                await Task.Delay(3000);
-                Delete(target, type);
-            });
+                Task.Run(async () =>
+                {
+                    await Task.Delay(3000);
+                    Delete(target, type);
+                });
+            }
         }
     }
 }
