@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>En ejecución</value></data>
   <data name="StatusStopped"><value>Detenida</value></data>
+  <data name="StateRunning"><value>En ejecución</value></data>
+  <data name="StateStopped"><value>Detenido</value></data>
+  <data name="StatePaused"><value>En pausa</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Nodo</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Omitir la validación del certificado TLS</value></data>
   <data name="HostTimeout"><value>Tiempo de espera (segundos)</value></data>
   <data name="HostSpiceProxy"><value>Proxy SPICE (opcional)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>Dirección IP o nombre de host, puerto 3128 (vacío = el nodo al que te conectas)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>El proxy SPICE debe ser una dirección IP o un nombre de host, sin http:// y sin puerto.</value></data>
   <data name="HostViewerOptions"><value>Opciones adicionales del viewer (opcional)</value></data>
   <data name="HostNameRequired"><value>El nombre y la URL son obligatorios.</value></data>
   <data name="HostViewerOptionsWatermark"><value>argumentos adicionales para remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: activo</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: no responde</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: configurado (ping desactivado)</value></data>
-  <data name="BadgeClipboard"><value>Compartir portapapeles</value></data>
+  <data name="BadgeSpice"><value>Pantalla SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Carpetas compartidas</value></data>
+  <data name="BadgeMonitors"><value>{0} monitores</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: configurado (VM detenida)</value></data>
   <data name="ConfirmStart"><value>¿Iniciar {0}?</value></data>
   <data name="ConfirmShutdown"><value>¿Apagar {0}?</value></data>
 

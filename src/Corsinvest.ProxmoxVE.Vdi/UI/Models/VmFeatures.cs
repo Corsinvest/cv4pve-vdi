@@ -6,11 +6,13 @@
 namespace Corsinvest.ProxmoxVE.Vdi.UI.Models;
 
 internal record VmFeatures(
+    bool Spice,
     bool Audio,
     bool UsbRedirect,
+    bool FolderSharing,
+    int Monitors,
     bool AgentConfigured,
-    bool? AgentRunning,
-    bool Clipboard)
+    bool? AgentRunning)
 {
-    public static readonly VmFeatures None = new(false, false, false, null, false);
+    public static readonly VmFeatures None = new(false, false, false, false, 0, false, null);
 }

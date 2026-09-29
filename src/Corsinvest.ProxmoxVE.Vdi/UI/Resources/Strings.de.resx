@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Läuft</value></data>
   <data name="StatusStopped"><value>Gestoppt</value></data>
+  <data name="StateRunning"><value>Läuft</value></data>
+  <data name="StateStopped"><value>Gestoppt</value></data>
+  <data name="StatePaused"><value>Pausiert</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Knoten</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>TLS-Zertifikatsprüfung überspringen</value></data>
   <data name="HostTimeout"><value>Timeout (Sekunden)</value></data>
   <data name="HostSpiceProxy"><value>SPICE-Proxy (optional)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>IP-Adresse oder Hostname, Port 3128 (leer = der verbundene Knoten)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>Der SPICE-Proxy muss eine IP-Adresse oder ein Hostname sein, ohne http:// und ohne Port.</value></data>
   <data name="HostViewerOptions"><value>Zusätzliche Viewer-Optionen (optional)</value></data>
   <data name="HostNameRequired"><value>Name und URL sind erforderlich.</value></data>
   <data name="HostViewerOptionsWatermark"><value>zusätzliche Argumente für remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest-Agent: aktiv</value></data>
   <data name="BadgeAgentStopped"><value>Guest-Agent: antwortet nicht</value></data>
   <data name="BadgeAgentUnknown"><value>Guest-Agent: konfiguriert (Ping deaktiviert)</value></data>
-  <data name="BadgeClipboard"><value>Zwischenablage teilen</value></data>
+  <data name="BadgeSpice"><value>SPICE-Anzeige</value></data>
+  <data name="BadgeFolderSharing"><value>Ordnerfreigabe</value></data>
+  <data name="BadgeMonitors"><value>{0} Monitore</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest-Agent: konfiguriert (VM gestoppt)</value></data>
   <data name="ConfirmStart"><value>{0} starten?</value></data>
   <data name="ConfirmShutdown"><value>{0} herunterfahren?</value></data>
 

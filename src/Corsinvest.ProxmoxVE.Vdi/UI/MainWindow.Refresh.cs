@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-using System.Text.RegularExpressions;
 using Corsinvest.ProxmoxVE.Api.Extension;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Cluster;
 using Corsinvest.ProxmoxVE.Api.Shared.Models.Vm;
@@ -178,8 +177,7 @@ internal partial class MainWindow
                         else
                         {
                             var cfg = await _client.Nodes[v.Node].Qemu[v.VmId].Config.GetAsync();
-                            var vga = cfg?.Vga?.ToLowerInvariant() ?? string.Empty;
-                            hasSpice = vga.StartsWith("qxl") || vga == "spice";
+                            hasSpice = cfg?.IsSpiceDisplay is true;
                             osType = cfg?.OsType?.ToLowerInvariant() ?? string.Empty;
                             _spiceConfigCache[v.VmId] = hasSpice;
                             _osTypeCache[v.VmId] = osType;
@@ -341,15 +339,12 @@ internal partial class MainWindow
     {
         if (cfg is null) { return VmFeatures.None; }
 
-        var audio = cfg.Audio0?.Contains("driver=spice") is true;
-        var usbRedirect = cfg.ExtensionData
-                             ?.Where(kv => UsbRegex().IsMatch(kv.Key))
-                             .Any(kv => kv.Value?.ToString()?.Contains("host=spice") is true) is true;
-
-        var clipboard = cfg.SpiceEnhancements?.Contains("clipboard") is true;
-        return new VmFeatures(audio, usbRedirect, cfg.AgentEnabled, agentRunning, clipboard);
+        return new VmFeatures(cfg.IsSpiceDisplay,
+                              cfg.HasSpiceAudio,
+                              cfg.HasSpiceUsb,
+                              cfg.HasSpiceFolderSharing,
+                              cfg.SpiceMonitors,
+                              cfg.AgentEnabled,
+                              agentRunning);
     }
-
-    [GeneratedRegex(@"^usb\d+$")]
-    private static partial Regex UsbRegex();
 }

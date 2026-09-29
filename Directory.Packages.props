@@ -7,6 +7,6 @@
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.0.3" />
     <PackageVersion Include="Semver" Version="3.0.0" />
     <PackageVersion Include="YamlDotNet" Version="17.1.0" />
-    <PackageVersion Include="Corsinvest.ProxmoxVE.Api.Extension" Version="9.2.3" />
+    <PackageVersion Include="Corsinvest.ProxmoxVE.Api.Extension" Version="9.2.3.3" />
   </ItemGroup>
 </Project>

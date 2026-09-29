@@ -24,77 +24,142 @@ internal partial class MainWindow
 
     private static IBrush ThemeBorderBrush() => AppColors.BorderBrush(AppColors.IsDark);
 
-    internal void BuildAgentBadge(ResourceRow row, StackPanel parent)
+    /// <summary>
+    /// Small rounded label, the shape of the VM/CT badge and the tags: the same neutral grey background
+    /// and border for every pill, content in the tint colour (or the theme colour when
+    /// <paramref name="tintContent"/> is false).
+    /// </summary>
+    private static Border BuildPill(Color tint, Control content, string? tooltip, bool tintContent = true)
     {
-        if (!row.Features.AgentConfigured)
+        if (tintContent)
         {
-            return;
+            switch (content)
+            {
+                case TextBlock text: text.Foreground = new SolidColorBrush(PillTint(tint)); break;
+                case PathIcon icon: icon.Foreground = new SolidColorBrush(PillTint(tint)); break;
+            }
         }
 
-        string tooltip;
-        Color color;
-        double opacity;
-
-        if (!_config.EnableAgentPing || row.Features.AgentRunning is null)
+        var pill = new Border
         {
-            tooltip = L("BadgeAgentUnknown");
-            color = Colors.Gray;
-            opacity = 0.5;
-        }
-        else if (row.Features.AgentRunning is true)
-        {
-            tooltip = L("BadgeAgentRunning");
-            color = AppColors.Running;
-            opacity = 0.9;
-        }
-        else
-        {
-            tooltip = L("BadgeAgentStopped");
-            color = AppColors.Shutdown;
-            opacity = 0.9;
-        }
-
-        var icon = new PathIcon
-        {
-            Data = Geometry.Parse(AppIcons.Agent),
-            Width = 11,
-            Height = 11,
-            Foreground = new SolidColorBrush(color),
-            Opacity = opacity,
-            VerticalAlignment = VerticalAlignment.Center
+            CornerRadius = new CornerRadius(4),
+            Padding = new Thickness(5, 1),
+            Background = new SolidColorBrush(Color.FromArgb(40, AppColors.TypeBadge.R, AppColors.TypeBadge.G, AppColors.TypeBadge.B)),
+            BorderBrush = new SolidColorBrush(Color.FromArgb(110, AppColors.TypeBadge.R, AppColors.TypeBadge.G, AppColors.TypeBadge.B)),
+            BorderThickness = new Thickness(1),
+            VerticalAlignment = VerticalAlignment.Center,
+            Child = content
         };
-        ToolTip.SetTip(icon, tooltip);
-        parent.Children.Add(icon);
+        if (!string.IsNullOrEmpty(tooltip)) { ToolTip.SetTip(pill, tooltip); }
+        return pill;
     }
 
-    internal static Control BuildFeatureBadges(ResourceRow row)
+    /// <summary>
+    /// Softer shades of the status colours for the pill icons, readable on the grey pill in both themes;
+    /// other colours are returned unchanged.
+    /// </summary>
+    private static Color PillTint(Color color)
+        => color == AppColors.Running ? Color.Parse(AppColors.IsDark ? "#4ade80" : "#16a34a")
+            : color == AppColors.Shutdown ? Color.Parse(AppColors.IsDark ? "#f87171" : "#dc2626")
+            : color == AppColors.BarMedium ? Color.Parse(AppColors.IsDark ? "#fbbf24" : "#d97706")
+            : color;
+
+    private static PathIcon PillIcon(string iconData)
+        => new()
+        {
+            Data = Geometry.Parse(iconData),
+            Width = 11,
+            Height = 11,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+    private static TextBlock PillText(string text)
+        => new()
+        {
+            Text = text,
+            FontSize = 10,
+            FontWeight = FontWeight.SemiBold,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+    /// <summary>
+    /// Status of the guest as a coloured icon pill — running green, paused amber, stopped grey — with the
+    /// state in the tooltip, so status, agent and SPICE fit on one row of the card.
+    /// </summary>
+    internal static Border BuildStatusPill(ResourceRow row)
     {
-        if (!row.Features.Audio && !row.Features.UsbRedirect && !row.Features.Clipboard)
-        {
-            return new Border();
-        }
+        var (icon, text, color) = row.Resource.IsRunning
+                                    ? (AppIcons.Play, L("StateRunning"), AppColors.Running)
+                                    : row.Resource.IsPaused
+                                        ? (AppIcons.Pause, L("StatePaused"), AppColors.BarMedium)
+                                        : (AppIcons.Stop, L("StateStopped"), AppColors.Stopped);
+        return BuildPill(color, PillIcon(icon), text);
+    }
 
-        var panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6 };
+    /// <summary>
+    /// QEMU guest agent as a pill, only for VMs with the agent enabled in their options: green when it
+    /// answers the ping, red when it does not, grey when the ping is off or the VM is stopped.
+    /// </summary>
+    internal Border? BuildAgentPill(ResourceRow row)
+    {
+        if (!row.Features.AgentConfigured) { return null; }
 
-        void AddBadge(string icon, string tooltip, Color color, double opacity = 0.9)
+        var (tooltip, color) = !row.IsActive
+                                    ? (L("BadgeAgentVmStopped"), AppColors.Stopped)
+                                    : !_config.EnableAgentPing || row.Features.AgentRunning is null
+                                        ? (L("BadgeAgentUnknown"), AppColors.Stopped)
+                                        : row.Features.AgentRunning is true
+                                            ? (L("BadgeAgentRunning"), AppColors.Running)
+                                            : (L("BadgeAgentStopped"), AppColors.Shutdown);
+
+        return BuildPill(color, PillIcon(AppIcons.Agent), tooltip);
+    }
+
+    /// <summary>
+    /// Pill for VMs with a SPICE display, in the style of the VM/CT badge but lighter, with an icon for
+    /// each SPICE feature configured (audio, USB redirect, folder sharing, monitors) and the list in the
+    /// tooltip. Null when the VM has no SPICE display.
+    /// </summary>
+    internal static Border? BuildSpicePill(ResourceRow row)
+    {
+        var f = row.Features;
+        if (!f.Spice) { return null; }
+
+        var panel = new StackPanel
         {
-            var pathIcon = new PathIcon
+            Orientation = Orientation.Horizontal,
+            Spacing = 4,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
             {
-                Data = Geometry.Parse(icon),
-                Width = 12,
-                Height = 12,
-                Foreground = new SolidColorBrush(color),
-                Opacity = opacity
-            };
-            ToolTip.SetTip(pathIcon, tooltip);
-            panel.Children.Add(pathIcon);
+                PillText("SPICE")
+            }
+        };
+
+        var tooltip = new List<string> { L("BadgeSpice") };
+
+        void AddFeature(string icon, string text)
+        {
+            panel.Children.Add(PillIcon(icon));
+            tooltip.Add(text);
         }
 
-        if (row.Features.Audio) { AddBadge(AppIcons.Audio, L("BadgeAudioSpice"), AppColors.Running); }
-        if (row.Features.UsbRedirect) { AddBadge(AppIcons.Usb, L("BadgeUsbRedirect"), AppColors.Running); }
-        if (row.Features.Clipboard) { AddBadge(AppIcons.Clipboard2, L("BadgeClipboard"), AppColors.Running); }
+        if (f.Audio) { AddFeature(AppIcons.Audio, L("BadgeAudioSpice")); }
+        if (f.UsbRedirect) { AddFeature(AppIcons.Usb, L("BadgeUsbRedirect")); }
+        if (f.FolderSharing) { AddFeature(AppIcons.Folder, L("BadgeFolderSharing")); }
+        if (f.Monitors > 1)
+        {
+            AddFeature(AppIcons.Monitor, string.Format(L("BadgeMonitors"), f.Monitors));
+            panel.Children.Add(new TextBlock
+            {
+                Text = f.Monitors.ToString(),
+                FontSize = 10,
+                Margin = new Thickness(-2, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            });
+        }
 
-        return panel;
+        return BuildPill(AppColors.TypeBadge, panel, string.Join(Environment.NewLine, tooltip), tintContent: false);
     }
 
     internal void AddActionButtons(DockPanel panel, ResourceRow row, bool isCard)
@@ -256,17 +321,6 @@ internal partial class MainWindow
         var h = Math.Abs(tag.GetHashCode());
         return Color.FromRgb((byte)(h & 0xFF), (byte)((h >> 8) & 0xFF), (byte)(((h >> 16) & 0x7F) | 0x40));
     }
-
-    private static Ellipse BuildStatusDot(ResourceRow row)
-        => new()
-        {
-            Width = 8,
-            Height = 8,
-            Fill = new SolidColorBrush(row.IsActive
-                    ? AppColors.Running
-                    : AppColors.Stopped),
-            VerticalAlignment = VerticalAlignment.Center
-        };
 
     /// <summary>
     /// Returns the OS glyph (Windows / Linux) tinted with the OS-specific colour
@@ -446,28 +500,22 @@ internal partial class MainWindow
                .Union(rows.Where(r => r.ResourceType == ClusterResourceType.Node).Select(r => r.Name))
                .Order()];
 
+    /// <summary>
+    /// Privileges on <paramref name="path"/>. /access/permissions already returns, for each path, the
+    /// privileges in effect there (inheritance and pools resolved, a more specific ACL replacing the
+    /// inherited one), so the most specific listed path wins: adding up the parents would grant what a
+    /// narrower role takes away.
+    /// </summary>
     internal IEnumerable<string> EffectivePrivs(string path)
     {
-        if (_permissions.TryGetValue("/", out var rootPrivs))
+        var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        for (var i = parts.Length; i >= 0; i--)
         {
-            foreach (var item in rootPrivs)
-            {
-                yield return item;
-            }
+            var current = "/" + string.Join('/', parts.Take(i));
+            if (_permissions.TryGetValue(current, out var privs)) { return privs; }
         }
 
-        var current = string.Empty;
-        foreach (var part in path.Split('/', StringSplitOptions.RemoveEmptyEntries))
-        {
-            current += "/" + part;
-            if (_permissions.TryGetValue(current, out var privs))
-            {
-                foreach (var item in privs)
-                {
-                    yield return item;
-                }
-            }
-        }
+        return [];
     }
 
     internal void UpdateStats(int nodeCount)

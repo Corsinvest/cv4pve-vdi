@@ -64,13 +64,6 @@ internal class ResourceRow(ClusterResource resource,
 
     public bool HasAnyVdiAction => ResourceType == ClusterResourceType.Node || hasSpice || CanVnc;
 
-    public string StatusDisplay
-        => resource.ResourceType == ClusterResourceType.Node
-            ? (resource.IsOnline ? "Online" : "Offline")
-            : (resource.IsRunning ? "Running"
-                : resource.IsPaused ? "Paused"
-                : "Stopped");
-
     public double CpuPct => resource.CpuUsagePercentage;
     public string CpuDisplay => FormatHelper.CpuInfo(resource.CpuUsagePercentage / 100.0, resource.CpuSize);
 

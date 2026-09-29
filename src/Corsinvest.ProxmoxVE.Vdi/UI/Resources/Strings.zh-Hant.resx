@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>執行中</value></data>
   <data name="StatusStopped"><value>已停止</value></data>
+  <data name="StateRunning"><value>執行中</value></data>
+  <data name="StateStopped"><value>已停止</value></data>
+  <data name="StatePaused"><value>已暫停</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>節點</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>跳過 TLS 憑證驗證</value></data>
   <data name="HostTimeout"><value>逾時（秒）</value></data>
   <data name="HostSpiceProxy"><value>SPICE 代理（可選）</value></data>
+  <data name="HostSpiceProxyWatermark"><value>IP 位址或主機名稱，連接埠 3128（留空 = 目前連線的節點）</value></data>
+  <data name="HostSpiceProxyInvalid"><value>SPICE 代理必須是 IP 位址或主機名稱，不含 http:// 與連接埠。</value></data>
   <data name="HostViewerOptions"><value>檢視器額外選項（可選）</value></data>
   <data name="HostNameRequired"><value>必須填寫名稱和 URL。</value></data>
   <data name="HostViewerOptionsWatermark"><value>remote-viewer 的額外參數…</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest Agent：執行中</value></data>
   <data name="BadgeAgentStopped"><value>Guest Agent：未回應</value></data>
   <data name="BadgeAgentUnknown"><value>Guest Agent：已設定（探測已關閉）</value></data>
-  <data name="BadgeClipboard"><value>剪貼簿共享</value></data>
+  <data name="BadgeSpice"><value>SPICE 顯示</value></data>
+  <data name="BadgeFolderSharing"><value>資料夾共用</value></data>
+  <data name="BadgeMonitors"><value>{0} 個螢幕</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent：已設定（虛擬機器已停止）</value></data>
   <data name="ConfirmStart"><value>啟動 {0}？</value></data>
   <data name="ConfirmShutdown"><value>關機 {0}？</value></data>
 
