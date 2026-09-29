@@ -13,19 +13,64 @@ namespace Corsinvest.ProxmoxVE.Vdi.Services;
 
 internal static class RemoteViewerService
 {
+    /// <summary>
+    /// Startup banner warning for the configured viewer: null when the path is
+    /// usable, otherwise a localized message ("not configured" or virt-viewer
+    /// selected without a repairable remote-viewer sibling).
+    /// </summary>
+    public static string? GetViewerPathWarning(string? viewerPath)
+        => string.IsNullOrWhiteSpace(viewerPath)
+                ? L("ViewerNotConfigured")
+                : ResolveRemoteViewerPath(viewerPath) is null
+                        ? L("ViewerVirtViewerNeedsRemote")
+                        : null;
+
+    /// <summary>
+    /// The Linux <c>virt-viewer</c> package and the Windows VirtViewer installer
+    /// both place <c>remote-viewer</c> next to <c>virt-viewer</c>, so a path
+    /// pointing at virt-viewer can be repaired on the fly. virt-viewer itself
+    /// treats a .vv file as a local libvirt domain name and fails with the
+    /// misleading "No running virtual machine found" dialog, so it must never
+    /// be launched. Returns the usable path, or null when virt-viewer was
+    /// selected and no remote-viewer sibling exists.
+    /// </summary>
+    public static string? ResolveRemoteViewerPath(string viewerPath)
+    {
+        if (!IsVirtViewer(viewerPath)) { return viewerPath; }
+
+        var dir = System.IO.Path.GetDirectoryName(viewerPath);
+        var sibling = string.IsNullOrEmpty(dir)
+                            ? RemoteViewerName()
+                            : System.IO.Path.Combine(dir, RemoteViewerName());
+
+        // A bare file name resolves through PATH at launch — accept it as-is.
+        return string.IsNullOrEmpty(dir) || File.Exists(sibling) ? sibling : null;
+    }
+
+    private static bool IsVirtViewer(string viewerPath)
+        => string.Equals(System.IO.Path.GetFileName(viewerPath), VirtViewerName(), StringComparison.OrdinalIgnoreCase);
+
+    private static string VirtViewerName() => OperatingSystem.IsWindows() ? "virt-viewer.exe" : "virt-viewer";
+
+    private static string RemoteViewerName() => OperatingSystem.IsWindows() ? "remote-viewer.exe" : "remote-viewer";
+
     public static async Task<(string Error, Process? Process)>
         LaunchSpiceAsync(PveClient client, string node, long vmId, VmType vmType, AppConfig config, ClusterConfig host)
     {
         if (string.IsNullOrWhiteSpace(config.ViewerPath))
         {
-            return ("SPICE viewer path is not configured. Please set it in Settings → Viewer.", null);
+            return (L("ViewerPathNotSet"), null);
         }
+
+        var viewerPath = ResolveRemoteViewerPath(config.ViewerPath);
+        if (viewerPath is null) { return (L("ViewerVirtViewerNeedsRemote"), null); }
 
         var (error, fileName) = await RemoteViewerHelper.PrepareSpiceAsync(client, node, vmType, vmId, host.Spice.Proxy);
         if (error != null) { return (error, null); }
 
         var viewerOptions = host.Spice.ViewerOptions.Replace(Environment.NewLine, " ");
-        var p = LaunchViewer(config.ViewerPath, fileName!, viewerOptions);
+        var (p, launchError) = LaunchViewer(viewerPath, fileName!, viewerOptions);
+        if (p == null) { return (launchError ?? L("ViewerLaunchFailed"), null); }
         return (string.Empty, p);
     }
 
@@ -34,19 +79,22 @@ internal static class RemoteViewerService
     {
         if (string.IsNullOrWhiteSpace(config.ViewerPath))
         {
-            return ("SPICE viewer path is not configured. Please set it in Settings → Viewer.", null);
+            return (L("ViewerPathNotSet"), null);
         }
+
+        var viewerPath = ResolveRemoteViewerPath(config.ViewerPath);
+        if (viewerPath is null) { return (L("ViewerVirtViewerNeedsRemote"), null); }
 
         var (error, fileName, bridge) = await RemoteViewerHelper.PrepareVncAsync(client, node, vmType, vmId);
         if (error != null) { return (error, null); }
 
         // VNC needs the WebSocket bridge to stay alive until the viewer exits,
         // so we launch the process here and dispose the bridge on the Exited event.
-        var process = LaunchViewer(config.ViewerPath, fileName!, string.Empty);
+        var (process, launchError) = LaunchViewer(viewerPath, fileName!, string.Empty);
         if (process == null)
         {
             await bridge!.DisposeAsync();
-            return ("Failed to start viewer process.", null);
+            return (launchError ?? L("ViewerLaunchFailed"), null);
         }
 
         process.EnableRaisingEvents = true;
@@ -58,8 +106,10 @@ internal static class RemoteViewerService
     /// <summary>
     /// Launches the viewer binary directly (no shell wrapper) so we keep a usable
     /// <see cref="Process"/> handle for session tracking and bring-to-front.
+    /// Returns the exception message as the error when the process could not be
+    /// started (e.g. path does not exist), so the toast says why.
     /// </summary>
-    private static Process? LaunchViewer(string viewerPath, string vvFile, string viewerOptions)
+    private static (Process? Process, string? Error) LaunchViewer(string viewerPath, string vvFile, string viewerOptions)
     {
         var psi = new ProcessStartInfo
         {
@@ -76,8 +126,8 @@ internal static class RemoteViewerService
         {
             psi.ArgumentList.Add(opt);
         }
-        try { return Process.Start(psi); }
-        catch { return null; }
+        try { return (Process.Start(psi), null); }
+        catch (Exception ex) { return (null, ex.Message); }
     }
 
     /// <summary>
