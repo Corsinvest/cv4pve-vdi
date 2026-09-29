@@ -103,6 +103,14 @@ internal static partial class LauncherEngine
         {
             if (string.IsNullOrWhiteSpace(def.Executable)) { return ($"No executable defined for launcher '{def.ServiceId}'.", null); }
 
+            // {ip} can come from the guest agent of the very VM being connected to;
+            // it is interpolated into a raw command line, so anything beyond a plain
+            // host (IP/hostname) would let a compromised VM inject extra arguments.
+            if (Uri.CheckHostName(ip) == UriHostNameType.Unknown)
+            {
+                return ($"Invalid host address '{ip}' for launcher '{def.ServiceId}'.", null);
+            }
+
             var extraArgs = extraArgsOverride ?? def.ExtraArgs;
             var effectivePort = port > 0 ? port : def.DefaultPort;
             var args = Interpolate(def.Arguments, ip, effectivePort, def.DefaultPort, credentials, extraArgs);
