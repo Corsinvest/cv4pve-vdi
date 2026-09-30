@@ -22,7 +22,7 @@ internal static class LoginWindow
     [
         ("auto",  "Auto"),
         ("en",    "English"),       // base / fallback
-        // Other languages — alphabetical by endonym.
+        // Other languages, alphabetical by endonym.
         ("cs",    "Čeština"),
         ("de",    "Deutsch"),
         ("es",    "Español"),
@@ -72,7 +72,7 @@ internal static class LoginWindow
         var btnSettings = UiHelper.IconButton(AppIcons.Settings, "ManageClusters", margin: new Thickness(2, 0, 0, 0));
         var hostRow = UiHelper.RowWithButton(cmbClusterWithIcon, btnSettings);
 
-        // Language selector — sits in the top-right of the form.
+        // Language selector: sits in the top-right of the form.
         var (cmbLanguage, cmbLanguageWithIcon) = UiHelper.ComboBoxWithIcon(
             Languages.Select(l => l.Label).ToList(),
             AppIcons.Globe,
@@ -179,7 +179,7 @@ internal static class LoginWindow
                     var bg = new Avalonia.Media.Imaging.Bitmap(config.KioskLoginBackground);
                     window.Background = new ImageBrush(bg) { Stretch = Stretch.UniformToFill };
                 }
-                catch { /* invalid image — fall back to default background */ }
+                catch { /* invalid image: fall back to default background */ }
             }
 
             window.Closing += async (_, e) =>

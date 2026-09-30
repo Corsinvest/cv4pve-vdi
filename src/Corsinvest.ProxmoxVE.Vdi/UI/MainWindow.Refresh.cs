@@ -59,7 +59,7 @@ internal partial class MainWindow
 
             _progressBar.Value = 20;
 
-            // invalidate SPICE config cache for running VMs — status.current is the live source of truth
+            // invalidate SPICE config cache for running VMs: status.current is the live source of truth
             var runningIds = vms.Where(v => v.IsRunning).Select(v => v.VmId).ToHashSet();
             foreach (var id in _spiceConfigCache.Keys.Where(id => runningIds.Contains(id)).ToList())
             {
@@ -68,7 +68,7 @@ internal partial class MainWindow
 
             _allRows.Clear();
 
-            // 3. Nodes + LXC — shown immediately, no extra API calls
+            // 3. Nodes + LXC: shown immediately, no extra API calls
             foreach (var item in nodes)
             {
                 var privs = EffectivePrivs($"/nodes/{item.Node}").ToHashSet();
@@ -114,7 +114,7 @@ internal partial class MainWindow
 
             _progressBar.Value = 30;
 
-            // 4. QEMU — parallel chunks of 5, progressive
+            // 4. QEMU: parallel chunks of 5, progressive
             var qemuVms = vms.Where(v => v.VmType == VmType.Qemu).ToList();
             // SPICE detection requires API calls; VNC is always available (no API needed)
             var qemuToCheck = _config.EnableSpice
@@ -218,7 +218,7 @@ internal partial class MainWindow
 
             _progressBar.Value = 80;
 
-            // rebuild pool filter — only if enabled and only pools of VDI-actionable VMs
+            // rebuild pool filter, only if enabled and only pools of VDI-actionable VMs
             if (_config.ShowPools)
             {
                 var allPools = _allRows
@@ -241,7 +241,7 @@ internal partial class MainWindow
                 }
             }
 
-            // rebuild tag filters — only if enabled and only tags of VDI-actionable VMs
+            // rebuild tag filters, only if enabled and only tags of VDI-actionable VMs
             if (_config.ShowTags)
             {
                 var allTags = _allRows.Where(r => r.HasAnyVdiAction).SelectMany(r => r.Tags).Distinct().Order().ToList();
@@ -282,7 +282,7 @@ internal partial class MainWindow
         // VNC on Proxmox is one-session-per-VM at the server side: opening a
         // 2nd VNC for the same VM invalidates the previous server-side ticket,
         // the previous viewer hits "Server closed the connection" and exits on
-        // its own — its Exited handler removes the pill automatically.
+        // its own, and its Exited handler removes the pill automatically.
         var (err, p) = await RemoteViewerService.LaunchVncAsync(_client,
                                                                 row.Resource.Node,
                                                                 row.Resource.VmId,

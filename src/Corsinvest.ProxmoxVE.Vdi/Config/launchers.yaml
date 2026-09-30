@@ -1,5 +1,5 @@
 launchers:
-  # RDP — Windows
+  # RDP: Windows
   - service-id: rdp-mstsc
     display-name: "RDP (mstsc)"
     platform: Windows
@@ -15,7 +15,7 @@ launchers:
     extra-args: ""
     icon: rdp
 
-  # RDP — xFreeRDP
+  # RDP: xFreeRDP
   - service-id: rdp-xfreerdp-windows
     display-name: "RDP (xFreeRDP)"
     platform: Windows
@@ -49,7 +49,7 @@ launchers:
     extra-args: ""
     icon: rdp
 
-  # SSH — Windows (cmd)
+  # SSH: Windows (cmd)
   - service-id: ssh-windows
     display-name: "SSH (cmd)"
     platform: Windows
@@ -61,7 +61,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — Windows (PuTTY)
+  # SSH: Windows (PuTTY)
   - service-id: ssh-putty-windows
     display-name: "SSH (PuTTY)"
     platform: Windows
@@ -73,7 +73,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — Linux (GNOME Terminal)
+  # SSH: Linux (GNOME Terminal)
   - service-id: ssh-gnome-terminal
     display-name: "SSH (GNOME Terminal)"
     platform: Linux
@@ -85,7 +85,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — Linux (xterm)
+  # SSH: Linux (xterm)
   - service-id: ssh-xterm
     display-name: "SSH (xterm)"
     platform: Linux
@@ -97,7 +97,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — Linux (Konsole)
+  # SSH: Linux (Konsole)
   - service-id: ssh-konsole
     display-name: "SSH (Konsole)"
     platform: Linux
@@ -109,7 +109,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — Linux (PuTTY)
+  # SSH: Linux (PuTTY)
   - service-id: ssh-putty-linux
     display-name: "SSH (PuTTY)"
     platform: Linux
@@ -121,7 +121,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — macOS (Terminal)
+  # SSH: macOS (Terminal)
   - service-id: ssh-mac
     display-name: "SSH (Terminal)"
     platform: OSX
@@ -133,7 +133,7 @@ launchers:
     extra-args: ""
     icon: ssh
 
-  # SSH — macOS (PuTTY)
+  # SSH: macOS (PuTTY)
   - service-id: ssh-putty-osx
     display-name: "SSH (PuTTY)"
     platform: OSX

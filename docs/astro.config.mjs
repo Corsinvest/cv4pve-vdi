@@ -46,7 +46,7 @@ export default defineConfig({
                 label: 'Linux',
                 icon: 'linux',
                 lines: [
-                  '# install (x64 — arm64 and arm on the Releases page)',
+                  '# install (x64; arm64 and arm on the Releases page)',
                   `wget ${releases}/\\\ncv4pve-vdi-linux-x64.zip`,
                   'unzip cv4pve-vdi-linux-x64.zip',
                   'chmod +x cv4pve-vdi',
@@ -63,7 +63,7 @@ export default defineConfig({
                 label: 'macOS',
                 icon: 'macos',
                 lines: [
-                  '# install (Apple silicon — Intel: osx-x64)',
+                  '# install (Apple silicon; Intel: osx-x64)',
                   `curl -LO ${releases}/\\\ncv4pve-vdi-osx-arm64.zip`,
                   'unzip cv4pve-vdi-osx-arm64.zip',
                   'chmod +x cv4pve-vdi',

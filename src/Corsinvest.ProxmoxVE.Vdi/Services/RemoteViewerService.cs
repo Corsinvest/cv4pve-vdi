@@ -43,7 +43,7 @@ internal static class RemoteViewerService
                             ? RemoteViewerName()
                             : System.IO.Path.Combine(dir, RemoteViewerName());
 
-        // A bare file name resolves through PATH at launch — accept it as-is.
+        // A bare file name resolves through PATH at launch: accept it as-is.
         return string.IsNullOrEmpty(dir) || File.Exists(sibling) ? sibling : null;
     }
 

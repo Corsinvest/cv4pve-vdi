@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Inicio de sesión</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Inicio de sesión</value></data>
   <data name="Username"><value>Nombre de usuario</value></data>
   <data name="Password"><value>Contraseña</value></data>
   <data name="OtpLabel"><value>OTP (opcional)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Ajustes</value></data>
   <data name="TabAppearance"><value>Apariencia</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer no está configurado — las consolas SPICE y VNC no funcionarán.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer no está configurado: las consolas SPICE y VNC no funcionarán.</value></data>
   <data name="ViewerPathNotSet"><value>La ruta de remote-viewer no está configurada. Configúrala en Ajustes → Lanzadores.</value></data>
   <data name="ViewerLaunchFailed"><value>No se pudo iniciar el proceso del viewer.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer no puede abrir los archivos de consola de Proxmox VE y no se encontró remote-viewer en la misma carpeta. Selecciona remote-viewer en Ajustes → Lanzadores.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Las contraseñas no coinciden.</value></data>
   <data name="KioskUnlockPrompt"><value>Introduzca la contraseña de administrador para continuar.</value></data>
   <data name="KioskUnlockWrong"><value>Contraseña de administrador incorrecta.</value></data>
-  <data name="KioskPasswordSet"><value>(contraseña establecida — déjelo en blanco para mantenerla)</value></data>
+  <data name="KioskPasswordSet"><value>(contraseña establecida: déjelo en blanco para mantenerla)</value></data>
   <data name="SwitchUser"><value>Cambiar de usuario</value></data>
   <data name="KioskLoginBackground"><value>Imagen de fondo del inicio de sesión (opcional)</value></data>
   <data name="KioskForceFullScreen"><value>Forzar pantalla completa (recomendado)</value></data>

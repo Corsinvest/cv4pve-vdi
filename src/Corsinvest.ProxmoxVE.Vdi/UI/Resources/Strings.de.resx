@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Anmeldung</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Anmeldung</value></data>
   <data name="Username"><value>Benutzername</value></data>
   <data name="Password"><value>Passwort</value></data>
   <data name="OtpLabel"><value>OTP (optional)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Einstellungen</value></data>
   <data name="TabAppearance"><value>Darstellung</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer ist nicht konfiguriert — SPICE- und VNC-Konsolen funktionieren nicht.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer ist nicht konfiguriert: SPICE- und VNC-Konsolen funktionieren nicht.</value></data>
   <data name="ViewerPathNotSet"><value>Der Pfad zu remote-viewer ist nicht konfiguriert. Legen Sie ihn unter Einstellungen → Launcher fest.</value></data>
   <data name="ViewerLaunchFailed"><value>Der Viewer-Prozess konnte nicht gestartet werden.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer kann keine Proxmox VE-Konsolendateien öffnen, und remote-viewer wurde im selben Ordner nicht gefunden. Wählen Sie remote-viewer unter Einstellungen → Launcher aus.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Die Passwörter stimmen nicht überein.</value></data>
   <data name="KioskUnlockPrompt"><value>Admin-Passwort eingeben, um fortzufahren.</value></data>
   <data name="KioskUnlockWrong"><value>Falsches Admin-Passwort.</value></data>
-  <data name="KioskPasswordSet"><value>(Passwort gesetzt — leer lassen, um es zu behalten)</value></data>
+  <data name="KioskPasswordSet"><value>(Passwort gesetzt: leer lassen, um es zu behalten)</value></data>
   <data name="SwitchUser"><value>Benutzer wechseln</value></data>
   <data name="KioskLoginBackground"><value>Hintergrundbild der Anmeldung (optional)</value></data>
   <data name="KioskForceFullScreen"><value>Vollbild erzwingen (empfohlen)</value></data>

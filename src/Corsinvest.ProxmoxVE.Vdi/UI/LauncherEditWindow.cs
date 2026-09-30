@@ -30,7 +30,7 @@ internal static class LauncherEditWindow
                                                                            AppIcons.Server,
                                                                            existing?.Platform ?? LauncherPlatform.Windows);
 
-        // Icon picker — selection box shows just the glyph so it stays compact
+        // Icon picker: selection box shows just the glyph so it stays compact
         // next to the display-name textbox; the dropdown still lists icon + id
         // so the user can recognise each entry while choosing.
         var cmbIcon = new ComboBox

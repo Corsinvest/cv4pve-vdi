@@ -49,7 +49,7 @@ internal static class AppLocalization
         else
         {
             try { culture = new CultureInfo(language); }
-            catch { return; /* invalid code — keep current culture */ }
+            catch { return; /* invalid code: keep current culture */ }
         }
 
         // Set on the calling thread AND as default for any thread spawned later

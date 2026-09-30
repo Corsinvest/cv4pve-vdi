@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — 登入</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · 登入</value></data>
   <data name="Username"><value>使用者名稱</value></data>
   <data name="Password"><value>密碼</value></data>
   <data name="OtpLabel"><value>OTP（可選）</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>設定</value></data>
   <data name="TabAppearance"><value>外觀</value></data>
-  <data name="ViewerNotConfigured"><value>未設定 remote-viewer——SPICE 和 VNC 主控台將無法使用。</value></data>
+  <data name="ViewerNotConfigured"><value>未設定 remote-viewer，SPICE 和 VNC 主控台將無法使用。</value></data>
   <data name="ViewerPathNotSet"><value>未設定 remote-viewer 路徑。請在 設定 → 啟動器 中設定。</value></data>
   <data name="ViewerLaunchFailed"><value>無法啟動檢視器處理程序。</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer 無法開啟 Proxmox VE 主控台檔案，且在同一資料夾中找不到 remote-viewer。請在 設定 → 啟動器 中選擇 remote-viewer。</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>兩次輸入的密碼不一致。</value></data>
   <data name="KioskUnlockPrompt"><value>輸入管理員密碼以繼續。</value></data>
   <data name="KioskUnlockWrong"><value>管理員密碼錯誤。</value></data>
-  <data name="KioskPasswordSet"><value>（已設定密碼——留空則保持不變）</value></data>
+  <data name="KioskPasswordSet"><value>（已設定密碼，留空則保持不變）</value></data>
   <data name="SwitchUser"><value>切換使用者</value></data>
   <data name="KioskLoginBackground"><value>登入背景圖片（可選）</value></data>
   <data name="KioskForceFullScreen"><value>強制全螢幕（建議）</value></data>

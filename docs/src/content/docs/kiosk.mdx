@@ -1,6 +1,6 @@
 ---
 title: Kiosk mode
-description: Lock cv4pve-vdi down for thin clients and shared workstations — full-screen login, settings behind an admin password, Switch user — and make it the only application of the computer.
+description: Lock cv4pve-vdi down for thin clients and shared workstations (full-screen login, settings behind an admin password, Switch user) and make it the only application of the computer.
 ---
 
 import { Steps } from '@astrojs/starlight/components';
@@ -16,7 +16,7 @@ that:
 - closing the application asks for the admin password;
 - **Switch user** hands the workstation to the next person without restarting the application.
 
-Who sees which VMs does not change: it is always the Proxmox VE account that logs in — see
+Who sees which VMs does not change: it is always the Proxmox VE account that logs in; see
 [Permissions](/cv4pve-vdi/permissions/). cv4pve-vdi keeps no user list of its own.
 
 <img src={settingsKiosk.src} alt="Settings, Kiosk tab" width="575" />
@@ -35,7 +35,7 @@ Who sees which VMs does not change: it is always the Proxmox VE account that log
 3. Type the **Admin password** twice. It is required to turn kiosk mode on.
 
 4. Optional: **Force full-screen** (on by default) and a **Login background image** (PNG, JPG, BMP or GIF),
-   shown full-screen behind the login form — for a logo or a wallpaper.
+   shown full-screen behind the login form, for a logo or a wallpaper.
 
 5. **Save**. The admin password is asked from now on; full-screen and the protection of the close button
    apply from the next login window.
@@ -86,7 +86,7 @@ done by the operating system:
   or [Shell Launcher](https://learn.microsoft.com/en-us/windows/configuration/shell-launcher/) start
   cv4pve-vdi as the only application of a dedicated local user.
 - **Linux**: a display manager session whose only program is cv4pve-vdi, with automatic login of a
-  dedicated user — for example `/usr/share/xsessions/cv4pve-vdi.desktop`:
+  dedicated user, for example `/usr/share/xsessions/cv4pve-vdi.desktop`:
 
   ```ini
   [Desktop Entry]

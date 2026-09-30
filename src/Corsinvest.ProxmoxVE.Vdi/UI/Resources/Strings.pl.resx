@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Logowanie</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Logowanie</value></data>
   <data name="Username"><value>Nazwa użytkownika</value></data>
   <data name="Password"><value>Hasło</value></data>
   <data name="OtpLabel"><value>OTP (opcjonalnie)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Ustawienia</value></data>
   <data name="TabAppearance"><value>Wygląd</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer nie jest skonfigurowany — konsole SPICE i VNC nie będą działać.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer nie jest skonfigurowany: konsole SPICE i VNC nie będą działać.</value></data>
   <data name="ViewerPathNotSet"><value>Ścieżka do remote-viewer nie jest skonfigurowana. Ustaw ją w Ustawienia → Launchery.</value></data>
   <data name="ViewerLaunchFailed"><value>Nie udało się uruchomić procesu viewera.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer nie może otwierać plików konsoli Proxmox VE, a remote-viewer nie został znaleziony w tym samym folderze. Wybierz remote-viewer w Ustawienia → Launchery.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Hasła nie pasują do siebie.</value></data>
   <data name="KioskUnlockPrompt"><value>Wprowadź hasło administratora, aby kontynuować.</value></data>
   <data name="KioskUnlockWrong"><value>Nieprawidłowe hasło administratora.</value></data>
-  <data name="KioskPasswordSet"><value>(hasło ustawione — pozostaw puste, aby je zachować)</value></data>
+  <data name="KioskPasswordSet"><value>(hasło ustawione: pozostaw puste, aby je zachować)</value></data>
   <data name="SwitchUser"><value>Zmień użytkownika</value></data>
   <data name="KioskLoginBackground"><value>Obraz tła logowania (opcjonalnie)</value></data>
   <data name="KioskForceFullScreen"><value>Wymuś pełny ekran (zalecane)</value></data>

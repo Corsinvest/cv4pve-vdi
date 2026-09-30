@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Вход</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Вход</value></data>
   <data name="Username"><value>Имя пользователя</value></data>
   <data name="Password"><value>Пароль</value></data>
   <data name="OtpLabel"><value>OTP (необязательно)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Настройки</value></data>
   <data name="TabAppearance"><value>Внешний вид</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer не настроен — консоли SPICE и VNC не будут работать.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer не настроен: консоли SPICE и VNC не будут работать.</value></data>
   <data name="ViewerPathNotSet"><value>Путь к remote-viewer не настроен. Укажите его в Настройки → Запускалки.</value></data>
   <data name="ViewerLaunchFailed"><value>Не удалось запустить процесс viewer.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer не может открывать файлы консоли Proxmox VE, а remote-viewer не найден в той же папке. Выберите remote-viewer в Настройки → Запускалки.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Пароли не совпадают.</value></data>
   <data name="KioskUnlockPrompt"><value>Введите пароль администратора, чтобы продолжить.</value></data>
   <data name="KioskUnlockWrong"><value>Неверный пароль администратора.</value></data>
-  <data name="KioskPasswordSet"><value>(пароль установлен — оставьте пустым, чтобы сохранить текущий)</value></data>
+  <data name="KioskPasswordSet"><value>(пароль установлен: оставьте пустым, чтобы сохранить текущий)</value></data>
   <data name="SwitchUser"><value>Сменить пользователя</value></data>
   <data name="KioskLoginBackground"><value>Фоновое изображение входа (необязательно)</value></data>
   <data name="KioskForceFullScreen"><value>Принудительный полноэкранный режим (рекомендуется)</value></data>

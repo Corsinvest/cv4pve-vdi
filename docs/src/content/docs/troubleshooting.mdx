@@ -17,25 +17,25 @@ appear in a notification at the bottom right of the main window, with the messag
 
 ## A VM or container is missing
 
-cv4pve-vdi shows only guests there is something to do with — see
+cv4pve-vdi shows only guests there is something to do with; see
 [Which guests appear](/cv4pve-vdi/main-window/#which-guests-appear). Check, in order:
 
 1. **Filters**: the Status filter starts with **Running** only. Click **×** next to *Filters*.
 2. **Permissions**: the account needs `VM.Audit` to see the guest at all, then `VM.Console` or
-   `VM.PowerMgmt` — see [Permissions](/cv4pve-vdi/permissions/).
+   `VM.PowerMgmt`; see [Permissions](/cv4pve-vdi/permissions/).
 3. **Refresh** (`F5`): the list is not refreshed by itself unless auto-refresh is on.
 
 ## The Connect menu has only "Services…"
 
 The guest offers no console: it is stopped, the account lacks `VM.Console`, or SPICE and VNC are off in
-Settings → Launchers. For SPICE the VM's display must be SPICE — see [SPICE and VNC](/cv4pve-vdi/consoles/).
+Settings → Launchers. For SPICE the VM's display must be SPICE; see [SPICE and VNC](/cv4pve-vdi/consoles/).
 
 ## SPICE or VNC does not open
 
-- **Warning *remote-viewer is not configured***: set the viewer path in Settings → Launchers — see
+- **Warning *remote-viewer is not configured***: set the viewer path in Settings → Launchers; see
   [Install remote-viewer](/cv4pve-vdi/getting-started/#install-remote-viewer).
 - **The viewer opens and closes, or cannot connect with SPICE**: port 3128 of the SPICE proxy is not
-  reachable from the client, or the proxy name does not resolve there. Set **SPICE proxy** in the cluster —
+  reachable from the client, or the proxy name does not resolve there. Set **SPICE proxy** in the cluster;
   see [How it connects](/cv4pve-vdi/how-it-connects/#spice). VNC needs only the API port, so trying VNC
   tells a network problem from a VM problem.
 - **An error from Proxmox VE**: its message says what was refused, e.g. a missing privilege.
@@ -44,19 +44,19 @@ Settings → Launchers. For SPICE the VM's display must be SPICE — see [SPICE 
 
 - ***Could not resolve IP address for this VM***: the guest agent is not installed or not running, the
   account lacks `VM.GuestAgent.Audit`, or the guest is a container. Set **IP / hostname override** in the
-  service — see [IP address](/cv4pve-vdi/services/#ip-address).
+  service; see [IP address](/cv4pve-vdi/services/#ip-address).
 - **An error naming the executable**: the program is not installed or not in the `PATH`. Set its full path
   in [Settings → Launchers](/cv4pve-vdi/launchers/).
 - **The program starts but cannot connect**: the guest's port must be reachable from the client, and the
   service's port must match the one the guest listens on.
 - **mstsc asks for the password**: the service's credentials are `None`, or the username or password is
-  empty — see [Single sign-on for RDP](/cv4pve-vdi/services/#single-sign-on-for-rdp-windows).
+  empty; see [Single sign-on for RDP](/cv4pve-vdi/services/#single-sign-on-for-rdp-windows).
 
 ## The agent badge stays grey
 
 - **Ping guest agent** is off in Settings → Appearance: the badge only says the agent is enabled in the VM
   options.
-- It is on and the badge is red: the agent does not answer — see [Guest setup](/cv4pve-vdi/guest-setup/).
+- It is on and the badge is red: the agent does not answer; see [Guest setup](/cv4pve-vdi/guest-setup/).
 
 ## Start or Shutdown are missing
 

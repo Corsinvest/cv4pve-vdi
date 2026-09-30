@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Connexion</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Connexion</value></data>
   <data name="Username"><value>Nom d'utilisateur</value></data>
   <data name="Password"><value>Mot de passe</value></data>
   <data name="OtpLabel"><value>OTP (facultatif)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Paramètres</value></data>
   <data name="TabAppearance"><value>Apparence</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer n'est pas configuré — les consoles SPICE et VNC ne fonctionneront pas.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer n'est pas configuré : les consoles SPICE et VNC ne fonctionneront pas.</value></data>
   <data name="ViewerPathNotSet"><value>Le chemin de remote-viewer n'est pas configuré. Définissez-le dans Paramètres → Lanceurs.</value></data>
   <data name="ViewerLaunchFailed"><value>Impossible de démarrer le processus du viewer.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer ne peut pas ouvrir les fichiers de console Proxmox VE, et remote-viewer est introuvable dans le même dossier. Sélectionnez remote-viewer dans Paramètres → Lanceurs.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Les mots de passe ne correspondent pas.</value></data>
   <data name="KioskUnlockPrompt"><value>Saisissez le mot de passe administrateur pour continuer.</value></data>
   <data name="KioskUnlockWrong"><value>Mot de passe administrateur incorrect.</value></data>
-  <data name="KioskPasswordSet"><value>(mot de passe défini — laisser vide pour le conserver)</value></data>
+  <data name="KioskPasswordSet"><value>(mot de passe défini : laisser vide pour le conserver)</value></data>
   <data name="SwitchUser"><value>Changer d'utilisateur</value></data>
   <data name="KioskLoginBackground"><value>Image de fond de la connexion (facultatif)</value></data>
   <data name="KioskForceFullScreen"><value>Forcer le plein écran (recommandé)</value></data>
