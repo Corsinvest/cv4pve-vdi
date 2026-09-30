@@ -1,6 +1,6 @@
 ---
 title: How it connects
-description: Which connections cv4pve-vdi opens — API on port 8006, SPICE through spiceproxy on 3128, VNC tunnelled over the API, RDP and SSH straight to the guest — and the firewall rules they need.
+description: Which connections cv4pve-vdi opens (API on port 8006, SPICE through spiceproxy on 3128, VNC tunnelled over the API, RDP and SSH straight to the guest) and the firewall rules they need.
 ---
 
 cv4pve-vdi is a client: every connection starts from the user's computer. Knowing which ones it opens tells
@@ -9,14 +9,14 @@ you what the firewall between users and the cluster has to allow.
 | Connection | From the client to | Port |
 |---|---|---|
 | Proxmox VE API, login, VNC | The node in the cluster's **Hosts** that answered at login | 8006 (or the port in **Hosts**) |
-| SPICE | The SPICE proxy — by default the same node | 3128 |
+| SPICE | The SPICE proxy, by default the same node | 3128 |
 | RDP, SSH, custom services | The guest's IP address | The service's port, e.g. 3389, 22 |
 | Update check | `api.github.com` | 443 |
 
 ## API
 
 At login cv4pve-vdi tries the hosts of the cluster in order and uses the first one that answers within the
-timeout. Every later call — the list of guests, status, start, shutdown, consoles — goes to that node,
+timeout. Every later call (the list of guests, status, start, shutdown, consoles) goes to that node,
 which forwards it inside the cluster when the guest runs elsewhere.
 
 ## SPICE
@@ -26,8 +26,8 @@ in the temporary folder and starts `remote-viewer` with it. `remote-viewer` does
 running the VM but to a **SPICE proxy**: the `spiceproxy` service every Proxmox VE node runs on
 **port 3128**, which forwards the connection to the right node.
 
-The proxy is the node cv4pve-vdi is connected to. When users cannot reach that address — a node behind NAT,
-a different name from outside — set **SPICE proxy** in the cluster to the host name or IP address they
+The proxy is the node cv4pve-vdi is connected to. When users cannot reach that address (a node behind NAT,
+a different name from outside), set **SPICE proxy** in the cluster to the host name or IP address they
 should use. Proxmox VE takes it as a plain address (no port, no `https://`) and the viewer connects to it
 on port 3128.
 
@@ -66,7 +66,7 @@ from the local computer.
 
 ## RDP, SSH and other services
 
-[Services](/cv4pve-vdi/services/) start a local program — `mstsc`, `xfreerdp`, PuTTY, `ssh` — against the
+[Services](/cv4pve-vdi/services/) start a local program (`mstsc`, `xfreerdp`, PuTTY, `ssh`) against the
 guest's IP address, read from the QEMU guest agent or set per service. That connection goes straight from
 the client to the guest, not through Proxmox VE: the guest's network must be reachable from the users'
 computers, like with any RDP or SSH client.

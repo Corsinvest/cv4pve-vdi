@@ -9,7 +9,7 @@ import editCluster from '../../assets/edit-cluster.png';
 import settingsLaunchers from '../../assets/settings-launchers.png';
 import login from '../../assets/login.png';
 
-cv4pve-vdi runs **on the user's computer** — a workstation, a laptop, a thin client — and talks to the
+cv4pve-vdi runs **on the user's computer** (a workstation, a laptop, a thin client) and talks to the
 Proxmox VE REST API on port 8006. Nothing is installed on the nodes.
 
 ## Installation
@@ -25,7 +25,7 @@ Homebrew formula, macOS `.pkg`, `.deb`, `.rpm` or AUR package for cv4pve-vdi.
 ## Install remote-viewer
 
 SPICE and VNC consoles open in `remote-viewer`, the viewer of the virt-viewer project. cv4pve-vdi does not
-look for it: until its path is set, the main window shows *remote-viewer is not configured — SPICE and
+look for it: until its path is set, the main window shows *remote-viewer is not configured: SPICE and
 VNC consoles will not work* with an **Open Settings** button. RDP, SSH and the other
 [services](/cv4pve-vdi/services/) do not need it.
 
@@ -74,7 +74,7 @@ Then set its path in **Settings → Launchers → Viewer path** (the folder butt
    | **Hosts** | One or more nodes as `host[:port]`, comma-separated: `pve1.example.com,pve2.example.com:8006`. The port defaults to 8006. At login cv4pve-vdi uses the first host that answers, so the cluster stays reachable while a node is down. |
    | **Skip TLS certificate validation** | For nodes with the self-signed certificate Proxmox VE installs by default. Leave it off when the nodes have a trusted certificate. |
    | **Timeout (seconds)** | How long to wait for each host. Default 10, from 5 to 120. |
-   | **SPICE proxy** | Optional — see [How it connects](/cv4pve-vdi/how-it-connects/#spice). |
+   | **SPICE proxy** | Optional, see [How it connects](/cv4pve-vdi/how-it-connects/#spice). |
    | **Viewer extra options** | Optional arguments added to `remote-viewer` for this cluster, e.g. `--full-screen`. |
 
 4. Click the save button of the dialog, then **Save** in Settings.
@@ -90,9 +90,9 @@ Log in with a **Proxmox VE account**, the same you would use in the web interfac
 - **Username** with its realm: `alice@pve`, `alice@pam`, or `alice@<your LDAP/AD realm>`. The last
   username is filled in next time.
 - **Password**.
-- **OTP** — the code from the authenticator, only if the account has two-factor authentication.
+- **OTP**: the code from the authenticator, only if the account has two-factor authentication.
 
-The globe menu at the top right changes the language of the interface — see
+The globe menu at the top right changes the language of the interface; see
 [Languages](/cv4pve-vdi/languages/).
 
 <img src={login.src} alt="Login window: cluster, username, password, OTP and language" width="483" />
@@ -100,7 +100,7 @@ The globe menu at the top right changes the language of the interface — see
 cv4pve-vdi logs in with a user and password, not with an API token: the account belongs to the person
 in front of the screen, and its password can be passed on to RDP for
 [single sign-on](/cv4pve-vdi/services/#single-sign-on-for-rdp-windows). What the account may see and do
-is set in Proxmox VE — see [Permissions](/cv4pve-vdi/permissions/).
+is set in Proxmox VE: see [Permissions](/cv4pve-vdi/permissions/).
 
 ## Next
 

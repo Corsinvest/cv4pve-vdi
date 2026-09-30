@@ -46,7 +46,7 @@ The book button next to a launcher opens the documentation of its command line.
 | **Executable** | Program to start; the folder button opens a file picker. |
 | **Arguments template** | Command line, with the tokens below. |
 | **Extra arguments** | Default value of `{extraArgs}`; a service can replace it. |
-| **Supports credentials** | Saved with the launcher; it does not change what is passed to the program — the template does. |
+| **Supports credentials** | Saved with the launcher; it does not change what is passed to the program: the template does. |
 | **Use Windows Credential Manager** | Windows only: write the credentials to the Credential Manager before starting the program and delete them three seconds later. |
 | **Credential type** | `Generic` or `DomainPassword` (the type `mstsc` reads). |
 | **Target template** | Name of the Credential Manager entry; `{ip}` is replaced by the IP address, e.g. `TERMSRV/{ip}`. |
@@ -58,11 +58,11 @@ The arguments are a template. Before starting the program cv4pve-vdi replaces:
 | Token | Replaced by |
 |---|---|
 | `{ip}` | IP address or host name of the VM |
-| `{port}` | The service's port — **empty when it equals the launcher's default port** |
+| `{port}` | The service's port, **empty when it equals the launcher's default port** |
 | `{username}` | Username from the service's credentials, or empty |
 | `{password}` | Password from the service's credentials, or empty |
 | `{extraArgs}` | The service's extra arguments, or the launcher's |
-| `{?…}` | The text inside, with its tokens replaced — only if `{port}`, `{username}` and `{password}` used inside are all non-empty; otherwise nothing |
+| `{?…}` | The text inside, with its tokens replaced, only if `{port}`, `{username}` and `{password}` used inside are all non-empty; otherwise nothing |
 
 `{?…}` keeps command lines clean: an option is written only when it has a value. Repeated spaces are
 collapsed. The built-in templates:
@@ -94,7 +94,7 @@ Adding, editing and resetting launchers is written to `~/.cv4pve/vdi/launchers.y
 ## Change or reset a built-in launcher
 
 Built-in launchers come with cv4pve-vdi and cannot be deleted, but every field except the Service ID can be
-edited — for instance the full path of `putty.exe`. A changed built-in launcher is saved whole in
+edited, for instance the full path of `putty.exe`. A changed built-in launcher is saved whole in
 `~/.cv4pve/vdi/launchers.yaml`, next to the custom ones, so it no longer follows changes to the built-in
 definition in later versions of cv4pve-vdi.
 

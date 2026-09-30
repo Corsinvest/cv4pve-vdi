@@ -23,7 +23,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
 
   <!-- Login -->
-  <data name="LoginWindowTitle"><value>cv4pve-vdi — Přihlášení</value></data>
+  <data name="LoginWindowTitle"><value>cv4pve-vdi · Přihlášení</value></data>
   <data name="Username"><value>Uživatelské jméno</value></data>
   <data name="Password"><value>Heslo</value></data>
   <data name="OtpLabel"><value>OTP (volitelné)</value></data>
@@ -84,7 +84,7 @@
   <!-- Settings window -->
   <data name="SettingsWindowTitle"><value>Nastavení</value></data>
   <data name="TabAppearance"><value>Vzhled</value></data>
-  <data name="ViewerNotConfigured"><value>remote-viewer není nakonfigurován — konzole SPICE a VNC nebudou fungovat.</value></data>
+  <data name="ViewerNotConfigured"><value>remote-viewer není nakonfigurován: konzole SPICE a VNC nebudou fungovat.</value></data>
   <data name="ViewerPathNotSet"><value>Cesta k remote-viewer není nakonfigurována. Nastavte ji v Nastavení → Spouštěče.</value></data>
   <data name="ViewerLaunchFailed"><value>Proces vieweru se nepodařilo spustit.</value></data>
   <data name="ViewerVirtViewerNeedsRemote"><value>virt-viewer nedokáže otevřít soubory konzole Proxmox VE a remote-viewer nebyl nalezen ve stejné složce. Vyberte remote-viewer v Nastavení → Spouštěče.</value></data>
@@ -120,7 +120,7 @@
   <data name="KioskPasswordMismatch"><value>Hesla se neshodují.</value></data>
   <data name="KioskUnlockPrompt"><value>Pro pokračování zadejte heslo správce.</value></data>
   <data name="KioskUnlockWrong"><value>Nesprávné heslo správce.</value></data>
-  <data name="KioskPasswordSet"><value>(heslo nastaveno — ponechte prázdné pro zachování)</value></data>
+  <data name="KioskPasswordSet"><value>(heslo nastaveno: ponechte prázdné pro zachování)</value></data>
   <data name="SwitchUser"><value>Změnit uživatele</value></data>
   <data name="KioskLoginBackground"><value>Obrázek pozadí přihlášení (volitelné)</value></data>
   <data name="KioskForceFullScreen"><value>Vynutit celou obrazovku (doporučeno)</value></data>

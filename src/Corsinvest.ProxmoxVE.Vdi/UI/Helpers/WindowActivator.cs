@@ -107,6 +107,6 @@ internal static class WindowActivator
                 CreateNoWindow = true
             });
         }
-        catch { /* tool not installed / failure — silent */ }
+        catch { /* tool not installed / failure: silent */ }
     }
 }

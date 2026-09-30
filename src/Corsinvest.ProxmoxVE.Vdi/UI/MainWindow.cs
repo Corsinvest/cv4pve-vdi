@@ -22,7 +22,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
     private readonly SessionTracker _sessions = new();
 
     // Cancelled when the window closes: background work (update check) must not outlive it, or every
-    // Switch user leaves another loop running that keeps the old window — client and password — alive.
+    // Switch user leaves another loop running that keeps the old window (client and password) alive.
     private readonly CancellationTokenSource _lifetime = new();
 
     // Launchers for this platform, read from launchers.yaml once instead of once per guest row;
@@ -38,20 +38,20 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         new Dictionary<string, IReadOnlyList<string>>();
 
     // cache
-    // key=VmId, value=hasSpice — invalidated when VM transitions between running and stopped
+    // key=VmId, value=hasSpice: invalidated when VM transitions between running and stopped
     private readonly Dictionary<long, bool> _spiceConfigCache = [];
-    // key=VmId, value=osType — read once from Config, never invalidated
+    // key=VmId, value=osType: read once from Config, never invalidated
     private readonly Dictionary<long, string> _osTypeCache = [];
-    // key=VmId, value=SpiceFeatures — read from Config, refreshed when VM stops/starts
+    // key=VmId, value=SpiceFeatures: read from Config, refreshed when VM stops/starts
     private readonly Dictionary<long, VmFeatures> _featuresCache = [];
-    // key=VmId, value=(agentRunning, checkedAt) — re-checked only after AgentPingCacheSeconds
+    // key=VmId, value=(agentRunning, checkedAt): re-checked only after AgentPingCacheSeconds
     private readonly Dictionary<long, (bool Running, DateTime CheckedAt)> _agentPingCache = [];
     private const int AgentPingCacheSeconds = 60;
     private const int AgentPingTimeoutMs = 500;
 
     private string _filterText = string.Empty;
 
-    // Search box: filter once typing pauses, not on every keystroke — each filter rebuilds every card/row.
+    // Search box: filter once typing pauses, not on every keystroke, since each filter rebuilds every card/row.
     private readonly DispatcherTimer _searchDebounce = new() { Interval = TimeSpan.FromMilliseconds(250) };
 
     // Set while Reset clears several filters: each cleared checkbox would rebuild the view on its own.
@@ -432,14 +432,14 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
         AGrid.SetColumnSpan(_progressBar, 2);
         mainGrid.Children.Add(_progressBar);
 
-        // toast overlay — spans full grid, pointer passthrough except on toasts
+        // toast overlay: spans full grid, pointer passthrough except on toasts
         AGrid.SetRow(_toastStack, 3);
         AGrid.SetColumnSpan(_toastStack, 2);
         mainGrid.Children.Add(_toastStack);
 
         _window = new Window
         {
-            Title = "cv4pve-vdi — Proxmox VDI by Corsinvest",
+            Title = "cv4pve-vdi · Proxmox VDI by Corsinvest",
             Width = 1200,
             Height = 700,
             MinWidth = 800,
@@ -565,7 +565,7 @@ internal partial class MainWindow(PveClient client, ClusterConfig host, AppConfi
             w.Icon = AppIcon();
             await w.ShowDialog(_window!);
 
-            // Admin just unlocked — reopen Settings so the advanced tabs become visible
+            // Admin just unlocked: reopen Settings so the advanced tabs become visible
             if ((w.Tag as string) == "reopen")
             {
                 var w2 = SettingsWindow.Create(_config);

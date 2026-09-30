@@ -22,7 +22,7 @@ by node. Each guest has a **Connect** button with its consoles and services.
 ## Top bar
 
 - **Cluster name**, on the left.
-- **Counters**: running and stopped guests, nodes, VMs, containers — of everything the account can see,
+- **Counters**: running and stopped guests, nodes, VMs, containers, of everything the account can see,
   whatever the filters.
 - **Refresh** (`F5`) reloads the list from the cluster.
 - **Auto-refresh** refreshes every 30 seconds while on (a `30s` label shows it). It is off at start and
@@ -33,7 +33,7 @@ by node. Each guest has a **Connect** button with its consoles and services.
 
 ## Cards and list
 
-The view — cards or a compact list — is chosen in [Settings → Appearance](/cv4pve-vdi/settings/#appearance),
+The view (cards or a compact list) is chosen in [Settings → Appearance](/cv4pve-vdi/settings/#appearance),
 together with grouping by node and sorting by ID or name. Each guest shows:
 
 | Element | What it tells you |
@@ -41,7 +41,7 @@ together with grouping by node and sorting by ID or name. Each guest shows:
 | Name and **VM** / **CT** badge | Type of guest; for VMs the Windows or Linux logo follows the OS type set in Proxmox VE, containers show Linux |
 | **Id** | VMID, followed by the pool when **Show pools** is on |
 | Status dot | Green running, grey stopped (Running, Stopped or Paused in the card) |
-| Agent icon | Only for VMs with the QEMU guest agent enabled in their options: grey until **Ping guest agent** is on, then green when the agent answers, red when it does not — see [Guest setup](/cv4pve-vdi/guest-setup/) |
+| Agent icon | Only for VMs with the QEMU guest agent enabled in their options: grey until **Ping guest agent** is on, then green when the agent answers, red when it does not; see [Guest setup](/cv4pve-vdi/guest-setup/) |
 | SPICE badges | Audio: the VM has an audio device with the SPICE driver. USB: a USB port is redirected to SPICE |
 | Tags | Proxmox VE tags, in the colours of the datacenter tag style; a tag without a colour there gets one computed from its name |
 | CPU and RAM bars | Current usage; the bar turns amber above 60% and red above 80% |
@@ -87,7 +87,7 @@ adds a question before each click.
 
 The **Connect** button opens a menu with, in this order:
 
-1. **SPICE** and **VNC**, when available — see [SPICE and VNC](/cv4pve-vdi/consoles/);
+1. **SPICE** and **VNC**, when available, see [SPICE and VNC](/cv4pve-vdi/consoles/);
 2. the [services](/cv4pve-vdi/services/) configured for the guest, for the launchers of this operating system;
 3. **Services…**, to configure them (admin password in [kiosk mode](/cv4pve-vdi/kiosk/)).
 
@@ -100,7 +100,7 @@ guest's OS, the protocol and the guest name. The strip hides itself when nothing
 
 <img src={openSessions.src} alt="Open sessions strip with two VNC sessions" width="547" />
 
-- **Click** a session to bring its window to the front — useful in [kiosk mode](/cv4pve-vdi/kiosk/), where
+- **Click** a session to bring its window to the front, useful in [kiosk mode](/cv4pve-vdi/kiosk/), where
   there may be no taskbar.
 - **×** closes it: cv4pve-vdi asks the window to close and ends the process if it is still running after
   one second.
@@ -109,7 +109,7 @@ Closing cv4pve-vdi or using **Switch user** with sessions open asks for confirma
 the next person does not find the previous user's sessions.
 
 A session stays in the strip as long as the process cv4pve-vdi started is running. Launchers that hand
-the window over to another process and exit — `osascript` for the macOS Terminal, for example — do not stay
+the window over to another process and exit (`osascript` for the macOS Terminal, for example) do not stay
 in the strip.
 
 Bringing a window to the front uses what each system offers: on Linux it needs `xdotool` and an X11

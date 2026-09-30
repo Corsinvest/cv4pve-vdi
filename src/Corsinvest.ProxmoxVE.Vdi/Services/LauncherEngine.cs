@@ -19,12 +19,12 @@ namespace Corsinvest.ProxmoxVE.Vdi.Services;
 /// </para>
 /// <para>
 /// Template tokens:
-///   {ip}         — target IP address
-///   {port}       — target port (always substituted)
-///   {username}   — credential username
-///   {password}   — credential password
-///   {extraArgs}  — extra arguments from definition
-///   {?TEXT}      — include TEXT (with inner tokens resolved) only if all inner tokens are non-empty
+///   {ip}         target IP address
+///   {port}       target port (always substituted)
+///   {username}   credential username
+///   {password}   credential password
+///   {extraArgs}  extra arguments from definition
+///   {?TEXT}      include TEXT (with inner tokens resolved) only if all inner tokens are non-empty
 /// </para>
 /// </summary>
 internal static partial class LauncherEngine
@@ -90,8 +90,8 @@ internal static partial class LauncherEngine
 
     /// <summary>
     /// Launches the given definition with the provided IP, port and credentials.
-    /// Returns the error message (or empty string on success) and the spawned <see cref="Process"/>
-    /// — the latter is null on error or when the OS refuses to start the binary.
+    /// Returns the error message (or empty string on success) and the spawned <see cref="Process"/>;
+    /// the latter is null on error or when the OS refuses to start the binary.
     /// </summary>
     public static (string Error, Process? Process) Launch(LauncherDefinition def,
                                                           string ip,

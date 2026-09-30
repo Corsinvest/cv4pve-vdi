@@ -1,6 +1,6 @@
 ---
 title: Permissions
-description: The Proxmox VE user and privileges each person needs in cv4pve-vdi — to see VMs, open consoles, start them and reach them by RDP or SSH.
+description: The Proxmox VE user and privileges each person needs in cv4pve-vdi to see VMs, open consoles, start them and reach them by RDP or SSH.
 ---
 
 cv4pve-vdi works through the API with the account of the person logging in, so the VMs it lists and what
@@ -22,7 +22,7 @@ its password can be passed on to [RDP single sign-on](/cv4pve-vdi/services/#sing
 
 | Privilege | On | Used for | Without it |
 |---|---|---|---|
-| `VM.Audit` | `/vms` | Listing the guest, its status and configuration (SPICE display, OS type, badges) | The guest is not in the list |
+| `VM.Audit` | `/vms` | Listing the guest, its status and configuration (SPICE display, OS type, badges); the container's IP address for [services](/cv4pve-vdi/services/#ip-address) | The guest is not in the list |
 | `VM.Console` | `/vms` | SPICE and VNC consoles | No SPICE or VNC in the Connect menu; a running guest is shown only if it is a VM with a SPICE display |
 | `VM.PowerMgmt` | `/vms` | Start and Shutdown buttons | No power buttons; a stopped VM is shown only if its display is SPICE, a stopped container not at all |
 | `VM.GuestAgent.Audit` | `/vms` | Guest agent ping, the VM's IP address for [services](/cv4pve-vdi/services/) and Discover | The agent badge turns red (with **Ping guest agent** on); services need an IP override |
@@ -49,5 +49,5 @@ effective permissions (`GET /access/permissions`) and shows SPICE, VNC, Start an
 guests where the account holds `VM.Console` or `VM.PowerMgmt`. The exact rules for which guests appear are
 in [The main window](/cv4pve-vdi/main-window/#which-guests-appear).
 
-A call that fails anyway — a console refused by Proxmox VE, a node that does not answer — shows the Proxmox
+A call that fails anyway (a console refused by Proxmox VE, a node that does not answer) shows the Proxmox
 VE message in a notification at the bottom right of the window.

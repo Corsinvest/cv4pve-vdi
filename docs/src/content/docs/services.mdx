@@ -1,6 +1,6 @@
 ---
 title: Services
-description: Connect to a VM with RDP, SSH or any other tool — services per VM, automatic IP address from the guest agent, port discovery, credentials and RDP single sign-on on Windows.
+description: Connect to a VM with RDP, SSH or any other tool, with services per VM, automatic IP address, port discovery, credentials and RDP single sign-on on Windows.
 ---
 
 import vmServicesMenu from '../../assets/vm-services-menu.png';
@@ -33,23 +33,28 @@ In [kiosk mode](/cv4pve-vdi/kiosk/) the window asks for the admin password first
 | **Port** | Pre-filled with the launcher's default port. |
 | **IP / hostname override** | Where to connect. Empty: the VM's IP address, read from the QEMU guest agent when you click. |
 | **Extra arguments** | Replace the launcher's default extra arguments for this service. |
-| **Credentials** | `None`, `Vdi` or `Manual` — see [Credentials](#credentials). |
+| **Credentials** | `None`, `Vdi` or `Manual`, see [Credentials](#credentials). |
 
 Services are stored per cluster and VMID in the [configuration file](/cv4pve-vdi/settings/#configuration-files)
 of the computer: another computer, or another operating system user, has its own.
 
 ## IP address
 
-Without an override, cv4pve-vdi asks the QEMU guest agent for the VM's network interfaces
-(`GET …/agent/network-get-interfaces`) and uses the first IPv4 address that is not a loopback. This needs
-the [guest agent](/cv4pve-vdi/guest-setup/#qemu-guest-agent) running in the VM and `VM.GuestAgent.Audit`
-on it. When no address comes back, cv4pve-vdi shows *Could not resolve IP address for this VM*.
+Without an override, cv4pve-vdi reads the guest's network interfaces:
+
+- **VM**: from the QEMU guest agent (`GET …/agent/network-get-interfaces`). This needs the
+  [guest agent](/cv4pve-vdi/guest-setup/#qemu-guest-agent) running in the VM and `VM.GuestAgent.Audit` on it.
+- **Container**: from `GET …/lxc/{vmid}/interfaces`. No agent is needed, `VM.Audit` is enough.
+
+It uses the IPv4 address of the interface whose MAC address belongs to a network device configured in
+Proxmox VE (`net0` first), so the bridges of a guest running Docker (172.17.0.1, ...) are skipped. Without
+a match, it uses the first IPv4 address that is not a loopback. When no address comes back, cv4pve-vdi shows
+*Could not resolve IP address for this VM*.
 
 Set **IP / hostname override** when:
 
-- the guest is a **container** — the address is read through the QEMU guest agent, which containers do
-  not have;
-- the VM has several addresses and the first one is not the one to use;
+- the VM has no guest agent, or the account lacks `VM.GuestAgent.Audit`;
+- the guest has several addresses and the one found is not the one to use;
 - users reach the VM by a name or a NAT address.
 
 ## Discover
@@ -68,7 +73,7 @@ credentials `None`; edit them afterwards to set credentials or arguments.
 | Credentials | What the launcher gets |
 |---|---|
 | **None** | No username or password. |
-| **Vdi** | The username and password used to log into cv4pve-vdi — the Proxmox VE login. |
+| **Vdi** | The username and password used to log into cv4pve-vdi, the Proxmox VE login. |
 | **Manual** | A username and password saved with the service. |
 
 What the launcher does with them depends on its [argument template](/cv4pve-vdi/launchers/#argument-template):
@@ -85,7 +90,7 @@ Use **Vdi** or **None** where you can.
 ## Single sign-on for RDP (Windows)
 
 `mstsc` does not take a password on the command line: it reads saved credentials from the Windows Credential
-Manager. The **RDP (mstsc)** launcher therefore writes the credentials there just before starting it — when both a username and a password are set — as a
+Manager. The **RDP (mstsc)** launcher therefore writes the credentials there just before starting it (when both a username and a password are set) as a
 *domain password* for `TERMSRV/<ip>`, and deletes the entry three seconds later. The entry is created for
 the logon session only, and an entry for the same target that already exists is left untouched and used.
 

@@ -41,12 +41,12 @@ internal static class AppColors
     public static readonly Color NotifyWarning = Color.Parse("#f59e0b");
     public static readonly Color NotifyError = Color.Parse("#ef4444");
 
-    // Notification banner backgrounds — dark theme
+    // Notification banner backgrounds (dark theme)
     public static readonly Color BannerInfoBgDark = Color.Parse("#0c1a2e");
     public static readonly Color BannerWarningBgDark = Color.Parse("#2d1a00");
     public static readonly Color BannerErrorBgDark = Color.Parse("#450a0a");
 
-    // Notification banner backgrounds — light theme
+    // Notification banner backgrounds (light theme)
     public static readonly Color BannerInfoBgLight = Color.Parse("#dbeafe");
     public static readonly Color BannerWarningBgLight = Color.Parse("#fff7ed");
     public static readonly Color BannerErrorBgLight = Color.Parse("#fee2e2");

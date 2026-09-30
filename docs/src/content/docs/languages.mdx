@@ -9,7 +9,7 @@ window; the window is rebuilt in that language at once, and the choice is saved 
 
 | Choice | Code |
 |---|---|
-| Auto — the language of the operating system | `auto` (default) |
+| Auto: the language of the operating system | `auto` (default) |
 | English | `en` |
 | Čeština | `cs` |
 | Deutsch | `de` |
@@ -28,7 +28,7 @@ A text missing from a translation is shown in English.
 The texts are in `.resx` files in
 [`src/Corsinvest.ProxmoxVE.Vdi/UI/Resources`](https://github.com/Corsinvest/cv4pve-vdi/tree/master/src/Corsinvest.ProxmoxVE.Vdi/UI/Resources):
 `Strings.resx` is English, `Strings.<code>.resx` each translation. Change the `<value>` of the entries that
-read badly and open a pull request — corrections from native speakers are welcome, down to a single word.
+read badly and open a pull request: corrections from native speakers are welcome, down to a single word.
 
 ## Add a language
 
@@ -41,8 +41,8 @@ read badly and open a pull request — corrections from native speakers are welc
    ```csharp
    ("ja", "日本語"),
    ```
-4. Build, pick the language at login and go through every window — login, main window, the Settings tabs,
-   the services and launcher dialogs, the kiosk password prompt — looking for missing texts and labels that
+4. Build, pick the language at login and go through every window (login, main window, the Settings tabs,
+   the services and launcher dialogs, the kiosk password prompt) looking for missing texts and labels that
    do not fit.
 5. Open a pull request with the new file and the `Languages` line.
 

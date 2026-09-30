@@ -48,7 +48,7 @@ internal class AppConfig
     /// </summary>
     public string Theme { get; set; } = ThemeDark;
 
-    /// <summary>Legacy field — migrates "hosts" from config files older than v1.3.0.</summary>
+    /// <summary>Legacy field: migrates "hosts" from config files older than v1.3.0.</summary>
     public List<ClusterConfig> Hosts { get; set; } = [];
     public List<ClusterConfig> Clusters { get; set; } = [];
 

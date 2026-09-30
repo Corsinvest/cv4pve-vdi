@@ -9,7 +9,7 @@ namespace Corsinvest.ProxmoxVE.Vdi.UI;
 
 internal partial class MainWindow
 {
-    // toast container — absolute overlay in bottom-right corner
+    // toast container: absolute overlay in bottom-right corner
     private readonly StackPanel _toastStack = new()
     {
         Spacing = 8,
@@ -19,7 +19,7 @@ internal partial class MainWindow
         ZIndex = 200
     };
 
-    // persistent banner — sits below topbar, no close button
+    // persistent banner: sits below topbar, no close button
     private Border? _persistentBanner;
     private TextBlock? _persistentBannerText;
 

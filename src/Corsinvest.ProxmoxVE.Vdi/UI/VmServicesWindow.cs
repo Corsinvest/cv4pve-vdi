@@ -29,7 +29,7 @@ internal static class VmServicesWindow
         {
             var launcher = launchers.FirstOrDefault(l => l.ServiceId == svc.ServiceId);
             var name = launcher?.DisplayName ?? svc.ServiceId;
-            return $"{name}  —  port {svc.Port}  [{svc.CredentialSource}]";
+            return $"{name}  ·  port {svc.Port}  [{svc.CredentialSource}]";
         }
 
         Action refresh = null!;
@@ -142,7 +142,7 @@ internal static class VmServicesWindow
 
         var window = new Window
         {
-            Title = $"{vmName} — {L("Services")}",
+            Title = $"{vmName} · {L("Services")}",
             Width = 480,
             CanResize = false,
             SizeToContent = SizeToContent.Height,

@@ -10,7 +10,7 @@ namespace Corsinvest.ProxmoxVE.Vdi.Services;
 
 internal static class WindowsCredentialManager
 {
-    // CRED_PERSIST_SESSION — credential is removed at logoff.
+    // CRED_PERSIST_SESSION: credential is removed at logoff.
     // We always use Session: the entry is also deleted manually a few seconds after the launch,
     // so wider persistence scopes (LocalMachine, Enterprise) bring no benefit and a larger blast radius.
     private const uint CRED_PERSIST_SESSION = 1;

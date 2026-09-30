@@ -1,10 +1,10 @@
 ---
 title: cv4pve-vdi
-description: Desktop VDI client for Proxmox VE — open SPICE, VNC, RDP and SSH sessions to your VMs and containers without the web UI, from Windows, Linux or macOS.
+description: Desktop VDI client for Proxmox VE. Open SPICE, VNC, RDP and SSH sessions to your VMs and containers without the web UI, from Windows, Linux or macOS.
 template: splash
 hero:
   title: Your <span class="accent-mark">Proxmox VE</span> desktops, one click away
-  tagline: A desktop client that runs on your computer and works through the Proxmox VE API. Log in with your Proxmox account, see the VMs and containers you are allowed to use, and open them with SPICE, VNC, RDP or SSH — no web UI, no .vv files to download, nothing to install on the nodes.
+  tagline: A desktop client that runs on your computer and works through the Proxmox VE API. Log in with your Proxmox account, see the VMs and containers you are allowed to use, and open them with SPICE, VNC, RDP or SSH, with no web UI, no .vv files to download, nothing to install on the nodes.
   actions:
     - text: Get started
       link: /cv4pve-vdi/getting-started/
@@ -23,7 +23,7 @@ import CtaBand from '@corsinvest/cv4pve-docs-theme/components/CtaBand.astro';
 import proxmoxLogo from '../../assets/proxmox-logo.svg';
 
 export const features = [
-  { title: "SPICE and VNC", text: "SPICE for VMs with a SPICE display, VNC for every running VM and container — both in remote-viewer, VNC tunnelled over the API port.", href: 'consoles/' },
+  { title: "SPICE and VNC", text: "SPICE for VMs with a SPICE display, VNC for every running VM and container, both in remote-viewer, VNC tunnelled over the API port.", href: 'consoles/' },
   { title: "RDP, SSH and any tool", text: "Services per VM: mstsc, xFreeRDP, PuTTY, ssh in a terminal, or your own launcher with an argument template.", href: 'services/' },
   { title: "RDP single sign-on", text: "On Windows, mstsc gets the Proxmox login or the service's own credentials through the Windows Credential Manager, removed a few seconds after launch.", href: 'services/#single-sign-on-for-rdp-windows' },
   { title: "Only what you may use", text: "The list shows the guests your Proxmox account can see; Start, Shutdown and the consoles follow its privileges.", href: 'permissions/' },
@@ -35,8 +35,8 @@ export const features = [
 
 ## Why
 
-The Proxmox VE web interface is built for administrators. Someone who only needs to *use* a few VMs —
-a developer with a test machine, an office worker on a Windows desktop, a thin client in a lab — has to
+The Proxmox VE web interface is built for administrators. Someone who only needs to *use* a few VMs
+(a developer with a test machine, an office worker on a Windows desktop, a thin client in a lab) has to
 log into it, find the VM in the tree, open the console menu, download a `.vv` file for SPICE, or look up
 the VM's IP address before opening RDP.
 
@@ -50,7 +50,7 @@ QEMU guest agent.
 cv4pve-vdi is a desktop application for Windows, Linux and macOS. It runs on the user's computer, not on the
 nodes, and talks to the Proxmox VE REST API on port 8006: nothing is installed on the cluster and no agent
 runs on the nodes. SPICE goes through the `spiceproxy` every node already runs, VNC is tunnelled through the
-API port itself — see [How it connects](/cv4pve-vdi/how-it-connects/).
+API port itself; see [How it connects](/cv4pve-vdi/how-it-connects/).
 
 The only other connection it makes is to GitHub, to check for a new release at start-up and then every
 12 hours.
@@ -62,7 +62,7 @@ The only other connection it makes is to GitHub, to check for a new release at s
 | **For** | People who use VMs | Scripts and terminal users | Administrators, in a browser | Administrators |
 | **Runs** | Desktop application | Command line | Web application | Browser |
 | **Connects with** | SPICE, VNC, RDP, SSH, custom tools | SPICE, VNC | noVNC, xterm.js, SPICE | noVNC, xterm.js, SPICE |
-| **Access** | Proxmox VE API, the user's own account | Proxmox VE API | Proxmox VE API | — |
+| **Access** | Proxmox VE API, the user's own account | Proxmox VE API | Proxmox VE API | - |
 
 cv4pve-pepper is the command-line companion: one command opens a SPICE or VNC console. The console buttons of the
 [Resources](https://corsinvest.github.io/cv4pve-admin/modules/resources/) module in cv4pve-admin serve

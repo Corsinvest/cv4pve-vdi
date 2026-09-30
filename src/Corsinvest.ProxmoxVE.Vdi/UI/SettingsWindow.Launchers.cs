@@ -172,7 +172,7 @@ internal static partial class SettingsWindow
             if (files.Count > 0)
             {
                 // virt-viewer picked: silently prefer the remote-viewer in the same
-                // folder — it is what can actually open .vv connection files.
+                // folder: it is what can actually open .vv connection files.
                 var picked = files[0].Path.LocalPath;
                 txtViewerPath.Text = RemoteViewerService.ResolveRemoteViewerPath(picked) ?? picked;
             }

@@ -218,7 +218,7 @@ internal partial class MainWindow
             }
         }
 
-        // "Configure services..." — always last, always present.
+        // "Configure services...": always last, always present.
         // In kiosk mode it requires the admin password (configuration is an admin task).
         if (menu.Items.Count > 0) { menu.Items.Add(new Separator()); }
         var itemConfigure = new MenuItem { Header = UiHelper.WithText(AppIcons.Settings, L("ConfigureServices")) };

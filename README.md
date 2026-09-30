@@ -15,7 +15,7 @@ VDI client for Proxmox VE (Made in Italy)
 [![Downloads](https://img.shields.io/github/downloads/Corsinvest/cv4pve-vdi/total.svg?style=flat-square&logo=download)](https://github.com/Corsinvest/cv4pve-vdi/releases)
 [![WinGet](https://img.shields.io/winget/v/Corsinvest.cv4pve.vdi?style=flat-square&logo=windows)](https://winstall.app/apps/Corsinvest.cv4pve.vdi)
 
-> **Desktop VDI client for Proxmox VE** — log in with your Proxmox account and open your VMs and containers with SPICE, VNC, RDP or SSH, without the web UI.
+> **Desktop VDI client for Proxmox VE**: log in with your Proxmox account and open your VMs and containers with SPICE, VNC, RDP or SSH, without the web UI.
 >
 > **[Documentation](https://corsinvest.github.io/cv4pve-vdi/)**
 
@@ -33,12 +33,12 @@ cv4pve-vdi lists the VMs and containers the user's own Proxmox account may use a
 
 ## Features
 
-- **SPICE and VNC** in `remote-viewer` — VNC over the API port, no console ports to open.
-- **RDP, SSH and any tool** — services per VM, with the IP address read from the QEMU guest agent and port discovery.
-- **RDP single sign-on on Windows** — the Proxmox login or the service's credentials passed to `mstsc` through the Windows Credential Manager.
-- **Permissions from Proxmox VE** — each user sees only the guests their account allows; Start and Shutdown follow `VM.PowerMgmt`.
-- **Kiosk mode** — full-screen, settings behind an admin password, Switch user for shared thin clients.
-- **Open sessions** — every viewer started is listed; bring it to the front or close it.
+- **SPICE and VNC** in `remote-viewer`, VNC over the API port, no console ports to open.
+- **RDP, SSH and any tool**: services per VM, with the IP address read from the QEMU guest agent and port discovery.
+- **RDP single sign-on on Windows**: the Proxmox login or the service's credentials passed to `mstsc` through the Windows Credential Manager.
+- **Permissions from Proxmox VE**: each user sees only the guests their account allows; Start and Shutdown follow `VM.PowerMgmt`.
+- **Kiosk mode**: full-screen, settings behind an admin password, Switch user for shared thin clients.
+- **Open sessions**: every viewer started is listed; bring it to the front or close it.
 - **Several clusters** to choose at login, card and list view, filters by status, type, node, pool and tag, ten languages.
 
 ---
