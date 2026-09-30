@@ -40,9 +40,9 @@ together with grouping by node and sorting by ID or name. Each guest shows:
 |---|---|
 | Name and **VM** / **CT** badge | Type of guest; for VMs the Windows or Linux logo follows the OS type set in Proxmox VE, containers show Linux |
 | **Id** | VMID, followed by the pool when **Show pools** is on |
-| Status dot | Green running, grey stopped (Running, Stopped or Paused in the card) |
-| Agent icon | Only for VMs with the QEMU guest agent enabled in their options: grey until **Ping guest agent** is on, then green when the agent answers, red when it does not; see [Guest setup](/cv4pve-vdi/guest-setup/) |
-| SPICE badges | Audio: the VM has an audio device with the SPICE driver. USB: a USB port is redirected to SPICE |
+| Status icon | Green play running, amber pause paused, grey stop stopped; the state is in the tooltip |
+| Agent icon | Only for VMs with the QEMU guest agent enabled in their options: green when the agent answers, red when it does not, grey when **Ping guest agent** is off or the VM is stopped; see [Guest setup](/cv4pve-vdi/guest-setup/) |
+| **SPICE** | The VM has a SPICE display. Icons follow for what its configuration adds: audio (an audio device with the SPICE driver), USB (a USB port redirected to SPICE), folder sharing, and the number of monitors when more than one. The list is in the tooltip |
 | Tags | Proxmox VE tags, in the colours of the datacenter tag style; a tag without a colour there gets one computed from its name |
 | CPU and RAM bars | Current usage; the bar turns amber above 60% and red above 80% |
 | Buttons | Start, Shutdown and Connect |
@@ -57,7 +57,7 @@ cv4pve-vdi shows a guest only when there is something the account can do with it
 |---|---|
 | Running VM | The account has `VM.Console` on it, or the VM has a SPICE display and SPICE is on in Settings → Launchers |
 | Running container | The account has `VM.Console` on it |
-| Stopped VM | The account has `VM.PowerMgmt` on it (so it can be started), or its display is SPICE (`qxl…` or `spice`) and SPICE is on in Settings → Launchers |
+| Stopped VM | The account has `VM.PowerMgmt` on it (so it can be started), or its display is SPICE (`qxl…` or `virtio…`) and SPICE is on in Settings → Launchers |
 | Stopped container | The account has `VM.PowerMgmt` on it |
 
 Guests the account cannot audit are never returned by Proxmox VE. The **Status** filter starts with

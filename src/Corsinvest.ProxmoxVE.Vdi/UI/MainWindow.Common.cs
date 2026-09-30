@@ -83,7 +83,7 @@ internal partial class MainWindow
         };
 
     /// <summary>
-    /// Status of the guest as a coloured icon pill — running green, paused amber, stopped grey — with the
+    /// Status of the guest as a coloured icon pill (running green, paused amber, stopped grey) with the
     /// state in the tooltip, so status, agent and SPICE fit on one row of the card.
     /// </summary>
     internal static Border BuildStatusPill(ResourceRow row)
