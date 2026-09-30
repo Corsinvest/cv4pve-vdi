@@ -98,6 +98,8 @@ internal partial class MainWindow
                 ApplyFilter();
             }
 
+            SyncFilterCheckboxes(_nodeFilters, _filterNodes, nodes.Select(n => n.Node!));
+
             var knownNodes = _nodeFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
             foreach (var item in nodes.Where(n => !knownNodes.Contains(n.Node)))
             {
@@ -225,6 +227,7 @@ internal partial class MainWindow
                     .Distinct()
                     .Order()
                     .ToList();
+                SyncFilterCheckboxes(_poolFilters, _filterPools, allPools);
                 var knownPools = _poolFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
                 foreach (var pool in allPools.Where(p => !knownPools.Contains(p)))
                 {
@@ -243,6 +246,7 @@ internal partial class MainWindow
             if (_config.ShowTags)
             {
                 var allTags = _allRows.Where(r => r.HasAnyVdiAction).SelectMany(r => r.Tags).Distinct().Order().ToList();
+                SyncFilterCheckboxes(_tagFilters, _filterTags, allTags);
                 var existingTags = _tagFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
                 foreach (var tag in allTags.Where(t => !existingTags.Contains(t)))
                 {
@@ -346,5 +350,20 @@ internal partial class MainWindow
                               cfg.SpiceMonitors,
                               cfg.AgentEnabled,
                               agentRunning);
+    }
+
+    // Drop checkboxes whose node/pool/tag is gone and their entry in the active
+    // filter, so a stale selection can't keep filtering invisible resources.
+    private static void SyncFilterCheckboxes(StackPanel panel, HashSet<string> activeFilter, IEnumerable<string> currentValues)
+    {
+        var current = currentValues.ToHashSet();
+        foreach (var chk in panel.Children.OfType<CheckBox>().ToList())
+        {
+            if (chk.Tag is string value && !current.Contains(value))
+            {
+                panel.Children.Remove(chk);
+                activeFilter.Remove(value);
+            }
+        }
     }
 }
