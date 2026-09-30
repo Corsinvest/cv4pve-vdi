@@ -40,12 +40,13 @@ internal static class ClusterEditWindow
         };
         var numTimeoutWithIcon = UiHelper.WithIcon(numTimeout, AppIcons.Clock);
 
-        var txtProxy = UiHelper.TextBox(existing?.Spice.Proxy, "host:port or https://host:port (empty = use PVE host)", AppIcons.Ethernet);
+        var txtProxy = UiHelper.TextBox(existing?.Spice.Proxy, L("HostSpiceProxyWatermark"), AppIcons.Ethernet);
         var txtViewerOptions = UiHelper.TextBox(existing?.Spice.ViewerOptions, L("HostViewerOptionsWatermark"), AppIcons.Console);
 
         var lblError = new TextBlock
         {
             Foreground = Brushes.Red,
+            TextWrapping = TextWrapping.Wrap,
             IsVisible = false
         };
 
@@ -99,6 +100,16 @@ internal static class ClusterEditWindow
                 return;
             }
 
+            // PVE takes the SPICE proxy as a plain address (format 'address') and always uses port 3128:
+            // "host:port" or "https://..." would be rejected at every SPICE console.
+            var proxy = txtProxy.Text?.Trim() ?? string.Empty;
+            if (proxy.Length > 0 && Uri.CheckHostName(proxy) == UriHostNameType.Unknown)
+            {
+                lblError.Text = L("HostSpiceProxyInvalid");
+                lblError.IsVisible = true;
+                return;
+            }
+
             var result = new ClusterConfig
             {
                 Name = name,
@@ -107,7 +118,7 @@ internal static class ClusterEditWindow
                 Timeout = (int)(numTimeout.Value ?? 10),
                 Spice = new SpiceConfig
                 {
-                    Proxy = txtProxy.Text?.Trim() ?? string.Empty,
+                    Proxy = proxy,
                     ViewerOptions = txtViewerOptions.Text?.Trim() ?? string.Empty
                 },
 

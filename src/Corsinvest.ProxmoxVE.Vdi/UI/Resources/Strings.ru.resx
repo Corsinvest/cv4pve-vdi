@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Запущена</value></data>
   <data name="StatusStopped"><value>Остановлена</value></data>
+  <data name="StateRunning"><value>Работает</value></data>
+  <data name="StateStopped"><value>Остановлен</value></data>
+  <data name="StatePaused"><value>Приостановлен</value></data>
   <data name="TypeVm"><value>ВМ</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Узел</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Пропускать проверку TLS-сертификата</value></data>
   <data name="HostTimeout"><value>Тайм-аут (секунды)</value></data>
   <data name="HostSpiceProxy"><value>SPICE-прокси (необязательно)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>IP-адрес или имя хоста, порт 3128 (пусто = узел, к которому вы подключены)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>SPICE-прокси должен быть IP-адресом или именем хоста, без http:// и без порта.</value></data>
   <data name="HostViewerOptions"><value>Доп. параметры viewer (необязательно)</value></data>
   <data name="HostNameRequired"><value>Имя и URL обязательны.</value></data>
   <data name="HostViewerOptionsWatermark"><value>дополнительные аргументы для remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: активен</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: не отвечает</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: настроен (опрос отключён)</value></data>
-  <data name="BadgeClipboard"><value>Общий буфер обмена</value></data>
+  <data name="BadgeSpice"><value>Дисплей SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Общие папки</value></data>
+  <data name="BadgeMonitors"><value>Мониторов: {0}</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: настроен (ВМ остановлена)</value></data>
   <data name="ConfirmStart"><value>Запустить {0}?</value></data>
   <data name="ConfirmShutdown"><value>Выключить {0}?</value></data>
 

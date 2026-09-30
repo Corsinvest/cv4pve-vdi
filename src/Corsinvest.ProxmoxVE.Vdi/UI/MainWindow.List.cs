@@ -37,14 +37,7 @@ internal partial class MainWindow
 
     private Control BuildListRow(ResourceRow r)
     {
-        var statusDotPanel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 4,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        statusDotPanel.Children.Add(BuildStatusDot(r));
-        BuildAgentBadge(r, statusDotPanel);
+        var statusPill = BuildStatusPill(r);
 
         var idLbl = new TextBlock
         {
@@ -84,6 +77,13 @@ internal partial class MainWindow
                             : new WrapPanel();
 
         tagsPanel.VerticalAlignment = VerticalAlignment.Center;
+        // Guest agent and SPICE pills before the tags, as on the card.
+        var pills = new[] { BuildAgentPill(r), BuildSpicePill(r) }.OfType<Border>().ToList();
+        for (var i = 0; i < pills.Count; i++)
+        {
+            pills[i].Margin = new Thickness(0, 0, 4, 2);
+            tagsPanel.Children.Insert(i, pills[i]);
+        }
 
         var btnPanel = new DockPanel
         {
@@ -94,7 +94,7 @@ internal partial class MainWindow
         var rowGrid = new AGrid
         {
             VerticalAlignment = VerticalAlignment.Center,
-            ColumnDefinitions = new ColumnDefinitions("44,50,200,90,180,200,200,96")
+            ColumnDefinitions = new ColumnDefinitions("40,50,200,90,220,200,200,96")
         };
 
         void SetCol(Control c, int col, HorizontalAlignment ha = HorizontalAlignment.Stretch)
@@ -106,7 +106,7 @@ internal partial class MainWindow
             rowGrid.Children.Add(c);
         }
 
-        SetCol(statusDotPanel, 0, HorizontalAlignment.Left);
+        SetCol(statusPill, 0, HorizontalAlignment.Left);
         SetCol(idLbl, 1);
         SetCol(nameLbl, 2);
         SetCol(typeLbl, 3, HorizontalAlignment.Center);

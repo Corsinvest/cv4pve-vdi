@@ -31,10 +31,11 @@ SPICE carries more than the screen, if the VM is prepared for it:
 
 | Feature | In Proxmox VE | Inside the VM |
 |---|---|---|
-| Screen resize, clipboard | **Display**: SPICE | SPICE agent |
+| Screen resize, clipboard | **Display**: SPICE or VirtIO-GPU | SPICE agent |
 | Sound | **Audio device** with driver *SPICE* | - |
 | USB devices of the client in the VM | **USB device**: *Spice Port* | - |
 | Folder sharing | **Options → Spice Enhancements**: folder sharing | SPICE WebDAV daemon |
+| Several monitors | **Display**: SPICE dual, three or four monitors (`qxl2`, `qxl3`, `qxl4`) | SPICE agent |
 
 The SPICE agent and the WebDAV daemon come with the *SPICE guest tools* for Windows and with the
 `spice-vdagent` and `spice-webdavd` packages on Linux; see [SPICE](https://pve.proxmox.com/wiki/SPICE) in

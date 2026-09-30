@@ -80,29 +80,20 @@ internal partial class MainWindow
                             TextTrimming = TextTrimming.CharacterEllipsis
                         }.Secondary();
 
+        // Status, guest agent and SPICE as pills on one row.
         var statusRow = new StackPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 5,
-            Children =
-            {
-                BuildStatusDot(row),
-                new TextBlock
-                {
-                    Text = row.StatusDisplay,
-                    FontSize = 11,
-                    VerticalAlignment = VerticalAlignment.Center
-                }
-            }
+            Spacing = 4,
+            ClipToBounds = true
         };
-
-        BuildAgentBadge(row, statusRow);
+        statusRow.Children.Add(BuildStatusPill(row));
+        if (BuildAgentPill(row) is { } agentPill) { statusRow.Children.Add(agentPill); }
+        if (BuildSpicePill(row) is { } spicePill) { statusRow.Children.Add(spicePill); }
 
         Control tagsPanel = _config.ShowTags
                                 ? BuildTagsPanel(row.Tags)
                                 : new Border();
-
-        var featureBadges = BuildFeatureBadges(row);
 
         Control cpuSection = new Border();
         Control ramSection = new Border();
@@ -119,31 +110,28 @@ internal partial class MainWindow
         };
 
         // Fixed-row grid for alignment across cards:
-        // 0=name, 1=id, 2=status, 3=features, 4=tags(*), 5=cpu, 6=ram, 7=buttons
+        // 0=name, 1=id, 2=status + agent + SPICE, 3=tags(*), 4=cpu, 5=ram, 6=buttons
         var bodyGrid = new AGrid();
         bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 0 name
         bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 1 id
         bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 2 status
-        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 3 features
-        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));  // 4 tags
-        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 5 cpu
-        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 6 ram
-        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 7 buttons
+        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));  // 3 tags
+        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 4 cpu
+        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 5 ram
+        bodyGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));  // 6 buttons
 
         nameRow.Margin = new Thickness(0, 0, 0, 4);
         idRow.Margin = new Thickness(0, 0, 0, 4);
         statusRow.Margin = new Thickness(0, 0, 0, 4);
-        featureBadges.Margin = new Thickness(0, 0, 0, 4);
         tagsPanel.Margin = new Thickness(0, 0, 0, 4);
         cpuSection.Margin = new Thickness(0, 0, 0, 2);
 
         bodyGrid.Add(nameRow, 0, 0);
         bodyGrid.Add(idRow, 0, 1);
         bodyGrid.Add(statusRow, 0, 2);
-        bodyGrid.Add(featureBadges, 0, 3);
-        bodyGrid.Add(tagsPanel, 0, 4);
-        bodyGrid.Add(cpuSection, 0, 5);
-        bodyGrid.Add(ramSection, 0, 6);
+        bodyGrid.Add(tagsPanel, 0, 3);
+        bodyGrid.Add(cpuSection, 0, 4);
+        bodyGrid.Add(ramSection, 0, 5);
 
         var card = new Border
         {
@@ -184,7 +172,7 @@ internal partial class MainWindow
                     btnPanel
                 }
             };
-            bodyGrid.Add(btnSection, 0, 7);
+            bodyGrid.Add(btnSection, 0, 6);
         }
 
         card.PointerEntered += (_, _) => card.RenderTransform = new ScaleTransform(1.025, 1.025);

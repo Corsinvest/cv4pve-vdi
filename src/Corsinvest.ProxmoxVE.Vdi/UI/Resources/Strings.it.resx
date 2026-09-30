@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>In esecuzione</value></data>
   <data name="StatusStopped"><value>Arrestate</value></data>
+  <data name="StateRunning"><value>In esecuzione</value></data>
+  <data name="StateStopped"><value>Fermo</value></data>
+  <data name="StatePaused"><value>In pausa</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Nodo</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Ignora la verifica del certificato TLS</value></data>
   <data name="HostTimeout"><value>Timeout (secondi)</value></data>
   <data name="HostSpiceProxy"><value>Proxy SPICE (opzionale)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>Indirizzo IP o nome host, porta 3128 (vuoto = il nodo a cui ti colleghi)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>Il proxy SPICE deve essere un indirizzo IP o un nome host, senza http:// e senza porta.</value></data>
   <data name="HostViewerOptions"><value>Opzioni viewer aggiuntive (opzionale)</value></data>
   <data name="HostNameRequired"><value>Nome e URL sono obbligatori.</value></data>
   <data name="HostViewerOptionsWatermark"><value>argomenti aggiuntivi per remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: attivo</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: non risponde</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: configurato (ping disattivato)</value></data>
-  <data name="BadgeClipboard"><value>Condivisione appunti</value></data>
+  <data name="BadgeSpice"><value>Display SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Condivisione cartelle</value></data>
+  <data name="BadgeMonitors"><value>{0} monitor</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: configurato (VM spenta)</value></data>
   <data name="ConfirmStart"><value>Avviare {0}?</value></data>
   <data name="ConfirmShutdown"><value>Arrestare {0}?</value></data>
 

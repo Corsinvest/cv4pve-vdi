@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>En cours d'exécution</value></data>
   <data name="StatusStopped"><value>Arrêtée</value></data>
+  <data name="StateRunning"><value>En cours d'exécution</value></data>
+  <data name="StateStopped"><value>Arrêté</value></data>
+  <data name="StatePaused"><value>En pause</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Nœud</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Ignorer la vérification du certificat TLS</value></data>
   <data name="HostTimeout"><value>Timeout (secondes)</value></data>
   <data name="HostSpiceProxy"><value>Proxy SPICE (facultatif)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>Adresse IP ou nom d'hôte, port 3128 (vide = le nœud auquel vous êtes connecté)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>Le proxy SPICE doit être une adresse IP ou un nom d'hôte, sans http:// et sans port.</value></data>
   <data name="HostViewerOptions"><value>Options viewer supplémentaires (facultatif)</value></data>
   <data name="HostNameRequired"><value>Le nom et l'URL sont requis.</value></data>
   <data name="HostViewerOptionsWatermark"><value>arguments supplémentaires pour remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Agent invité : actif</value></data>
   <data name="BadgeAgentStopped"><value>Agent invité : ne répond pas</value></data>
   <data name="BadgeAgentUnknown"><value>Agent invité : configuré (ping désactivé)</value></data>
-  <data name="BadgeClipboard"><value>Partage du presse-papiers</value></data>
+  <data name="BadgeSpice"><value>Affichage SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Partage de dossiers</value></data>
+  <data name="BadgeMonitors"><value>{0} écrans</value></data>
+  <data name="BadgeAgentVmStopped"><value>Agent invité : configuré (VM arrêtée)</value></data>
   <data name="ConfirmStart"><value>Démarrer {0} ?</value></data>
   <data name="ConfirmShutdown"><value>Arrêter {0} ?</value></data>
 

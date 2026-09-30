@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Running</value></data>
   <data name="StatusStopped"><value>Stopped</value></data>
+  <data name="StateRunning"><value>Running</value></data>
+  <data name="StateStopped"><value>Stopped</value></data>
+  <data name="StatePaused"><value>Paused</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Node</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Skip TLS certificate validation</value></data>
   <data name="HostTimeout"><value>Timeout (seconds)</value></data>
   <data name="HostSpiceProxy"><value>SPICE proxy (optional)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>IP address or host name, port 3128 (empty = the node you connect to)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>The SPICE proxy must be an IP address or a host name, without http:// and without a port.</value></data>
   <data name="HostViewerOptions"><value>Viewer extra options (optional)</value></data>
   <data name="HostNameRequired"><value>Name and URL are required.</value></data>
   <data name="HostViewerOptionsWatermark"><value>extra args for remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: running</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: not responding</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: configured (ping disabled)</value></data>
-  <data name="BadgeClipboard"><value>Clipboard sharing</value></data>
+  <data name="BadgeSpice"><value>SPICE display</value></data>
+  <data name="BadgeFolderSharing"><value>Folder sharing</value></data>
+  <data name="BadgeMonitors"><value>{0} monitors</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: configured (VM stopped)</value></data>
   <data name="ConfirmStart"><value>Start {0}?</value></data>
   <data name="ConfirmShutdown"><value>Shutdown {0}?</value></data>
 

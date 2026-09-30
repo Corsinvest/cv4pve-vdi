@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Uruchomione</value></data>
   <data name="StatusStopped"><value>Zatrzymane</value></data>
+  <data name="StateRunning"><value>Działa</value></data>
+  <data name="StateStopped"><value>Zatrzymany</value></data>
+  <data name="StatePaused"><value>Wstrzymany</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Węzeł</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Pomiń weryfikację certyfikatu TLS</value></data>
   <data name="HostTimeout"><value>Limit czasu (sekundy)</value></data>
   <data name="HostSpiceProxy"><value>Proxy SPICE (opcjonalnie)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>Adres IP lub nazwa hosta, port 3128 (puste = węzeł, z którym się łączysz)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>Proxy SPICE musi być adresem IP lub nazwą hosta, bez http:// i bez portu.</value></data>
   <data name="HostViewerOptions"><value>Dodatkowe opcje viewera (opcjonalnie)</value></data>
   <data name="HostNameRequired"><value>Nazwa i URL są wymagane.</value></data>
   <data name="HostViewerOptionsWatermark"><value>dodatkowe argumenty dla remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: aktywny</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: nie odpowiada</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: skonfigurowany (ping wyłączony)</value></data>
-  <data name="BadgeClipboard"><value>Udostępnianie schowka</value></data>
+  <data name="BadgeSpice"><value>Wyświetlacz SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Udostępnianie folderów</value></data>
+  <data name="BadgeMonitors"><value>Monitory: {0}</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: skonfigurowany (VM zatrzymana)</value></data>
   <data name="ConfirmStart"><value>Uruchomić {0}?</value></data>
   <data name="ConfirmShutdown"><value>Wyłączyć {0}?</value></data>
 

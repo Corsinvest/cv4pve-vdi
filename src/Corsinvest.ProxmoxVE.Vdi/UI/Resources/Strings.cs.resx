@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Spuštěné</value></data>
   <data name="StatusStopped"><value>Zastavené</value></data>
+  <data name="StateRunning"><value>Běží</value></data>
+  <data name="StateStopped"><value>Zastaveno</value></data>
+  <data name="StatePaused"><value>Pozastaveno</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Uzel</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Přeskočit ověření certifikátu TLS</value></data>
   <data name="HostTimeout"><value>Timeout (sekundy)</value></data>
   <data name="HostSpiceProxy"><value>SPICE proxy (volitelné)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>IP adresa nebo název hostitele, port 3128 (prázdné = uzel, ke kterému se připojujete)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>SPICE proxy musí být IP adresa nebo název hostitele, bez http:// a bez portu.</value></data>
   <data name="HostViewerOptions"><value>Další možnosti viewer (volitelné)</value></data>
   <data name="HostNameRequired"><value>Název a URL jsou povinné.</value></data>
   <data name="HostViewerOptionsWatermark"><value>další argumenty pro remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: aktivní</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: neodpovídá</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: nakonfigurován (ping vypnutý)</value></data>
-  <data name="BadgeClipboard"><value>Sdílení schránky</value></data>
+  <data name="BadgeSpice"><value>Displej SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Sdílení složek</value></data>
+  <data name="BadgeMonitors"><value>Monitory: {0}</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: nakonfigurován (VM zastavena)</value></data>
   <data name="ConfirmStart"><value>Spustit {0}?</value></data>
   <data name="ConfirmShutdown"><value>Vypnout {0}?</value></data>
 

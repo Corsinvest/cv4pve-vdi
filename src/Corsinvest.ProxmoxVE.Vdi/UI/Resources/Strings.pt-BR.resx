@@ -57,6 +57,9 @@
   <!-- Status / type labels -->
   <data name="StatusRunning"><value>Em execução</value></data>
   <data name="StatusStopped"><value>Parada</value></data>
+  <data name="StateRunning"><value>Em execução</value></data>
+  <data name="StateStopped"><value>Parado</value></data>
+  <data name="StatePaused"><value>Pausado</value></data>
   <data name="TypeVm"><value>VM</value></data>
   <data name="TypeCt"><value>CT</value></data>
   <data name="TypeNode"><value>Nó</value></data>
@@ -188,6 +191,8 @@
   <data name="HostSkipSsl"><value>Ignorar a validação do certificado TLS</value></data>
   <data name="HostTimeout"><value>Tempo limite (segundos)</value></data>
   <data name="HostSpiceProxy"><value>Proxy SPICE (opcional)</value></data>
+  <data name="HostSpiceProxyWatermark"><value>Endereço IP ou nome do host, porta 3128 (vazio = o nó ao qual você se conecta)</value></data>
+  <data name="HostSpiceProxyInvalid"><value>O proxy SPICE deve ser um endereço IP ou um nome de host, sem http:// e sem porta.</value></data>
   <data name="HostViewerOptions"><value>Opções adicionais do viewer (opcional)</value></data>
   <data name="HostNameRequired"><value>Nome e URL são obrigatórios.</value></data>
   <data name="HostViewerOptionsWatermark"><value>argumentos adicionais para remote-viewer...</value></data>
@@ -207,7 +212,10 @@
   <data name="BadgeAgentRunning"><value>Guest agent: ativo</value></data>
   <data name="BadgeAgentStopped"><value>Guest agent: não responde</value></data>
   <data name="BadgeAgentUnknown"><value>Guest agent: configurado (ping desativado)</value></data>
-  <data name="BadgeClipboard"><value>Compartilhamento da área de transferência</value></data>
+  <data name="BadgeSpice"><value>Tela SPICE</value></data>
+  <data name="BadgeFolderSharing"><value>Compartilhamento de pastas</value></data>
+  <data name="BadgeMonitors"><value>{0} monitores</value></data>
+  <data name="BadgeAgentVmStopped"><value>Guest agent: configurado (VM parada)</value></data>
   <data name="ConfirmStart"><value>Iniciar {0}?</value></data>
   <data name="ConfirmShutdown"><value>Desligar {0}?</value></data>
 
