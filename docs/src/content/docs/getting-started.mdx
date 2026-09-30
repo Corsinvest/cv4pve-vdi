@@ -90,7 +90,8 @@ Log in with a **Proxmox VE account**, the same you would use in the web interfac
 - **Username** with its realm: `alice@pve`, `alice@pam`, or `alice@<your LDAP/AD realm>`. The last
   username is filled in next time.
 - **Password**.
-- **OTP**: the code from the authenticator, only if the account has two-factor authentication.
+- **OTP**: the code from the authenticator app, or `recovery:<key>` for one of the recovery keys; only for
+  accounts with two-factor authentication.
 
 The globe menu at the top right changes the language of the interface; see
 [Languages](/cv4pve-vdi/languages/).

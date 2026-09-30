@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Services on a container never found its IP address: it was asked to the QEMU guest agent, which containers do not have. It now comes from the container interfaces (`VM.Audit` is enough)
 - The IP address of a guest running Docker could be a Docker bridge (172.17.0.1, ...) instead of the real NIC: the interface with the MAC of a NIC configured in Proxmox VE is now used first
 - The tag filter kept every guest without tags
+- Login with two-factor authentication (TOTP or a recovery key) never worked on Proxmox VE 7 and later: the code is now sent as the answer to the TFA challenge (Corsinvest.ProxmoxVE.Api.Extension 9.2.4)
 - The SPICE audio and USB badges never showed for VMs configured from the Proxmox VE web interface, which can leave out the audio driver (SPICE is the default) and writes a SPICE USB port as a bare `spice`; a stopped VM with a VirtIO-GPU display was not recognised as SPICE
 - A privilege removed on a guest or pool (for example with the NoAccess role) still counted when a parent path granted it: cv4pve-vdi now uses the privileges of the most specific path, as Proxmox VE does
 - The SPICE proxy of a cluster accepted `host:port` and `https://` addresses that Proxmox VE rejects at every SPICE console: it now takes only an IP address or a host name, as its hint says
