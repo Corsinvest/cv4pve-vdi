@@ -64,6 +64,12 @@ internal class ResourceRow(ClusterResource resource,
 
     public bool HasAnyVdiAction => ResourceType == ClusterResourceType.Node || hasSpice || CanVnc;
 
+    // The rows the list shows in ApplyFilter: VDI-actionable, or stopped but powerable
+    // so the Start button stays reachable. A stopped VM only passes HasAnyVdiAction when
+    // its VGA is SPICE-capable (qxl/spice), so a stopped VNC-only VM (e.g. vga: virtio)
+    // would otherwise vanish from the list. Pool and tag checkboxes follow this same set.
+    public bool IsListed => HasAnyVdiAction || (CanPower && !IsActive);
+
     public double CpuPct => resource.CpuUsagePercentage;
     public string CpuDisplay => FormatHelper.CpuInfo(resource.CpuUsagePercentage / 100.0, resource.CpuSize);
 
