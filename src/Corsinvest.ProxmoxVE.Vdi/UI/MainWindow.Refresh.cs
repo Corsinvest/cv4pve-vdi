@@ -98,6 +98,8 @@ internal partial class MainWindow
                 ApplyFilter();
             }
 
+            SyncFilterCheckboxes(_nodeFilters, _filterNodes, nodes.Select(n => n.Node!));
+
             var knownNodes = _nodeFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
             foreach (var item in nodes.Where(n => !knownNodes.Contains(n.Node)))
             {
@@ -216,15 +218,16 @@ internal partial class MainWindow
 
             _progressBar.Value = 80;
 
-            // rebuild pool filter, only if enabled and only pools of VDI-actionable VMs
+            // rebuild pool filter, only if enabled and only pools of listed guests
             if (_config.ShowPools)
             {
                 var allPools = _allRows
-                    .Where(r => r.HasAnyVdiAction && !string.IsNullOrEmpty(r.Pool))
+                    .Where(r => r.IsListed && !string.IsNullOrEmpty(r.Pool))
                     .Select(r => r.Pool)
                     .Distinct()
                     .Order()
                     .ToList();
+                SyncFilterCheckboxes(_poolFilters, _filterPools, allPools);
                 var knownPools = _poolFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
                 foreach (var pool in allPools.Where(p => !knownPools.Contains(p)))
                 {
@@ -239,10 +242,11 @@ internal partial class MainWindow
                 }
             }
 
-            // rebuild tag filters, only if enabled and only tags of VDI-actionable VMs
+            // rebuild tag filters, only if enabled and only tags of listed guests
             if (_config.ShowTags)
             {
-                var allTags = _allRows.Where(r => r.HasAnyVdiAction).SelectMany(r => r.Tags).Distinct().Order().ToList();
+                var allTags = _allRows.Where(r => r.IsListed).SelectMany(r => r.Tags).Distinct().Order().ToList();
+                SyncFilterCheckboxes(_tagFilters, _filterTags, allTags);
                 var existingTags = _tagFilters.Children.OfType<CheckBox>().Select(c => c.Tag as string).ToHashSet();
                 foreach (var tag in allTags.Where(t => !existingTags.Contains(t)))
                 {
@@ -346,5 +350,20 @@ internal partial class MainWindow
                               cfg.SpiceMonitors,
                               cfg.AgentEnabled,
                               agentRunning);
+    }
+
+    // Drop checkboxes whose node/pool/tag is gone and their entry in the active
+    // filter, so a stale selection can't keep filtering invisible resources.
+    private static void SyncFilterCheckboxes(StackPanel panel, HashSet<string> activeFilter, IEnumerable<string> currentValues)
+    {
+        var current = currentValues.ToHashSet();
+        foreach (var chk in panel.Children.OfType<CheckBox>().ToList())
+        {
+            if (chk.Tag is string value && !current.Contains(value))
+            {
+                panel.Children.Remove(chk);
+                activeFilter.Remove(value);
+            }
+        }
     }
 }
