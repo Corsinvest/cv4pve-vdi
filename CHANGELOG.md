@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-01
+
 ### Added
 - **Simplified and Traditional Chinese** UI translations, in the language picker of the login window (#42)
 
