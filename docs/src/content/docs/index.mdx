@@ -29,16 +29,25 @@ hero:
 
 import FeatureGrid from '@corsinvest/cv4pve-docs-theme/components/FeatureGrid.astro';
 import CtaBand from '@corsinvest/cv4pve-docs-theme/components/CtaBand.astro';
+import Motto from '@corsinvest/cv4pve-docs-theme/components/Motto.astro';
+import CliInstall from '@corsinvest/cv4pve-docs-theme/components/CliInstall.astro';
 import proxmoxLogo from '../../assets/proxmox-logo.svg';
 
 export const features = [
-  { title: "SPICE and VNC", text: "SPICE for VMs with a SPICE display, VNC for every running VM and container, both in remote-viewer, VNC tunnelled over the API port.", href: 'consoles/' },
-  { title: "RDP, SSH and any tool", text: "Services per VM: mstsc, xFreeRDP, PuTTY, ssh in a terminal, or your own launcher with an argument template.", href: 'services/' },
-  { title: "RDP single sign-on", text: "On Windows, mstsc gets the Proxmox login or the service's own credentials through the Windows Credential Manager, removed a few seconds after launch.", href: 'services/#single-sign-on-for-rdp-windows' },
-  { title: "Only what you may use", text: "The list shows the guests your Proxmox account can see; Start, Shutdown and the consoles follow its privileges.", href: 'permissions/' },
-  { title: "Kiosk mode", text: "Full-screen login, settings behind an admin password, Switch user between people sharing a thin client.", href: 'kiosk/' },
-  { title: "Open sessions", text: "Every viewer and launcher you start is listed at the top of the window: bring it to the front or close it.", href: 'main-window/#open-sessions' },
+  { icon: 'mdi:monitor', title: "SPICE and VNC", text: "SPICE for VMs with a SPICE display, VNC for every running VM and container, both in remote-viewer, VNC tunnelled over the API port.", href: 'consoles/' },
+  { icon: 'mdi:remote-desktop', title: "RDP, SSH and any tool", text: "Services per VM: mstsc, xFreeRDP, PuTTY, ssh in a terminal, or your own launcher with an argument template.", href: 'services/' },
+  { icon: 'mdi:account-key-outline', title: "RDP single sign-on", text: "On Windows, mstsc gets the Proxmox login or the service's own credentials through the Windows Credential Manager, removed a few seconds after launch.", href: 'services/#single-sign-on-for-rdp-windows' },
+  { icon: 'mdi:shield-account-outline', title: "Only what you may use", text: "The list shows the guests your Proxmox account can see; Start, Shutdown and the consoles follow its privileges.", href: 'permissions/' },
+  { icon: 'mdi:monitor-lock', title: "Kiosk mode", text: "Full-screen login, settings behind an admin password, Switch user between people sharing a thin client.", href: 'kiosk/' },
+  { icon: 'mdi:window-restore', title: "Open sessions", text: "Every viewer and launcher you start is listed at the top of the window: bring it to the front or close it.", href: 'main-window/#open-sessions' },
 ];
+
+<Motto />
+
+<CliInstall repo="cv4pve-vdi" channels={['linux', 'winget', 'windows', 'macos']} />
+
+SPICE and VNC consoles open in `remote-viewer`: install it too, see
+[Install remote-viewer](getting-started/#install-remote-viewer). Then start `cv4pve-vdi`:
 
 ![cv4pve-vdi main window, card view, in the light and dark theme](../../assets/main-theme.png)
 

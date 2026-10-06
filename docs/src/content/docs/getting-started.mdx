@@ -14,7 +14,7 @@ import login from '../../assets/login.png';
 cv4pve-vdi runs **on the user's computer** (a workstation, a laptop, a thin client) and talks to the
 Proxmox VE REST API on port 8006. Nothing is installed on the nodes.
 
-## Installation
+## Install cv4pve-vdi
 
 cv4pve-vdi is a single executable. The shared release workflow publishes a zip for each system and
 the WinGet package:
@@ -73,7 +73,7 @@ Then set its path in **Settings → Launchers → Viewer path** (the folder butt
    | Field | What to enter |
    |---|---|
    | **Name** | The name shown in the login window, e.g. `prod`. |
-   | **Hosts** | One or more nodes as `host[:port]`, comma-separated: `pve1.example.com,pve2.example.com:8006`. The port defaults to 8006. At login cv4pve-vdi uses the first host that answers, so the cluster stays reachable while a node is down. |
+   | **Hosts** | One or more nodes as `host[:port]`, comma-separated: `pve01.example.com,pve02.example.com:8006`. The port defaults to 8006. At login cv4pve-vdi uses the first host that answers, so the cluster stays reachable while a node is down. |
    | **Skip TLS certificate validation** | For nodes with the self-signed certificate Proxmox VE installs by default. Leave it off when the nodes have a trusted certificate. |
    | **Timeout (seconds)** | How long to wait for each host. Default 10, from 5 to 120. |
    | **SPICE proxy** | Optional, see [How it connects](/cv4pve-vdi/how-it-connects/#spice). |
